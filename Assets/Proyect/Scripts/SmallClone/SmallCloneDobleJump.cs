@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class CloneDoubleJump
+public class SmallCloneDoubleJump
 {
-    private JumpHandler jumpHandler;
-    private GroundChecker groundChecker;
-    private CoyoteTimer coyoteTimer;
-    private float jumpForce;
-    private float jumpMultiplier;
-    private int maxJumps;
-    private int jumpsRemaining;
-    private bool wasGroundedLastFrame;
+    public JumpHandler jumpHandler;
+    public GroundChecker groundChecker;
+    public CoyoteTimer coyoteTimer;
+    public float jumpForce;
+    public float jumpMultiplier;
+    public int maxJumps;
+    public int jumpsRemaining;
+    public bool wasGroundedLastFrame;
 
-    public CloneDoubleJump(JumpHandler jumpHandler, GroundChecker groundChecker, CoyoteTimer coyoteTimer, float jumpForce, float jumpMultiplier, int maxJumps = 2)
+    public SmallCloneDoubleJump(JumpHandler jumpHandler, GroundChecker groundChecker, CoyoteTimer coyoteTimer, float jumpForce, float jumpMultiplier, int maxJumps = 2)
     {
         this.jumpHandler = jumpHandler;
         this.groundChecker = groundChecker;
