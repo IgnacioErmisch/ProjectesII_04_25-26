@@ -72,6 +72,8 @@ public class PlayerJump : MonoBehaviour
     
     [SerializeField] private float jumpForce = 4f;
     [SerializeField] private float coyoteTime = 0.2f;
+    [SerializeField] private int maxJumps = 1;
+    [SerializeField] private int jumpCounter = 0;
 
 
     [SerializeField] private Transform groundCheck;
@@ -84,7 +86,6 @@ public class PlayerJump : MonoBehaviour
 
     private void Awake()
     {
-        
         groundChecker = new GroundChecker(groundCheck, groundCheckRadius, groundLayer);
         coyoteTimer = new CoyoteTimer(coyoteTime);
         jumpHandler = new JumpHandler(GetComponent<Rigidbody2D>());
@@ -95,10 +96,24 @@ public class PlayerJump : MonoBehaviour
         bool isGrounded = groundChecker.IsGrounded();
         coyoteTimer.Update(isGrounded);
 
-        if (Input.GetKeyDown(KeyCode.Space) && coyoteTimer.CanJump())
+        if (isGrounded)
         {
-            jumpHandler.Jump(jumpForce);
+            jumpCounter = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (coyoteTimer.CanJump())
+            {
+                jumpHandler.Jump(jumpForce);
+                jumpCounter++;
+            }
             
+            else if (jumpCounter < maxJumps)
+            {
+                jumpHandler.Jump(jumpForce);
+                jumpCounter++;
+            }
         }
     }
 
@@ -110,4 +125,5 @@ public class PlayerJump : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }
+
 }
