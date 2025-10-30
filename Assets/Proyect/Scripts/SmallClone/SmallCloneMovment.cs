@@ -4,19 +4,19 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class SmallCloneMovment : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private float speed;
-    private SmallCloneStats stat;
-    private float horizontal;
+    public Rigidbody2D rb;
+    public float speed;
+    public SmallCloneStats stat;
+    public float horizontal;
 
-    SmallCloneMovment(Rigidbody2D rb, float speed, SmallCloneStats stat)
+    public SmallCloneMovment(Rigidbody2D rb, float speed, SmallCloneStats stat)
     {
         this.rb = rb;
         this.speed = speed * stat.SpeedMultiplier;
         
     }
 
-    private void Move()
+    public void Move()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
