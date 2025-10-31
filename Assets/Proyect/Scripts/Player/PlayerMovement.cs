@@ -6,14 +6,28 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     public float pjSpeed;
     private Rigidbody2D rb2D;
-    [SerializeField] private BigCloneSpawner bigCloneSpawner;
-    [SerializeField] private SmallCloneSpawner smallCloneSpawner;
+    [SerializeField] private CloneSpawner bigCloneSpawner;
+    [SerializeField] private CloneSpawner smallCloneSpawner;
 
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
-        bigCloneSpawner = FindFirstObjectByType<BigCloneSpawner>();
-        smallCloneSpawner = FindFirstObjectByType<SmallCloneSpawner>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+            bigCloneSpawner.TrySpawnClone();
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            bigCloneSpawner.TryDespawnClone();
+            smallCloneSpawner.TryDespawnClone();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+            smallCloneSpawner.TrySpawnClone();
+
     }
 
 
@@ -33,5 +47,10 @@ public class PlayerMovement : MonoBehaviour
 
         rb2D.linearVelocity = new Vector2(horizontal * pjSpeed, rb2D.linearVelocity.y);
 
+    }
+
+    public bool IsAnyCloneActive()
+    {
+        return bigCloneSpawner.cloneActive || smallCloneSpawner.cloneActive;
     }
 }

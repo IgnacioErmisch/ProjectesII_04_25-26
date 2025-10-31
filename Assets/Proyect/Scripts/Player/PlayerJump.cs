@@ -33,16 +33,8 @@ public class CoyoteTimer
 
     public void Update(bool isGrounded)
     {
-        if (isGrounded)
-        {
-            counter = duration;
-        }
-        else
-        {
-            counter = counter - Time.deltaTime;
-        }
+        counter = isGrounded ? duration : counter - Time.deltaTime;
     }
-
     public bool CanJump()
     {
         return counter > 0f;
@@ -62,6 +54,7 @@ public class JumpHandler
 
     public void Jump(float force)
     {
+        //Add force that does not consider the mass
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, force);
     }
 }
@@ -75,7 +68,6 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private int maxJumps = 1;
     [SerializeField] private int jumpCounter = 0;
 
-
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
@@ -83,17 +75,17 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private GroundChecker groundChecker;
     [SerializeField] private CoyoteTimer coyoteTimer;
     [SerializeField] private JumpHandler jumpHandler;
-    private BigCloneSpawner bs;
-    private SmallCloneSpawner ss;
+
+    [SerializeField] private PlayerMovement movement;
+
+    [SerializeField] private ParticleSystem JumpParticles;
+    [SerializeField] private ParticleSystem RunParticles;
 
     private void Awake()
     {
         groundChecker = new GroundChecker(groundCheck, groundCheckRadius, groundLayer);
         coyoteTimer = new CoyoteTimer(coyoteTime);
         jumpHandler = new JumpHandler(GetComponent<Rigidbody2D>());
-        bs = FindFirstObjectByType<BigCloneSpawner>();
-        ss = FindFirstObjectByType<SmallCloneSpawner>();
-
     }
 
     private void Update()
@@ -101,21 +93,25 @@ public class PlayerJump : MonoBehaviour
         bool isGrounded = groundChecker.IsGrounded();
         coyoteTimer.Update(isGrounded);
 
+        if(isGrounded && !RunParticles.isPlaying)
+        {
+            RunParticles.Play();
+        }
+        else if (!isGrounded && RunParticles.isPlaying)
+        {
+            RunParticles.Stop();
+        }
+
         if (isGrounded)
         {
             jumpCounter = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !bs.cloneActive && !ss.cloneActive)
+        if (Input.GetKeyDown(KeyCode.Space) && !movement.IsAnyCloneActive())
         {
-            if (coyoteTimer.CanJump())
+            if (coyoteTimer.CanJump() || jumpCounter < maxJumps)
             {
-                jumpHandler.Jump(jumpForce);
-                jumpCounter++;
-            }
-            
-            else if (jumpCounter < maxJumps)
-            {
+                JumpParticles.Play();
                 jumpHandler.Jump(jumpForce);
                 jumpCounter++;
             }
