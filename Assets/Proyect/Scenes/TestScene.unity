@@ -495,6 +495,7 @@ GameObject:
   - component: {fileID: 2009059738}
   - component: {fileID: 2009059737}
   - component: {fileID: 2009059740}
+  - component: {fileID: 2009059741}
   m_Layer: 0
   m_Name: PJ
   m_TagString: Untagged
@@ -681,6 +682,20 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &2009059741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009059734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d975d016f60c8498b3c947377af3a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clonePrefab: {fileID: 1887023663289730442, guid: 278fdf5f4d49e4049aa0a26d00d576e4, type: 3}
+  spawnOffset: {x: 2, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
