@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float pjSpeed;
     private Rigidbody2D rb2D;
     [SerializeField] private BigCloneSpawner bigCloneSpawner;
+    [SerializeField] private SmallCloneSpawner smallCloneSpawner;
 
     void Start()
     {
@@ -19,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         if (!bigCloneSpawner.cloneActive)
+        {
+            MovePJ();
+        }
+        else if (!smallCloneSpawner.cloneActive)
         {
             MovePJ();
         }
