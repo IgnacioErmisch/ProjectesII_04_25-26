@@ -2,7 +2,7 @@ using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 
-public class SmallCloneMovment : MonoBehaviour
+public class SmallCloneMovment
 {
     public Rigidbody2D rb;
     public float speed;

@@ -20,15 +20,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!bigCloneSpawner.cloneActive)
+        if (!bigCloneSpawner.cloneActive && !smallCloneSpawner.cloneActive)
         {
             MovePJ();
         }
-        else if (!smallCloneSpawner.cloneActive)
-        {
-            MovePJ();
-        }
-      
+
     }
 
     private void MovePJ()

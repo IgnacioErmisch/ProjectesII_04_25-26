@@ -84,6 +84,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private CoyoteTimer coyoteTimer;
     [SerializeField] private JumpHandler jumpHandler;
     private BigCloneSpawner bs;
+    private SmallCloneSpawner ss;
 
     private void Awake()
     {
@@ -91,6 +92,7 @@ public class PlayerJump : MonoBehaviour
         coyoteTimer = new CoyoteTimer(coyoteTime);
         jumpHandler = new JumpHandler(GetComponent<Rigidbody2D>());
         bs = FindFirstObjectByType<BigCloneSpawner>();
+        ss = FindFirstObjectByType<SmallCloneSpawner>();
 
     }
 
@@ -104,7 +106,7 @@ public class PlayerJump : MonoBehaviour
             jumpCounter = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !bs.cloneActive)
+        if (Input.GetKeyDown(KeyCode.Space) && !bs.cloneActive && !ss.cloneActive)
         {
             if (coyoteTimer.CanJump())
             {
