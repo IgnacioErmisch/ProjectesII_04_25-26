@@ -10140,7 +10140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 11.5
-  coyoteTime: 0.2
+  coyoteTime: 0.66
   maxJumps: 1
   jumpCounter: 0
   groundCheck: {fileID: 4723529840559001685}

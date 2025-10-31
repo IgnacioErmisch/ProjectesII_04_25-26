@@ -2320,6 +2320,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1255240073332038392, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
+      propertyPath: coyoteTime
+      value: 0.66
+      objectReference: {fileID: 0}
     - target: {fileID: 1347294108886686219, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

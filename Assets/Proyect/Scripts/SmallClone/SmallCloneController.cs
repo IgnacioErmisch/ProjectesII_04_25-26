@@ -10,7 +10,6 @@ public class SmallCloneController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
-    
 
     private void Awake()
     {
@@ -23,6 +22,7 @@ public class SmallCloneController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         stats = new SmallCloneStats();   
         movement = new SmallCloneMovment(rb, stats);
+        doubleJump = new SmallCloneDoubleJump(doubleJump.jumpHandler, doubleJump.groundChecker, doubleJump.coyoteTimer, doubleJump.jumpForce, doubleJump.jumpMultiplier, doubleJump.maxJumps = 2);
     }
 
     private void ApplySizeModifier()
