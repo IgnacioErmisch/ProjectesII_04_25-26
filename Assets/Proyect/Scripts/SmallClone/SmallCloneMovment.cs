@@ -9,10 +9,10 @@ public class SmallCloneMovment : MonoBehaviour
     public SmallCloneStats stat;
     public float horizontal;
 
-    public SmallCloneMovment(Rigidbody2D rb, float speed, SmallCloneStats stat)
+    public SmallCloneMovment(Rigidbody2D rb, SmallCloneStats stat)
     {
         this.rb = rb;
-        this.speed = speed * stat.SpeedMultiplier;
+        this.speed = 7f * stat.SpeedMultiplier;
         
     }
 

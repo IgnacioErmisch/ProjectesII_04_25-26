@@ -6,11 +6,16 @@ public class SmallCloneSpawner : MonoBehaviour
     public Vector3 spawnOffset = new Vector3(2f, 0f, 0f);
     private GameObject currentClone;
     public bool cloneActive = false;
+    private BigCloneSpawner bs;
 
+    private void Start()
+    {
+        bs = FindFirstObjectByType<BigCloneSpawner>();
+    }
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.C) && !cloneActive)
+        if (Input.GetKeyDown(KeyCode.C) && !cloneActive && !bs.cloneActive)
         {
             SpawnClone();
         }
