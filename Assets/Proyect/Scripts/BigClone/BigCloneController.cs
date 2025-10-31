@@ -5,7 +5,7 @@ public class BigCloneController : MonoBehaviour
     private Rigidbody2D rb;
     private BigCloneStats stats;
     private BigCloneMovement movement;
-    private BigCloneSpawner spawner;
+
 
     private void Awake()
     {

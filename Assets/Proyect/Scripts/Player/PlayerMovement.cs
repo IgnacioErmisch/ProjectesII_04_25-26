@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         bigCloneSpawner = FindFirstObjectByType<BigCloneSpawner>();
+        smallCloneSpawner = FindFirstObjectByType<SmallCloneSpawner>();
     }
 
 

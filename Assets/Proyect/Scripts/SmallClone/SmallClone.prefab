@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 1681722008749901626}
   - component: {fileID: 2075444078377483104}
   m_Layer: 0
-  m_Name: BigClone
+  m_Name: SmallClone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1887023663289730442}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.95824945, y: -2.847928, z: 0.010627747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -208,11 +208,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f669e5fb02c4faf4cb9075548bc7bf43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 698487979977411209}
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!1 &2522137792980661173
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +223,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4351417122774893306}
   - component: {fileID: 2331567011472429821}
-  - component: {fileID: 2785012273630659796}
   - component: {fileID: 4279873973762508191}
   m_Layer: 0
   m_Name: Main Camera
@@ -298,14 +297,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &2785012273630659796
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2522137792980661173}
-  m_Enabled: 1
 --- !u!114 &4279873973762508191
 MonoBehaviour:
   m_ObjectHideFlags: 0
