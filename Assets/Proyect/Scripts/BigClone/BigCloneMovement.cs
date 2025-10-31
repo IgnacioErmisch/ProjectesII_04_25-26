@@ -10,7 +10,7 @@ public class BigCloneMovement
     public BigCloneMovement(Rigidbody2D rb, BigCloneStats stat)
     {
         this.rb = rb;
-        this.speed = 5f * stat.SpeedMultiplier;
+        this.speed = 7f * stat.SpeedMultiplier;
        
     }
 
