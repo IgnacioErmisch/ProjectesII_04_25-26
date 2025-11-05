@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive())
             bigCloneSpawner.TrySpawnClone();
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
             smallCloneSpawner.TryDespawnClone();
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && !IsAnyCloneActive())
             smallCloneSpawner.TrySpawnClone();
 
     }
