@@ -11,7 +11,6 @@ public class SmallCloneController : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
   
-    [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 4f;
     [SerializeField] private float jumpMultiplier = 1f;
     [SerializeField] private int maxJumps = 2;
