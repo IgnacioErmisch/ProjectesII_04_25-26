@@ -184,7 +184,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -213,6 +213,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  jumpForce: 15
+  jumpMultiplier: 1
+  maxJumps: 2
+  coyoteTime: 0.66
 --- !u!1 &2522137792980661173
 GameObject:
   m_ObjectHideFlags: 0
