@@ -1614,30 +1614,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8157070651913394725, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
   m_PrefabInstance: {fileID: 1812890754}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &196804156 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 845916015702444791, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-  m_PrefabInstance: {fileID: 1812890754}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196804146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d975d016f60c8498b3c947377af3a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &196804161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196804146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09fc6b74b43b53b459094753890fb138, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-<<<<<<< HEAD
 --- !u!114 &196804155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1665,12 +1641,6 @@ MonoBehaviour:
   invulnerabilityDuration: 1
   animator: {fileID: 0}
   attackAnimationTrigger: Attack
-=======
-  cloneSpawner: {fileID: 196804156}
-  player: {fileID: 196804146}
-  playerCamera: {fileID: 927250120}
-  controllingPlayer: 1
->>>>>>> origin/develop
 --- !u!1 &232543741
 GameObject:
   m_ObjectHideFlags: 0
@@ -12442,10 +12412,6 @@ PrefabInstance:
       propertyPath: energyController
       value: 
       objectReference: {fileID: 164085974}
-    - target: {fileID: 845916015702444791, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      propertyPath: perspectiveSwitch
-      value: 
-      objectReference: {fileID: 196804161}
     - target: {fileID: 1255240073332038392, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
       propertyPath: maxJumps
       value: 1
@@ -12454,10 +12420,6 @@ PrefabInstance:
       propertyPath: coyoteTime
       value: 0.66
       objectReference: {fileID: 0}
-    - target: {fileID: 1255240073332038392, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      propertyPath: perspectiveSwitch
-      value: 
-      objectReference: {fileID: 196804161}
     - target: {fileID: 1347294108886686219, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
       propertyPath: m_LocalPosition.x
       value: -39.7
@@ -12498,30 +12460,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3684739453173808319, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3684739453173808319, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3684739453173808319, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3684739453173808319, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4491492314482524194, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      propertyPath: orthographic size
-      value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4691196349382479565, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      propertyPath: perspectiveSwitch
-      value: 
-      objectReference: {fileID: 196804161}
     - target: {fileID: 5928862260599217791, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
       propertyPath: playerCamera
       value: 
@@ -12530,10 +12468,6 @@ PrefabInstance:
       propertyPath: energyController
       value: 
       objectReference: {fileID: 164085974}
-    - target: {fileID: 5928862260599217791, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      propertyPath: perspectiveSwitch
-      value: 
-      objectReference: {fileID: 196804161}
     - target: {fileID: 6046437421575394539, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
       propertyPath: m_Material
       value: 
@@ -12548,7 +12482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8157070651913394725, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.3
+      value: 10.94
       objectReference: {fileID: 0}
     - target: {fileID: 8170299472247597808, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
       propertyPath: m_Layer
@@ -12566,14 +12500,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8170299472247597808, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
       insertIndex: -1
-<<<<<<< HEAD
-      addedObject: {fileID: 196804154}
-    - targetCorrespondingSourceObject: {fileID: 8170299472247597808, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 196804155}
-=======
-      addedObject: {fileID: 196804161}
->>>>>>> origin/develop
   m_SourcePrefab: {fileID: 100100000, guid: 4b5849fb166bfea4d8197be8cc420f64, type: 3}
 --- !u!1 &1835385285
 GameObject:

@@ -36,15 +36,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-     
-        if (perspectiveSwitch.GetControllingPlayer())
-        {
-            MovePJ();
-        }
-        else
-        {
-            rb2D.linearVelocity = Vector2.zero;
-        }
+
+        MovePJ(); 
+       
 
     }
 
