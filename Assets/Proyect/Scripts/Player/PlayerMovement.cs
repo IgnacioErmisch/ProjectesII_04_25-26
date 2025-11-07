@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb2D;
     [SerializeField] private CloneSpawner bigCloneSpawner;
     [SerializeField] private CloneSpawner smallCloneSpawner;
+    [SerializeField] private PerspectiveSwitch perspectiveSwitch;
+
 
     void Start()
     {
@@ -34,9 +36,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!bigCloneSpawner.cloneActive && !smallCloneSpawner.cloneActive)
+     
+        if (perspectiveSwitch.GetControllingPlayer())
         {
             MovePJ();
+        }
+        else
+        {
+            rb2D.linearVelocity = Vector2.zero;
         }
 
     }

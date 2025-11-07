@@ -77,6 +77,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private JumpHandler jumpHandler;
 
     [SerializeField] private PlayerMovement movement;
+    [SerializeField] private PerspectiveSwitch perspectiveSwitch;
 
     [SerializeField] private ParticleSystem JumpParticles;
     [SerializeField] private ParticleSystem RunParticles;
@@ -107,7 +108,7 @@ public class PlayerJump : MonoBehaviour
             jumpCounter = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !movement.IsAnyCloneActive())
+        if (Input.GetKeyDown(KeyCode.Space) && perspectiveSwitch.GetControllingPlayer())
         {
             if ((coyoteTimer.CanJump() && jumpCounter < maxJumps) || jumpCounter < maxJumps)
             {

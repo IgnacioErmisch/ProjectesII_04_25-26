@@ -6,6 +6,7 @@ public class SmallCloneController : MonoBehaviour
     private SmallCloneStats stats;
     private SmallCloneMovment movement;
     private SmallCloneDoubleJump doubleJump;
+    private PerspectiveSwitch perspectiveSwitch;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
@@ -30,7 +31,7 @@ public class SmallCloneController : MonoBehaviour
         GroundChecker groundChecker = new GroundChecker(groundCheck, groundCheckRadius, groundLayer);
         CoyoteTimer coyoteTimer = new CoyoteTimer(coyoteTime);
         JumpHandler jumpHandler = new JumpHandler(rb);
-
+        perspectiveSwitch = FindFirstObjectByType<PerspectiveSwitch>();
         doubleJump = new SmallCloneDoubleJump(jumpHandler, groundChecker, coyoteTimer, jumpForce, jumpMultiplier, maxJumps);
     }
 
@@ -55,6 +56,14 @@ public class SmallCloneController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        movement.Move();
+       
+        if (!perspectiveSwitch.GetControllingPlayer())
+        {
+            movement.Move();
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero; 
+        }
     }
 }
