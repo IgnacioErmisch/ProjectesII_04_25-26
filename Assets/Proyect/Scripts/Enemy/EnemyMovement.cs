@@ -53,12 +53,19 @@ public class EnemyChase
 
     public bool PlayerInTarget()
     {
-       Collider2D hit =  Physics2D.OverlapCircle(enemy.transform.position, enemyRadius);
-        
-        if (hit.gameObject == player && hit != null)
+        Collider2D[] hits = Physics2D.OverlapCircleAll(enemy.transform.position, enemyRadius);
+
+        foreach (Collider2D hit in hits)
         {
-            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, speed * Time.deltaTime);
-            return true;
+            if (hit.gameObject == player)
+            {
+                enemy.transform.position = Vector3.MoveTowards(
+                    enemy.transform.position,
+                    player.transform.position,
+                    speed * Time.deltaTime
+                );
+                return true;
+            }
         }
 
         return false;
