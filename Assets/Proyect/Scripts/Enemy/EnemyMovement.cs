@@ -59,11 +59,7 @@ public class EnemyChase
         {
             if (hit.gameObject == player)
             {
-                enemy.transform.position = Vector3.MoveTowards(
-                    enemy.transform.position,
-                    player.transform.position,
-                    speed * Time.deltaTime
-                );
+                enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, speed * Time.deltaTime);
                 return true;
             }
         }
