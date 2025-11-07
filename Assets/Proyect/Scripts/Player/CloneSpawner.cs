@@ -4,11 +4,12 @@ public class CloneSpawner : MonoBehaviour
 {
     
     [SerializeField] private EnergyController energyController;  
+    [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private GameObject clonePrefab;
     [SerializeField] private Vector3 spawnOffset = new Vector3(2f, 0f, 0f);
     [SerializeField] private bool isSmallClone = true; 
     [SerializeField] private CloneSpawner[] spawners;
-    [SerializeField] private Camera playerCamera;
+    public Camera playerCamera;
 
     private GameObject currentClone;
     public bool cloneActive = false;
@@ -58,6 +59,16 @@ public class CloneSpawner : MonoBehaviour
         }
 
         return false;
+    }
+
+    public GameObject GetCurrentClone()
+    {
+        return currentClone;
+    }
+
+    public bool GetActiveClone()
+    {
+        return cloneActive;
     }
 
 }

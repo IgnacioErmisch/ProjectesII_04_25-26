@@ -8,6 +8,7 @@ public class BigCloneController : MonoBehaviour
     private BigCloneWallDestroyer wallDestroyer;
     private WallContactDetector wallContactDetector;
     private WallDestructor wallDestructor;
+    [SerializeField] private PerspectiveSwitch perspectiveSwitch;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class BigCloneController : MonoBehaviour
         wallContactDetector = new WallContactDetector();
         wallDestructor = new WallDestructor();
         wallDestroyer = new BigCloneWallDestroyer( wallContactDetector, wallDestructor);
+        perspectiveSwitch = FindFirstObjectByType<PerspectiveSwitch>();
 
     }
 
@@ -37,7 +39,15 @@ public class BigCloneController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        movement.Move();
+
+        if (!perspectiveSwitch.GetControllingPlayer())
+        {
+            movement.Move();
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
