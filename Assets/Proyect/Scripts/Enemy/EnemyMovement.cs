@@ -11,7 +11,7 @@ public class EnemyMovement
     public bool hitRight;
     public Transform transform;
 
-   
+
     public EnemyMovement(float speed, GameObject leftLimit, GameObject rightLimit, bool hitLeft, bool hitRight, Transform transform)
     {
         this.speed = speed;
