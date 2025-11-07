@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1427529049792751227}
   - component: {fileID: 2708209530383518620}
   - component: {fileID: 8369400868110152766}
-  - component: {fileID: 4834873140767495241}
-  m_Layer: 0
+  - component: {fileID: 7279799444899314154}
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!114 &4834873140767495241
+--- !u!114 &7279799444899314154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,15 +163,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1377071508763594598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 771b0be7f4de4c741845d362ecfe9671, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d167db862a1f3c409c4f33264cea5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  maxHealth: 50
+  patrolSpeed: 2
   leftLimit: {fileID: 0}
   rightLimit: {fileID: 0}
-  hitLeft: 1
-  hitRight: 0
-  transform: {fileID: 2643562710328642762}
-  enemyRadius: 5
-  player: {fileID: 0}
-  enemy: {fileID: 1377071508763594598}
+  detectionRadius: 5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  chaseSpeed: 3.5
+  chaseDuration: 2
+  attackDamage: 10
+  attackRange: 1.5
+  attackCooldown: 1.5
+  attackPoint: {fileID: 0}
+  knockbackForce: 8
+  knockbackDuration: 0.4
+  animator: {fileID: 0}
