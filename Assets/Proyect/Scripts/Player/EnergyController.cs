@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
 
 public class EnergyController : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class EnergyController : MonoBehaviour
     private Dictionary<GameObject, float> activeClones = new Dictionary<GameObject, float>();
     private Coroutine regenerationCoroutine;
     private bool isDead = false;
+
+    public TextMeshProUGUI energyText;
 
     public delegate void EnergyChangedDelegate(float current, float max);
     public event EnergyChangedDelegate OnEnergyChanged;
@@ -48,6 +51,8 @@ public class EnergyController : MonoBehaviour
 
             DrainEnergy(totalDrain * Time.deltaTime);
         }
+
+        EnergyText();
     }
 
     public bool TryConsumeInitialCost(bool isSmall)
@@ -142,5 +147,10 @@ public class EnergyController : MonoBehaviour
             OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
             yield return null;
         }
+    }
+
+    private void EnergyText()
+    {
+        energyText.text = currentEnergy.ToString();
     }
 }
