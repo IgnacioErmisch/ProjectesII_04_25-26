@@ -109,7 +109,7 @@ public class PlayerJump : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && !movement.IsAnyCloneActive())
         {
-            if (coyoteTimer.CanJump() || jumpCounter < maxJumps)
+            if (coyoteTimer.CanJump() && jumpCounter < maxJumps)
             {
                 JumpParticles.Play();
                 jumpHandler.Jump(jumpForce);

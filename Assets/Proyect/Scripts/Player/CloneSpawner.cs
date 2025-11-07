@@ -7,7 +7,8 @@ public class CloneSpawner : MonoBehaviour
     [SerializeField] private GameObject clonePrefab;
     [SerializeField] private Vector3 spawnOffset = new Vector3(2f, 0f, 0f);
     [SerializeField] private bool isSmallClone = true; 
-    [SerializeField] private CloneSpawner[] spawners;  
+    [SerializeField] private CloneSpawner[] spawners;
+    [SerializeField] private Camera playerCamera;
 
     private GameObject currentClone;
     public bool cloneActive = false;
@@ -31,7 +32,9 @@ public class CloneSpawner : MonoBehaviour
         currentClone = Instantiate(clonePrefab, spawnPosition, Quaternion.identity);
         cloneActive = true;
 
-        
+        playerCamera.transform.SetParent(currentClone.transform);
+        playerCamera.transform.localPosition = new Vector3(2, 2, -5);
+
         energyController.RegisterClone(currentClone, isSmallClone);
 
         return true;
@@ -44,7 +47,9 @@ public class CloneSpawner : MonoBehaviour
 
         if (currentClone != null)
         {
-           
+            playerCamera.transform.SetParent(gameObject.transform);
+            playerCamera.transform.localPosition = new Vector3(2, 2, -5);
+
             energyController.UnregisterClone(currentClone);
             Destroy(currentClone);
             currentClone = null;

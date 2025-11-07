@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Left
   - Right
+  - Interruptor
+  - SmallClone
   layers:
   - Default
   - TransparentFX
