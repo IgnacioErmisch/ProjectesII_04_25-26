@@ -35,7 +35,7 @@ public class CloneSpawner : MonoBehaviour
 
         playerCamera.transform.SetParent(currentClone.transform);
         playerCamera.transform.localPosition = new Vector3(2, 1, -5);
-
+        perspectiveSwitch.SwitchToClone();
         energyController.RegisterClone(currentClone, isSmallClone);
 
         return true;
@@ -50,7 +50,7 @@ public class CloneSpawner : MonoBehaviour
         {
             playerCamera.transform.SetParent(gameObject.transform);
             playerCamera.transform.localPosition = new Vector3(2, 2, -5);
-
+            perspectiveSwitch.SwitchToPlayer();
             energyController.UnregisterClone(currentClone);
             Destroy(currentClone);
             currentClone = null;

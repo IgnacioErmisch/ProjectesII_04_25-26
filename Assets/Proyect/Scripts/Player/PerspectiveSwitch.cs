@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PerspectiveSwitch : MonoBehaviour
 {
-    [SerializeField] private CloneSpawner cloneSpawner;
+    [SerializeField] private CloneSpawner bigCloneSpawner;
+    [SerializeField] private CloneSpawner smallCloneSpawner;
     public GameObject player;
     public Camera playerCamera;
-
     public bool controllingPlayer = true;
 
     void Update()
@@ -18,25 +18,49 @@ public class PerspectiveSwitch : MonoBehaviour
 
     private void SwitchCamera()
     {
-        if (!cloneSpawner.GetActiveClone())
+        CloneSpawner activeSpawner = GetActiveSpawner();
+
+        if (activeSpawner == null)
             return;
 
         if (controllingPlayer)
         {
- 
-            GameObject currentClone = cloneSpawner.GetCurrentClone();
+            GameObject currentClone = activeSpawner.GetCurrentClone();
             playerCamera.transform.SetParent(currentClone.transform);
             playerCamera.transform.localPosition = new Vector3(2, 1, -5);
         }
         else
         {
-       
             playerCamera.transform.SetParent(player.transform);
             playerCamera.transform.localPosition = new Vector3(2, 2, -5);
         }
 
-
         controllingPlayer = !controllingPlayer;
+    }
+
+    private CloneSpawner GetActiveSpawner()
+    {
+        if (bigCloneSpawner.cloneActive)
+        {
+            return bigCloneSpawner;
+        }
+        else if (smallCloneSpawner.cloneActive)
+        {
+            return smallCloneSpawner;
+        }
+
+        return null; 
+    }
+
+    public void SwitchToClone()
+    {
+        controllingPlayer = false;
+    }
+
+   
+    public void SwitchToPlayer()
+    {
+        controllingPlayer = true;
     }
 
     public bool GetControllingPlayer()
