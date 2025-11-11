@@ -5,7 +5,6 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
 {
     [Header("Health Settings")]
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float debugCurrentHealth;
 
     [Header("Attack Settings")]
     [SerializeField] private Transform attackPoint;
@@ -32,7 +31,11 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
    
     private float lastDamageTime;
     private bool isInvulnerable;
-    
+    [SerializeField] private bool canRegenerate = true;
+    [SerializeField] private float regenerationRate = 5f; 
+    [SerializeField] private float regenerationDelay = 3f; 
+
+    private float timeSinceLastDamage;
     public event System.Action OnPlayerDeath;
     public event System.Action<float, float> OnHealthChanged; 
 
@@ -76,10 +79,9 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        debugCurrentHealth = healthSystem.GetCurrentHealth();
         knockbackSystem.Update();
         UpdateInvulnerability();
-
+        UpdateRegeneration();
         
         if (Input.GetMouseButtonDown(0) && !knockbackSystem.IsKnockedBack())
         {
@@ -93,7 +95,24 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         meleeAttack.Attack();
     }
 
-   
+    private void UpdateRegeneration()
+    {
+        if (!canRegenerate || healthSystem.IsDead()) return;
+
+        timeSinceLastDamage += Time.deltaTime;
+
+        if (timeSinceLastDamage >= regenerationDelay && healthSystem.GetCurrentHealth() < healthSystem.GetMaxHealth())
+        {
+            float regenAmount = regenerationRate * Time.deltaTime;
+            healthSystem.Heal(regenAmount);
+        }
+    }
+
+    public void ResetRegenerationTimer()
+    {
+        timeSinceLastDamage = 0f;
+    }
+
     public void TakeDamage(float damage, Vector2 knockbackDirection)
     {
         if (isInvulnerable || healthSystem.IsDead()) return;
@@ -101,24 +120,24 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         healthSystem.TakeDamage(damage, knockbackDirection);
         knockbackSystem.ApplyKnockback(knockbackDirection);
 
-        lastDamageTime = Time.time;
         isInvulnerable = true;
 
-        
+        ResetRegenerationTimer();
     }
 
     public bool IsDead()
     {
         return healthSystem.IsDead();
     }
-    public float GetCurrentHealth() 
-    { 
-        return healthSystem.GetCurrentHealth();
-    }
-    public float CurrentHealth() 
+    public float GetCurrentHealth()
     {
         return healthSystem.GetCurrentHealth();
     }
+    public float GetMaxHealth()
+    {
+        return healthSystem.GetMaxHealth();
+    }
+
     private void UpdateInvulnerability()
     {
         if (isInvulnerable && Time.time - lastDamageTime >= invulnerabilityDuration)
@@ -129,7 +148,6 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
 
     private void HandleDeath()
     {
-        Debug.Log("muerte");
         OnPlayerDeath?.Invoke();
 
        
@@ -139,6 +157,8 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     {
         healthSystem.Heal(amount);
     }
+
+   
 
     private void OnDrawGizmosSelected()
     {
