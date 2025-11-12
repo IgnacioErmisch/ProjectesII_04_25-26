@@ -22,7 +22,7 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
     [SerializeField] private float attackDamage = 10f;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private Transform attackPoint; 
+    [SerializeField] private Transform attackPoint;
 
     [Header("Knockback Settings")]
     [SerializeField] private float knockbackForce = 8f;
@@ -43,6 +43,7 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
     private float chaseTimer;
     private Transform playerTarget;
     private float lastAttackTime;
+    private Vector3 originalAttackPointLocalPosition;
 
     private void Awake()
     {
@@ -64,10 +65,14 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
-       
         if (attackPoint == null)
         {
             attackPoint = transform;
+        }
+        else
+        {
+            
+            originalAttackPointLocalPosition = attackPoint.localPosition;
         }
     }
 
@@ -151,7 +156,6 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
             return;
         }
 
-        
         if (IsPlayerInAttackRange())
         {
             TransitionToAttack();
@@ -189,18 +193,15 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
             return;
         }
 
-       
         if (!IsPlayerInAttackRange())
         {
             TransitionToChase();
             return;
         }
 
-        
         Vector2 directionToPlayer = (playerTarget.position - transform.position).normalized;
         FlipSprite(directionToPlayer.x < 0);
 
-       
         if (Time.time - lastAttackTime >= attackCooldown)
         {
             PerformAttack();
@@ -249,13 +250,14 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
         knockbackSystem.ApplyKnockback(knockbackDirection);
     }
 
-    public bool IsDead() 
+    public bool IsDead()
     {
-        return healthSystem.IsDead(); 
+        return healthSystem.IsDead();
     }
-    public float GetCurrentHealth() 
-    { 
-        return healthSystem.GetCurrentHealth(); 
+
+    public float GetCurrentHealth()
+    {
+        return healthSystem.GetCurrentHealth();
     }
 
     private void HandleDeath()
@@ -268,26 +270,36 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
 
     private void FlipSprite(bool flipLeft)
     {
-        if (spriteRenderer != null)
+      
+        if (attackPoint != null && attackPoint != transform)
         {
-            spriteRenderer.flipX = flipLeft;
+            Vector3 newPosition = originalAttackPointLocalPosition;
+
+           
+            if (flipLeft)
+            {
+                newPosition.x = -Mathf.Abs(originalAttackPointLocalPosition.x);
+            }
+            else 
+            {
+                newPosition.x = Mathf.Abs(originalAttackPointLocalPosition.x);
+            }
+
+            attackPoint.localPosition = newPosition;
         }
     }
 
     private void OnDrawGizmosSelected()
     {
-       
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
 
-        
         Gizmos.color = Color.yellow;
         if (attackPoint != null)
         {
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
 
-        
         if (leftLimit != null && rightLimit != null)
         {
             Gizmos.color = Color.blue;
