@@ -35,7 +35,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     [SerializeField] private float regenerationRate = 5f; 
     [SerializeField] private float regenerationDelay = 3f; 
 
-    private float timeSinceLastDamage;
+    
     public event System.Action OnPlayerDeath;
     public event System.Action<float, float> OnHealthChanged; 
 
@@ -99,9 +99,9 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     {
         if (!canRegenerate || healthSystem.IsDead()) return;
 
-        timeSinceLastDamage += Time.deltaTime;
+        lastDamageTime += Time.deltaTime;
 
-        if (timeSinceLastDamage >= regenerationDelay && healthSystem.GetCurrentHealth() < healthSystem.GetMaxHealth())
+        if (lastDamageTime >= regenerationDelay && healthSystem.GetCurrentHealth() < healthSystem.GetMaxHealth())
         {
             float regenAmount = regenerationRate * Time.deltaTime;
             healthSystem.Heal(regenAmount);
@@ -110,7 +110,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
 
     public void ResetRegenerationTimer()
     {
-        timeSinceLastDamage = 0f;
+        lastDamageTime = 0f;
     }
 
     public void TakeDamage(float damage, Vector2 knockbackDirection)
@@ -120,6 +120,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         healthSystem.TakeDamage(damage, knockbackDirection);
         knockbackSystem.ApplyKnockback(knockbackDirection);
 
+        lastDamageTime = Time.time;
         isInvulnerable = true;
 
         ResetRegenerationTimer();
