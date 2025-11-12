@@ -108,7 +108,7 @@ public class PlayerJump : MonoBehaviour
             jumpCounter = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !movement.IsAnyCloneActive())
+        if (Input.GetKeyDown(KeyCode.Space) && perspectiveSwitch.GetControllingPlayer())
         {
             if ((coyoteTimer.CanJump() && jumpCounter < maxJumps) || jumpCounter < maxJumps)
             {
