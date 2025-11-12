@@ -1,22 +1,21 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CloneSpawner : MonoBehaviour
 {
-    
-    [SerializeField] private EnergyController energyController;  
+    [SerializeField] private EnergyController energyController;
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private GameObject clonePrefab;
     [SerializeField] private Vector3 spawnOffset = new Vector3(2f, 0f, 0f);
-    [SerializeField] private bool isSmallClone = true; 
+    [SerializeField] private bool isSmallClone = true;
     [SerializeField] private CloneSpawner[] spawners;
     public Camera playerCamera;
-
     private GameObject currentClone;
     public bool cloneActive = false;
-
-
+   
     public bool TrySpawnClone()
     {
+       
         foreach (var spawner in spawners)
         {
             if (spawner.cloneActive)
@@ -25,11 +24,13 @@ public class CloneSpawner : MonoBehaviour
 
         if (cloneActive)
             return false;
-
+  
+        Vector3 spawnPosition = transform.position + spawnOffset;
+          
         if (!energyController.TryConsumeInitialCost(isSmallClone))
             return false;
 
-        Vector3 spawnPosition = transform.position + spawnOffset;
+       
         currentClone = Instantiate(clonePrefab, spawnPosition, Quaternion.identity);
         cloneActive = true;
 
@@ -65,10 +66,8 @@ public class CloneSpawner : MonoBehaviour
     {
         return currentClone;
     }
-
     public bool GetActiveClone()
     {
         return cloneActive;
     }
-
 }

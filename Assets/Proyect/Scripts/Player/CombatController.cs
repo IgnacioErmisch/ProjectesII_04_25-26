@@ -134,7 +134,11 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
 
        
     }
- 
+    public Transform GetAttackPoint()
+    {
+        return attackPoint;
+    }
+
     public void Heal(float amount)
     {
         healthSystem.Heal(amount);
