@@ -10,6 +10,7 @@ TagManager:
   - Right
   - Interruptor
   - SmallClone
+  - BigClone
   layers:
   - Default
   - TransparentFX
