@@ -22,22 +22,24 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
     [SerializeField] private float attackDamage = 10f;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private Transform attackPoint;
+    [SerializeField] private Transform attackPoint; 
 
     [Header("Knockback Settings")]
     [SerializeField] private float knockbackForce = 8f;
     [SerializeField] private float knockbackDuration = 0.4f;
 
     [Header("Animation")]
-    [SerializeField] private Animator animator;  
+    [SerializeField] private Animator animator;
+
     private HealthSystem healthSystem;
     private RadiusDetectionSystem detectionSystem;
     private KnockbackSystem knockbackSystem;
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer; 
+    private SpriteRenderer spriteRenderer;
+
     private enum State { Patrol, Chase, Attack, Dead }
     private State currentState = State.Patrol;
-    private bool movingRight = true; 
+    private bool movingRight = true;
     private float chaseTimer;
     private Transform playerTarget;
     private float lastAttackTime;
@@ -47,21 +49,25 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
         InitializeSystems();
     }
 
-   
-
     private void InitializeSystems()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         healthSystem = new HealthSystem(maxHealth);
-        healthSystem.OnDeath += HandleDeath;       
-        detectionSystem = new RadiusDetectionSystem(transform, detectionRadius, playerLayer);     
+        healthSystem.OnDeath += HandleDeath;
+        detectionSystem = new RadiusDetectionSystem(transform, detectionRadius, playerLayer);
         knockbackSystem = new KnockbackSystem(rb, knockbackForce, knockbackDuration);
-     
+
         if (rb != null)
         {
             rb.gravityScale = 3f;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+
+       
+        if (attackPoint == null)
+        {
+            attackPoint = transform;
         }
     }
 
@@ -72,7 +78,7 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
         knockbackSystem.Update();
 
         if (knockbackSystem.IsKnockedBack()) return;
-    
+
         switch (currentState)
         {
             case State.Patrol:
@@ -87,13 +93,10 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
         }
     }
 
-   
-
     private void UpdatePatrol()
     {
-        
         Patrol();
-    
+
         if (detectionSystem.DetectTarget())
         {
             playerTarget = detectionSystem.GetTarget();
@@ -112,7 +115,6 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
             velocity.x = patrolSpeed;
             FlipSprite(false);
 
-            
             if (transform.position.x >= rightLimit.transform.position.x)
             {
                 movingRight = false;
@@ -123,7 +125,6 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
             velocity.x = -patrolSpeed;
             FlipSprite(true);
 
-            
             if (transform.position.x <= leftLimit.transform.position.x)
             {
                 movingRight = true;
@@ -133,8 +134,6 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
         rb.linearVelocity = velocity;
     }
 
-    
-
     private void TransitionToChase()
     {
         currentState = State.Chase;
@@ -143,23 +142,18 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
 
     private void UpdateChase()
     {
-       
         chaseTimer -= Time.deltaTime;
 
         if (playerTarget == null || chaseTimer <= 0)
         {
-            
             currentState = State.Patrol;
             playerTarget = null;
             return;
         }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, playerTarget.position);
         
-
-        if (distanceToPlayer <= attackRange)
+        if (IsPlayerInAttackRange())
         {
-           
             TransitionToAttack();
             return;
         }
@@ -181,46 +175,58 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
         FlipSprite(direction.x < 0);
     }
 
-    
-
     private void TransitionToAttack()
     {
         currentState = State.Attack;
-        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y); 
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
     }
 
     private void UpdateAttack()
     {
-       
         if (playerTarget == null)
         {
-           
             currentState = State.Patrol;
             return;
         }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, playerTarget.position);     
-
-        if (distanceToPlayer > attackRange * 1.2f)
+       
+        if (!IsPlayerInAttackRange())
         {
-            
             TransitionToChase();
             return;
         }
-     
 
+        
+        Vector2 directionToPlayer = (playerTarget.position - transform.position).normalized;
+        FlipSprite(directionToPlayer.x < 0);
+
+       
         if (Time.time - lastAttackTime >= attackCooldown)
         {
-            
             PerformAttack();
         }
+    }
+
+    private bool IsPlayerInAttackRange()
+    {
+        if (playerTarget == null) return false;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.transform == playerTarget)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void PerformAttack()
     {
         lastAttackTime = Time.time;
-       
-        if (attackPoint == null) attackPoint = transform;
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
 
@@ -231,36 +237,34 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
             {
                 Vector2 knockbackDirection = (hit.transform.position - transform.position).normalized;
                 damageable.TakeDamage(attackDamage, knockbackDirection);
-               
             }
         }
     }
-
 
     public void TakeDamage(float damage, Vector2 knockbackDirection)
     {
         if (healthSystem.IsDead()) return;
 
         healthSystem.TakeDamage(damage, knockbackDirection);
-        knockbackSystem.ApplyKnockback(knockbackDirection);        
+        knockbackSystem.ApplyKnockback(knockbackDirection);
     }
 
-    public bool IsDead() => healthSystem.IsDead();
-    public float GetCurrentHealth() => healthSystem.GetCurrentHealth();
-
-
+    public bool IsDead() 
+    {
+        return healthSystem.IsDead(); 
+    }
+    public float GetCurrentHealth() 
+    { 
+        return healthSystem.GetCurrentHealth(); 
+    }
 
     private void HandleDeath()
     {
         currentState = State.Dead;
         rb.linearVelocity = Vector2.zero;
-        GetComponent<Collider2D>().enabled = false;  
+        GetComponent<Collider2D>().enabled = false;
         Destroy(gameObject, 2f);
     }
-
-   
-
-   
 
     private void FlipSprite(bool flipLeft)
     {
@@ -272,22 +276,22 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
 
     private void OnDrawGizmosSelected()
     {
-        
+       
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
 
         
         Gizmos.color = Color.yellow;
-        Vector3 attackPos = attackPoint != null ? attackPoint.position : transform.position;
-        Gizmos.DrawWireSphere(attackPos, attackRange);
+        if (attackPoint != null)
+        {
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        }
 
-       
+        
         if (leftLimit != null && rightLimit != null)
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(leftLimit.transform.position, rightLimit.transform.position);
         }
     }
-
-    
 }
