@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 public class Turret : MonoBehaviour
 {
     [SerializeField] private RadiusDetectionSystem detectionSystem;
+    [SerializeField] private Transform detectionPoint;
     [SerializeField] private Transform playerTarget;
     [SerializeField] private GameObject turretBullet;
     [SerializeField] private Transform spawnBullets;
@@ -34,7 +35,8 @@ public class Turret : MonoBehaviour
 
     private void Initialize()
     {
-        detectionSystem = new RadiusDetectionSystem(transform, detectionRadius, playerLayer);
+        detectionPoint = transform;
+        detectionSystem = new RadiusDetectionSystem(detectionPoint, detectionRadius, playerLayer);
     }
     private void Attack()
     {
@@ -47,7 +49,8 @@ public class Turret : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+      
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Gizmos.DrawWireSphere(detectionPoint.position, detectionRadius);
     }
 }
