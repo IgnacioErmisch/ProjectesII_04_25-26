@@ -39,6 +39,7 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
     private bool movingRight = true;
     private float minX, maxX;
     private float nextPulseTime;
+    private Vector3 originalPulseSpawnPointLocalPosition;
 
     private void Awake()
     {
@@ -55,6 +56,9 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
 
         transform.position = new Vector2(transform.position.x, patrolHeight);
         nextPulseTime = Time.time + pulseInterval;
+
+    
+       
     }
 
     private void InitializeSystems()
@@ -69,6 +73,11 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
         {
             rb.gravityScale = 0f;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
+        }
+
+        if (pulseSpawnPoint == null)
+        {
+            pulseSpawnPoint = transform;
         }
     }
 
@@ -173,8 +182,27 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
 
     private void FlipSprite(bool flipLeft)
     {
+        
         if (spriteRenderer != null)
             spriteRenderer.flipX = flipLeft;
+
+       
+        if (pulseSpawnPoint != null && pulseSpawnPoint != transform)
+        {
+            Vector3 newPosition = originalPulseSpawnPointLocalPosition;
+
+            
+            if (flipLeft)
+            {
+                newPosition.x = -Mathf.Abs(originalPulseSpawnPointLocalPosition.x);
+            }
+            else 
+            {
+                newPosition.x = Mathf.Abs(originalPulseSpawnPointLocalPosition.x);
+            }
+
+            pulseSpawnPoint.localPosition = newPosition;
+        }
     }
 
     private void OnDrawGizmosSelected()
