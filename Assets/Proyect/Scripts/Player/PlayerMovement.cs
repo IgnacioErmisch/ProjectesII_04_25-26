@@ -20,7 +20,12 @@ public class PlayerMovement : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();    
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-       
+
+        if (attackPoint != null)
+        {
+            originalAttackPointLocalPosition = attackPoint.localPosition;
+        }
+
     }
 
     private void Update()
