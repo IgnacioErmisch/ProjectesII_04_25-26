@@ -167,4 +167,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   lifetime: 2
-  spawnBullet: {fileID: 0}
+  damage: 5
