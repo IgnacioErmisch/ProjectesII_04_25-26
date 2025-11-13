@@ -13364,6 +13364,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8683729587163830811, guid: a91e81e18ef23304198a4b2373b77c51, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8683729587163830811, guid: a91e81e18ef23304198a4b2373b77c51, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1000457679
+      objectReference: {fileID: 0}
     - target: {fileID: 8829731281090429339, guid: a91e81e18ef23304198a4b2373b77c51, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
@@ -18263,8 +18271,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1000457679
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1904217086, guid: 01f4732e1d93f44479e2085d7ced96b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -28518,6 +28526,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1427529049792751227, guid: acfe39f963b2fb246ad8901c96e6eefc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427529049792751227, guid: acfe39f963b2fb246ad8901c96e6eefc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1000457679
+      objectReference: {fileID: 0}
     - target: {fileID: 2643562710328642762, guid: acfe39f963b2fb246ad8901c96e6eefc, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -31590,6 +31606,14 @@ PrefabInstance:
     - target: {fileID: 8683729587163830811, guid: a91e81e18ef23304198a4b2373b77c51, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8683729587163830811, guid: a91e81e18ef23304198a4b2373b77c51, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8683729587163830811, guid: a91e81e18ef23304198a4b2373b77c51, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1000457679
       objectReference: {fileID: 0}
     - target: {fileID: 8829731281090429339, guid: a91e81e18ef23304198a4b2373b77c51, type: 3}
       propertyPath: m_LocalScale.y
