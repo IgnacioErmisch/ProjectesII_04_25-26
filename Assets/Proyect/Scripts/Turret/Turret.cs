@@ -12,7 +12,6 @@ public class Turret : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     private float lastShootTime;
     [SerializeField] private float shootCooldown;
-    [SerializeField] private GameObject detectionRange;
 
     private void Awake()
     {
