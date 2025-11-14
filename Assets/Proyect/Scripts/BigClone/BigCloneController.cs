@@ -36,7 +36,15 @@ public class BigCloneController : MonoBehaviour
     }
     private void Update()
     {
-        wallDestroyer.CheckAndDestroyWall();
+        if (!wallDestroyer.isAttacking)
+        {
+            wallDestroyer.CheckAndDestroyWall();
+
+            if (wallDestroyer.wallContact.IsTouchingWall() && Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                wallDestroyer.StartAttack(this); 
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -59,4 +67,6 @@ public class BigCloneController : MonoBehaviour
             wallContactDetector.SetWallContact(collision.gameObject,true);
         }
     }
+
+
 }

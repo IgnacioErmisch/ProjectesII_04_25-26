@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class WallContactDetector
@@ -36,7 +37,7 @@ public class BigCloneWallDestroyer
 {
     public WallContactDetector wallContact;
     public WallDestructor wallDestructor;
-
+    public bool isAttacking;
     public BigCloneWallDestroyer(WallContactDetector wallContact, WallDestructor wallDestructor)
     {
         this.wallContact = wallContact;
@@ -47,14 +48,27 @@ public class BigCloneWallDestroyer
     {
         if (wallContact.IsTouchingWall() && Input.GetKeyDown(KeyCode.Mouse0))
         {
+
             GameObject wall = wallContact.GetCurrentWall();
             if (wall != null)
             {
                 wallDestructor.DestroyWall(wall);
 
             }
-             
+
         }
+    }
+
+    public IEnumerator AttackAnimation()
+    {
+        isAttacking = true;
+        yield return new WaitForSeconds(1.20f);
+        isAttacking = false;
+    }
+
+    public void StartAttack(MonoBehaviour runner)
+    {
+        runner.StartCoroutine(AttackAnimation());
     }
 }
 
