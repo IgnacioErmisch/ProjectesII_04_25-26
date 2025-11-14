@@ -2,8 +2,17 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Wall
+  - Enemy
+  - Left
+  - Right
+  - Interruptor
+  - SmallClone
+  - BigClone
+  - Spikes
+  - BlastZone
   layers:
   - Default
   - TransparentFX
@@ -11,11 +20,11 @@ TagManager:
   - 
   - Water
   - UI
+  - GroundLayer
   - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Ground
   - 
   - 
   - 
@@ -41,3 +50,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Sky
+    uniqueID: 2802682989
+    locked: 0
+  - name: Background
+    uniqueID: 2937525191
+    locked: 0
+  - name: Midground
+    uniqueID: 3294509617
+    locked: 0
+  - name: Foreground
+    uniqueID: 679629863
+    locked: 0
+  m_RenderingLayers:
+  - Default
