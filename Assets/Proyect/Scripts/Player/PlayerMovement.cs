@@ -11,9 +11,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CloneSpawner smallCloneSpawner;
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private Transform attackPoint;
+    [SerializeField] private Transform cloneSpawnerPoint;
 
     private SpriteRenderer spriteRenderer;
     private Vector3 originalAttackPointLocalPosition;
+    private Vector3 originalCloneSpawnerPointLocalPosition;
     private bool facingRight = true;
 
     void Start()
@@ -24,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         if (attackPoint != null)
         {
             originalAttackPointLocalPosition = attackPoint.localPosition;
+            originalCloneSpawnerPointLocalPosition = cloneSpawnerPoint.localPosition;
         }
 
     }
@@ -73,26 +76,29 @@ public class PlayerMovement : MonoBehaviour
         facingRight = !facingRight;
 
         
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.flipX = !facingRight;
-        }
+        
+        spriteRenderer.flipX = !facingRight;
+        
 
       
-        if (attackPoint != null && attackPoint != transform)
+        if (attackPoint != transform)
         {
             Vector3 newPosition = originalAttackPointLocalPosition;
+            Vector3 newPositionSpawner = originalCloneSpawnerPointLocalPosition;
 
             if (!facingRight)
             {
                 newPosition.x = -Mathf.Abs(originalAttackPointLocalPosition.x);
+                newPositionSpawner.x = -Mathf.Abs(originalCloneSpawnerPointLocalPosition.x + 0.6f);
             }
             else
             {
                 newPosition.x = Mathf.Abs(originalAttackPointLocalPosition.x);
+                newPositionSpawner.x = Mathf.Abs(originalCloneSpawnerPointLocalPosition.x);
             }
 
             attackPoint.localPosition = newPosition;
+            cloneSpawnerPoint.localPosition = newPositionSpawner;
         }
     }
 

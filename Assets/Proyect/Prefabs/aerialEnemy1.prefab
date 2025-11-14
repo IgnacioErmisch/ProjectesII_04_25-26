@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7684383014567607738}
   - component: {fileID: 1345370940091578317}
   m_Layer: 9
-  m_Name: aerialEnemy
+  m_Name: aerialEnemy1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,8 +60,8 @@ Transform:
   m_GameObject: {fileID: 3848596653884366831}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.72, y: -0.96, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 122.6367, y: 33.1467, z: 0}
+  m_LocalScale: {x: 2.3934, y: 2.3934, z: 1.5956}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8294769348133963191}
@@ -108,10 +108,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1000457679
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -1972798013, guid: 54da469b061c365408c79fa555a3c6d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   patrolSpeed: 1.5
-  patrolHeight: 1
+  patrolHeight: 32.7
   patrolRangeX: 12
   patrolCenter: {x: 0, y: 0}
   electricPulsePrefab: {fileID: 2136761268959517295, guid: a6a8c034ece449f4080364d1ed13e453, type: 3}
@@ -217,5 +217,5 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0.020122528, y: -0.044273376}
+  m_Radius: 0.33900833

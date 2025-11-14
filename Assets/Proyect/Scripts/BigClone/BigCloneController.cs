@@ -3,6 +3,7 @@ using UnityEngine;
 public class BigCloneController : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
     private BigCloneStats stats;
     private BigCloneMovement movement;
     private BigCloneWallDestroyer wallDestroyer;
@@ -19,8 +20,9 @@ public class BigCloneController : MonoBehaviour
     private void InitializeComponents()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         stats = new BigCloneStats();
-        movement = new BigCloneMovement(rb, stats);
+        movement = new BigCloneMovement(rb, stats, spriteRenderer);
         wallContactDetector = new WallContactDetector();
         wallDestructor = new WallDestructor();
         wallDestroyer = new BigCloneWallDestroyer( wallContactDetector, wallDestructor);

@@ -7,7 +7,7 @@ public class SmallCloneController : MonoBehaviour
     private SmallCloneMovment movement;
     private SmallCloneDoubleJump doubleJump;
     private PerspectiveSwitch perspectiveSwitch;
-
+    private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
@@ -26,8 +26,9 @@ public class SmallCloneController : MonoBehaviour
     private void InitializeComponents()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         stats = new SmallCloneStats();
-        movement = new SmallCloneMovment(rb, stats);      
+        movement = new SmallCloneMovment(rb, stats, spriteRenderer);      
         GroundChecker groundChecker = new GroundChecker(groundCheck, groundCheckRadius, groundLayer);
         CoyoteTimer coyoteTimer = new CoyoteTimer(coyoteTime);
         JumpHandler jumpHandler = new JumpHandler(rb);
