@@ -35,8 +35,11 @@ public class Turret : MonoBehaviour
 
     private void Initialize()
     {
-        detectionPoint = transform;
-        detectionSystem = new RadiusDetectionSystem(detectionPoint, detectionRadius, playerLayer);
+        if (detectionPoint == null)
+        {
+            detectionPoint = transform;
+        }
+            detectionSystem = new RadiusDetectionSystem(detectionPoint, detectionRadius, playerLayer);
     }
     private void Attack()
     {
