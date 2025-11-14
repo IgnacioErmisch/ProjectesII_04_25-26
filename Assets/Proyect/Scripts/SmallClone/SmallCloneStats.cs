@@ -13,7 +13,7 @@ public class SmallCloneStats
         SizeMultiplier = 0.6f;
         SpeedMultiplier = 1.4f;
         JumpMultiplier = 1.6f;
-        InitialEnergyCost = 15;
+        InitialEnergyCost = 10;
         EnergyDrainPerSecond = 5;
     }
 }

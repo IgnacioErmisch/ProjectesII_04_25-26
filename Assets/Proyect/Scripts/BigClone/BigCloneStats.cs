@@ -13,7 +13,7 @@ public class BigCloneStats
         SizeMultiplier = 1.75f;
         SpeedMultiplier = 0.7f;
         JumpMultiplier = 0.7f;
-        InitialEnergyCost = 30;
+        InitialEnergyCost = 0;
         EnergyDrainPerSecond = 10;
     }
 }
