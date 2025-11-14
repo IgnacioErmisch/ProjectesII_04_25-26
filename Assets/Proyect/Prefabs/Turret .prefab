@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 494194136691700865}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.72, y: 0, z: 0}
+  m_LocalPosition: {x: 2.59, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 223444361204690271}
   - component: {fileID: 1720246087184506932}
   m_Layer: 0
-  m_Name: Turret
+  m_Name: 'Turret '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,15 +59,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4230219264282316819}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.1, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.9525824, y: 1.9799, z: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 155.49, y: 40.992, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3861670850018561387}
   - {fileID: 7045378449881403929}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &6026005538566365491
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -109,11 +109,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1000457679
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 772942523, guid: 99a51ae4de4a9b0469ea748af1ff73cc, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -184,17 +184,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.37974548}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.2789993}
   m_EdgeRadius: 0
 --- !u!114 &1720246087184506932
 MonoBehaviour:
@@ -212,11 +212,11 @@ MonoBehaviour:
   playerTarget: {fileID: 0}
   turretBullet: {fileID: 3012477450615139823, guid: 5bb6b3de9afe6f44b99025b4439cb2c0, type: 3}
   spawnBullets: {fileID: 3861670850018561387}
-  detectionRadius: 5
+  detectionRadius: 3
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
-  shootCooldown: 0.2
+  shootCooldown: 0.3
 --- !u!1 &8474824775652801090
 GameObject:
   m_ObjectHideFlags: 0
