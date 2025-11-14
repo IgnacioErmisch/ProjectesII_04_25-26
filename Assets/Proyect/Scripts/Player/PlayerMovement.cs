@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     public float pjSpeed;
     private Rigidbody2D rb2D;
+    public bool isMoving;
 
     [SerializeField] private CloneSpawner bigCloneSpawner;
     [SerializeField] private CloneSpawner smallCloneSpawner;
@@ -53,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb2D.linearVelocity = Vector2.zero;
+           
         }
     }
 
@@ -60,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         rb2D.linearVelocity = new Vector2(horizontal * pjSpeed, rb2D.linearVelocity.y);
+        isMoving = true;
 
         if (horizontal > 0 && !facingRight)
         {
@@ -68,6 +71,11 @@ public class PlayerMovement : MonoBehaviour
         else if (horizontal < 0 && facingRight)
         {
             Flip();
+        }
+
+        if (horizontal == 0)
+        {
+            isMoving = false;
         }
     }
 

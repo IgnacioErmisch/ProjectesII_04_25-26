@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -31,6 +33,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
    
     private float lastDamageTime;
     private bool isInvulnerable;
+    public bool isAttacking;
     [SerializeField] private bool canRegenerate = true;
     [SerializeField] private float regenerationRate = 5f; 
     [SerializeField] private float regenerationDelay = 3f; 
@@ -85,14 +88,28 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         
         if (Input.GetMouseButtonDown(0) && !knockbackSystem.IsKnockedBack())
         {
-            PerformAttack();
+            if (!isAttacking)
+            {
+                PerformAttack();
+
+            }
+
         }
+       
     }
 
   
     public void PerformAttack()
     {
         meleeAttack.Attack();
+        StartCoroutine(AttackAnimation());
+    }
+
+    public IEnumerator AttackAnimation()
+    {
+        isAttacking = true;
+        yield return new WaitForSeconds(0.45f);
+        isAttacking = false;
     }
 
     private void UpdateRegeneration()
