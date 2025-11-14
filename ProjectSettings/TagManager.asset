@@ -11,6 +11,8 @@ TagManager:
   - Interruptor
   - SmallClone
   - BigClone
+  - Spikes
+  - BlastZone
   layers:
   - Default
   - TransparentFX

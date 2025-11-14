@@ -25,7 +25,7 @@ public class WallDestructor
 {
     public void DestroyWall(GameObject wall)
     {
-        if (wall.CompareTag("Wall"))
+        if (wall != null && wall.CompareTag("Wall"))
         {
             Object.Destroy(wall);
         }
@@ -48,8 +48,12 @@ public class BigCloneWallDestroyer
         if (wallContact.IsTouchingWall() && Input.GetKeyDown(KeyCode.Mouse0))
         {
             GameObject wall = wallContact.GetCurrentWall();
-            wallDestructor.DestroyWall(wall);
-            
+            if (wall != null)
+            {
+                wallDestructor.DestroyWall(wall);
+
+            }
+             
         }
     }
 }

@@ -153,4 +153,9 @@ public class EnergyController : MonoBehaviour
     {
         energyText.text = currentEnergy.ToString();
     }
+
+    public float GetCurrentEnergy()
+    {
+        return currentEnergy;
+    }
 }
