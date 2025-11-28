@@ -29,7 +29,9 @@ public class EnergyController : MonoBehaviour
     private bool isDead = false;
 
     public TextMeshProUGUI energyText;
-    public Image energyImage;
+    public Image energyPlayer;
+    public Image energyBigClone = null;
+    public Image energySmallClone = null;
 
     public delegate void EnergyChangedDelegate(float current, float max);
     public event EnergyChangedDelegate OnEnergyChanged;
@@ -97,24 +99,22 @@ public class EnergyController : MonoBehaviour
         }
     }
 
-    // Nacho que es esto??
-
-    private void ConsumeEnergy(float amount)
-    {
-        currentEnergy -= amount;
-        currentEnergy = Mathf.Max(currentEnergy, 0f);
-        OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
-        CheckDeath();
-    }
-
     private void DrainEnergy(float amount)
     {
         if (currentEnergy > 0)
         {
             currentEnergy -= amount;
             currentEnergy = Mathf.Max(currentEnergy, 0f);
-            energyImage.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f);
+            energyPlayer.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f);
             OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
+            if (energyBigClone != null)
+            {
+                energyBigClone.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); ;
+            }
+            if (energySmallClone != null)
+            {
+                energySmallClone.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); ;
+            }
             CheckDeath();
         }
     }
@@ -152,7 +152,7 @@ public class EnergyController : MonoBehaviour
         {
             currentEnergy += regenerationRate * Time.deltaTime;
             currentEnergy = Mathf.Min(currentEnergy, maxEnergy);
-            energyImage.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f);
+            energyPlayer.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f);
             OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
             yield return null;
         }
@@ -166,5 +166,14 @@ public class EnergyController : MonoBehaviour
     public float GetCurrentEnergy()
     {
         return currentEnergy;
+    }
+
+    public void GetBigClone(Image image)
+    {
+        energyBigClone = image;
+    }
+    public void GetSmallClone(Image image)
+    {
+        energySmallClone = image;
     }
 }
