@@ -5,7 +5,7 @@ public class BigCloneController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private BigCloneStats stats;
-    private BigCloneMovement movement;
+    public BigCloneMovement movement { get; private set; }
     private BigCloneWallDestroyer wallDestroyer;
     private WallContactDetector wallContactDetector;
     private WallDestructor wallDestructor;
