@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float horizontal;
+    public float horizontal;
     public float pjSpeed;
     private Rigidbody2D rb2D;
     public bool isMoving;
