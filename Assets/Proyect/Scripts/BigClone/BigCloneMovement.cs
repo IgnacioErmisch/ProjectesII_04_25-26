@@ -8,7 +8,7 @@ public class BigCloneMovement
     public float horizontal;
     private SpriteRenderer spriteRenderer;
     private bool facingRight = true;
-    public bool isMoving;
+    public bool isMoving { get; private set; } = false;
     public BigCloneMovement(Rigidbody2D rb, BigCloneStats stat, SpriteRenderer spriteRenderer)
     {
         this.rb = rb;
@@ -19,7 +19,6 @@ public class BigCloneMovement
     public void Move()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-        isMoving = true;
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
 
         if (horizontal > 0 && !facingRight)
@@ -30,12 +29,10 @@ public class BigCloneMovement
         {
             Flip();
         }
+        
+        isMoving = horizontal != 0;
 
-        if (horizontal == 0)
-        {
-            isMoving = false;
-        }
-
+        Debug.Log(GetMove());
     }
     private void Flip()
     {

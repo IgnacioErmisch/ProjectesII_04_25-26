@@ -4,7 +4,7 @@ using UnityEngine;
 public class BigCloneAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private BigCloneMovement bigCloneMovement;
+    [SerializeField] private BigCloneController bigCloneController;
     [SerializeField] private BigCloneWallDestroyer bigCloneWallDestroyer;
     private BigCloneWallDestroyer wallDestroyer;
     private WallContactDetector wallContactDetector;
@@ -30,7 +30,6 @@ public class BigCloneAnimationController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         stats = new BigCloneStats();
-        bigCloneMovement = new BigCloneMovement(rb, stats, spriteRenderer);
         wallContactDetector = new WallContactDetector();
         wallDestructor = new WallDestructor();
         bigCloneWallDestroyer = new BigCloneWallDestroyer(wallContactDetector, wallDestructor);
@@ -38,8 +37,10 @@ public class BigCloneAnimationController : MonoBehaviour
 
     private void PlayWalkAnimation()
     {
-        if (bigCloneMovement.GetMove())
+        Debug.Log(bigCloneController.movement.GetMove());
+        if (bigCloneController.movement.GetMove())
         {
+            Debug.Log(":D");
             animator.SetBool("isWalking", true);
             
         }

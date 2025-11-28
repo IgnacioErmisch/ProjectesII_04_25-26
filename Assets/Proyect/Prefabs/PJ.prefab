@@ -95,7 +95,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10000
+  m_Mass: 500000
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 3
@@ -122,11 +122,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990ed4ac7438a4444b7c8cc94c5d48b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontal: 0
   pjSpeed: 7
+  isMoving: 0
+  QBigClone: {fileID: 0}
+  QSmallClone: {fileID: 0}
   bigCloneSpawner: {fileID: 7564787060841960555}
   smallCloneSpawner: {fileID: 7564787060841960555}
   perspectiveSwitch: {fileID: 4262907973614035345}
   attackPoint: {fileID: 6094283585800770578}
+  cloneSpawnerPoint: {fileID: 0}
+  switchInterface: {fileID: 0}
 --- !u!114 &6595192762629193903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +176,7 @@ MonoBehaviour:
   spawnOffset: {x: 2, y: 0, z: 0}
   isSmallClone: 0
   spawners: []
+  cloneSpawnPoint: {fileID: 0}
   playerCamera: {fileID: 6773113138284326154}
   cloneActive: 0
 --- !u!114 &1709634779136955750
@@ -190,6 +197,7 @@ MonoBehaviour:
   spawnOffset: {x: 2, y: 0, z: 0}
   isSmallClone: 1
   spawners: []
+  cloneSpawnPoint: {fileID: 0}
   playerCamera: {fileID: 6773113138284326154}
   cloneActive: 0
 --- !u!114 &4502971120696559688
@@ -218,6 +226,7 @@ MonoBehaviour:
   invulnerabilityDuration: 1
   animator: {fileID: 0}
   attackAnimationTrigger: Attack
+  isAttacking: 0
   canRegenerate: 1
   regenerationRate: 10
   regenerationDelay: 5
@@ -386,6 +395,7 @@ MonoBehaviour:
   regenerationRate: 8
   regenerationDelay: 1.5
   energyText: {fileID: 0}
+  energyImage: {fileID: 0}
 --- !u!1 &2789915080622717676
 GameObject:
   m_ObjectHideFlags: 0
@@ -5519,7 +5529,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1000457679
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -427538135, guid: 0b4b24e22d2dacd4abc8629590cff863, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
