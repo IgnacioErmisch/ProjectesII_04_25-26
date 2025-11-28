@@ -29811,7 +29811,7 @@ Tilemap:
       - {fileID: 1304145915, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
-      m_AnimationSpeed: 6
+      m_AnimationSpeed: 6.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -48506,6 +48506,14 @@ PrefabInstance:
       propertyPath: smallCloneSpawner
       value: 
       objectReference: {fileID: 159555413}
+    - target: {fileID: 4492489314801187546, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492489314801187546, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4502971120696559688, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: attackCooldown
       value: 0.3
@@ -48578,6 +48586,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6773113138284326154, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: near clip plane
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: cloneSpawnPoint
       value: 
@@ -48593,6 +48605,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 240527483314117475, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1886438628}
+    - targetCorrespondingSourceObject: {fileID: 2789915080622717676, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5435904900046934707}
     - targetCorrespondingSourceObject: {fileID: 7607558864433007348, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1332551309}
@@ -48600,6 +48615,27 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1332551310}
   m_SourcePrefab: {fileID: 100100000, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+--- !u!1 &5435904900046934706 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2789915080622717676, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+  m_PrefabInstance: {fileID: 5435904900046934705}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5435904900046934707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5435904900046934706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806bcc06d71112247aaeed22294addac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 159555419}
+  smoothness: 0.75
+  offset: {x: 5, y: 2.5, z: 0}
+  playerMovement: {fileID: 1886438632}
 --- !u!1001 &6130475728901848263
 PrefabInstance:
   m_ObjectHideFlags: 0
