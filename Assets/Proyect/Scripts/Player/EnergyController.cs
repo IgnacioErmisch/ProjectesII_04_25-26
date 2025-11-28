@@ -1,7 +1,10 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class EnergyController : MonoBehaviour
 {
@@ -26,6 +29,7 @@ public class EnergyController : MonoBehaviour
     private bool isDead = false;
 
     public TextMeshProUGUI energyText;
+    public Image energyImage;
 
     public delegate void EnergyChangedDelegate(float current, float max);
     public event EnergyChangedDelegate OnEnergyChanged;
@@ -37,6 +41,7 @@ public class EnergyController : MonoBehaviour
     {
         currentEnergy = maxEnergy;
         OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
+        
     }
 
     private void Update()
@@ -62,7 +67,7 @@ public class EnergyController : MonoBehaviour
         float cost = isSmall ? smallCloneInitialCost : largeCloneInitialCost;
         if (currentEnergy >= cost)
         {
-            ConsumeEnergy(cost);
+            DrainEnergy(cost);
             return true;
         }
 
@@ -92,6 +97,8 @@ public class EnergyController : MonoBehaviour
         }
     }
 
+    // Nacho que es esto??
+
     private void ConsumeEnergy(float amount)
     {
         currentEnergy -= amount;
@@ -106,6 +113,7 @@ public class EnergyController : MonoBehaviour
         {
             currentEnergy -= amount;
             currentEnergy = Mathf.Max(currentEnergy, 0f);
+            energyImage.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f);
             OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
             CheckDeath();
         }
@@ -144,6 +152,7 @@ public class EnergyController : MonoBehaviour
         {
             currentEnergy += regenerationRate * Time.deltaTime;
             currentEnergy = Mathf.Min(currentEnergy, maxEnergy);
+            energyImage.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f);
             OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
             yield return null;
         }
