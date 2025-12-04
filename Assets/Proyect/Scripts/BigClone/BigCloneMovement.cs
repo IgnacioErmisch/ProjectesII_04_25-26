@@ -7,6 +7,7 @@ public class BigCloneMovement
     public BigCloneStats stat;
     public float horizontal;
     private SpriteRenderer spriteRenderer;
+    
     private bool facingRight = true;
     public bool isMoving { get; private set; } = false;
     public BigCloneMovement(Rigidbody2D rb, BigCloneStats stat, SpriteRenderer spriteRenderer)
@@ -14,6 +15,7 @@ public class BigCloneMovement
         this.rb = rb;
         this.speed = 7f * stat.SpeedMultiplier;
         this.spriteRenderer = spriteRenderer;
+    
     }
 
     public void Move()
@@ -32,7 +34,7 @@ public class BigCloneMovement
         
         isMoving = horizontal != 0;
 
-        Debug.Log(GetMove());
+        
     }
     private void Flip()
     {

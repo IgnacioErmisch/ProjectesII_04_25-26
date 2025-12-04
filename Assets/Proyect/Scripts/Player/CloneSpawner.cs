@@ -5,6 +5,7 @@ public class CloneSpawner : MonoBehaviour
 {
     [SerializeField] private EnergyController energyController;
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
+    [SerializeField] private CinemachineSingleton cinemachineSingleton;
     [SerializeField] private GameObject clonePrefab;
     [SerializeField] private Vector3 spawnOffset = new Vector3(2f, 0f, 0f);
     [SerializeField] private bool isSmallClone = true;
@@ -34,10 +35,6 @@ public class CloneSpawner : MonoBehaviour
        
         currentClone = Instantiate(clonePrefab, spawnPosition, Quaternion.identity);
         cloneActive = true;
-        Rigidbody2D cloneRb = currentClone.GetComponent<Rigidbody2D>();
-        Rigidbody2D playerRb = perspectiveSwitch.player.GetComponent<Rigidbody2D>();
-        cloneRb.bodyType = RigidbodyType2D.Dynamic;
-        playerRb.bodyType = RigidbodyType2D.Static;
         playerCamera.transform.SetParent(currentClone.transform);
         playerCamera.transform.localPosition = new Vector3(2, 1, -5);
         perspectiveSwitch.SwitchToClone();
@@ -52,9 +49,7 @@ public class CloneSpawner : MonoBehaviour
             return false;
 
         if (currentClone != null)
-        {
-            Rigidbody2D playerRb = perspectiveSwitch.player.GetComponent<Rigidbody2D>();
-            playerRb.bodyType = RigidbodyType2D.Dynamic;
+        {        
             playerCamera.transform.SetParent(gameObject.transform);
             playerCamera.transform.localPosition = new Vector3(2, 2, -5);
             perspectiveSwitch.SwitchToPlayer();
