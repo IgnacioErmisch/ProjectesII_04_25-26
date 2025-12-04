@@ -8,19 +8,18 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class EnergyController : MonoBehaviour
 {
-    [Header("Energía")]
+
     [SerializeField] private float maxEnergy = 100f;
     [SerializeField] private float currentEnergy;
 
-    [Header("Costos")]
     [SerializeField] private float smallCloneInitialCost = 15f;
     [SerializeField] private float largeCloneInitialCost = 30f;
 
-    [Header("Drenaje por segundo")]
+
     [SerializeField] private float smallCloneDrainPerSecond = 5f;
     [SerializeField] private float largeCloneDrainPerSecond = 10f;
 
-    [Header("Regeneración")]
+
     [SerializeField] private float regenerationRate = 8f;
     [SerializeField] private float regenerationDelay = 1.5f;
 
@@ -59,7 +58,6 @@ public class EnergyController : MonoBehaviour
             DrainEnergy(totalDrain * Time.deltaTime);
         }
 
-        EnergyText();
     }
 
     public bool TryConsumeInitialCost(bool isSmall)
@@ -158,10 +156,6 @@ public class EnergyController : MonoBehaviour
         }
     }
 
-    private void EnergyText()
-    {
-        energyText.text = currentEnergy.ToString();
-    }
 
     public float GetCurrentEnergy()
     {

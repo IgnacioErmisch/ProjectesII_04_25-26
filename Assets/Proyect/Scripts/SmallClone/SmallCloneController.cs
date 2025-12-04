@@ -8,6 +8,7 @@ public class SmallCloneController : MonoBehaviour
     private SmallCloneDoubleJump doubleJump;
     private PerspectiveSwitch perspectiveSwitch;
     private SpriteRenderer spriteRenderer;
+    private Transform transformSmallClone;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
@@ -21,11 +22,13 @@ public class SmallCloneController : MonoBehaviour
     {
         InitializeComponents();
         ApplySizeModifier();
+        CinemachineSingleton.Instance.SetSmallClone(transformSmallClone);
     }
 
     private void InitializeComponents()
     {
         rb = GetComponent<Rigidbody2D>();
+        transformSmallClone = GetComponent<Transform>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         stats = new SmallCloneStats();
         movement = new SmallCloneMovment(rb, stats, spriteRenderer);      

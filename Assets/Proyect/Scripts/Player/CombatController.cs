@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour, IDamageable
 {
-    [Header("Health Settings")]
+
     [SerializeField] private float maxHealth = 100f;
 
-    [Header("Attack Settings")]
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackDamage = 20f;
     [SerializeField] private float attackRange = 1f;
@@ -16,14 +15,13 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float knockbackForce = 10f;
 
-    [Header("Defense Settings")]
+
     [SerializeField] private float playerKnockbackForce = 5f;
     [SerializeField] private float playerKnockbackDuration = 0.3f;
     [SerializeField] private float invulnerabilityDuration = 1f;
 
-    [Header("Animation")]
     [SerializeField] private Animator animator;
-    [SerializeField] private string attackAnimationTrigger = "Attack";
+
 
     
     private HealthSystem healthSystem;
