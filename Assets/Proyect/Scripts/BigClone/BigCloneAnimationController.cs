@@ -37,10 +37,10 @@ public class BigCloneAnimationController : MonoBehaviour
 
     private void PlayWalkAnimation()
     {
-        Debug.Log(bigCloneController.movement.GetMove());
+      
         if (bigCloneController.movement.GetMove())
         {
-            Debug.Log(":D");
+          
             animator.SetBool("isWalking", true);
             
         }

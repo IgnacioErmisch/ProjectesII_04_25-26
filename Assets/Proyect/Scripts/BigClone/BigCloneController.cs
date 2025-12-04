@@ -5,21 +5,25 @@ public class BigCloneController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private BigCloneStats stats;
+    private Transform transformBigClone;
     public BigCloneMovement movement { get; private set; }
     private BigCloneWallDestroyer wallDestroyer;
     private WallContactDetector wallContactDetector;
     private WallDestructor wallDestructor;
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
 
+
     private void Awake()
     {
         InitializeComponents();
         ApplySizeModifier();
+        CinemachineSingleton.Instance.SetBigClone(transformBigClone);
     }
 
     private void InitializeComponents()
     {
         rb = GetComponent<Rigidbody2D>();
+        transformBigClone = GetComponent<Transform>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         stats = new BigCloneStats();
         movement = new BigCloneMovement(rb, stats, spriteRenderer);
