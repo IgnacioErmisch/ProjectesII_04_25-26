@@ -48,7 +48,21 @@ public class CloneSpawner : MonoBehaviour
 
             return true;
         }
-        return false;
+        else
+        {
+            currentClone = Instantiate(clonePrefab, transform.position, Quaternion.identity);
+            cloneActive = true;
+            playerCamera.transform.SetParent(currentClone.transform);
+            playerCamera.transform.localPosition = new Vector3(2, 1, -5);
+            perspectiveSwitch.SwitchToClone();
+            energyController.RegisterClone(currentClone, isSmallClone);
+            if(spawnPosition.x - transform.position.x > 0)
+                transform.position += new Vector3(-3f, 0,0);
+            else
+                transform.position += new Vector3(3f, 0,0);
+
+                return true;
+        }
     }
     private void OnDrawGizmos()
     {
