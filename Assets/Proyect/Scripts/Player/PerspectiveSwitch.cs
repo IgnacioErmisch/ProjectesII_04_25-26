@@ -15,7 +15,10 @@ public class PerspectiveSwitch : MonoBehaviour
             SwitchCamera();
         }
     }
-
+    private void Start()
+    {
+        controllingPlayer = true;
+    }
     private void SwitchCamera()
     {
         CloneSpawner activeSpawner = GetActiveSpawner();
