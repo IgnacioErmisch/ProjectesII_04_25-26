@@ -81,6 +81,7 @@ public class PlayerJump : MonoBehaviour
 
     [SerializeField] private ParticleSystem JumpParticles;
     [SerializeField] private ParticleSystem RunParticles;
+    public bool isGrounded;
 
     private void Awake()
     {
@@ -91,7 +92,7 @@ public class PlayerJump : MonoBehaviour
 
     private void Update()
     {
-        bool isGrounded = groundChecker.IsGrounded();
+        isGrounded = groundChecker.IsGrounded();
         coyoteTimer.Update(isGrounded);
 
         if(isGrounded && !RunParticles.isPlaying)

@@ -153,6 +153,7 @@ MonoBehaviour:
   perspectiveSwitch: {fileID: 4262907973614035345}
   JumpParticles: {fileID: 7294801367233732497}
   RunParticles: {fileID: 8217135377386519259}
+  isGrounded: 0
 --- !u!114 &7564787060841960555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +269,7 @@ Transform:
   m_GameObject: {fileID: 258715426845299223}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0799942, y: -0.9000015, z: 0.048621576}
+  m_LocalPosition: {x: -0.0799942, y: -0.383, z: 0.048621576}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
