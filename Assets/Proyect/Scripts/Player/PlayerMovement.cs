@@ -7,15 +7,13 @@ public class PlayerMovement : MonoBehaviour
     public float pjSpeed;
     private Rigidbody2D rb2D;
     public bool isMoving;
-    public GameObject QBigClone;
-    public GameObject QSmallClone;
+    
 
-    [SerializeField] private CloneSpawner bigCloneSpawner;
-    [SerializeField] private CloneSpawner smallCloneSpawner;
+
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform cloneSpawnerPoint;
-    [SerializeField] private SwitchInterface switchInterface;
+
 
     private SpriteRenderer spriteRenderer;
     private Vector3 originalAttackPointLocalPosition;
@@ -35,35 +33,13 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetBigCloneSelected())
-        {
-            bigCloneSpawner.TrySpawnClone();
-            QBigClone.SetActive(true);
-            QSmallClone.SetActive(false);
-        }
-         
-        else if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetSmallCloneSelected())
-        {
-            smallCloneSpawner.TrySpawnClone();
-            QBigClone.SetActive(false);
-            QSmallClone.SetActive(true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            QBigClone.SetActive(false);
-            QSmallClone.SetActive(false);
-            bigCloneSpawner.TryDespawnClone();
-            smallCloneSpawner.TryDespawnClone();
-        }
-    }
+    
 
     void FixedUpdate()
     {
         if (perspectiveSwitch.GetControllingPlayer())
         {
+            Debug.Log("entra");
             MovePJ();
         }
         else
@@ -125,8 +101,5 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public bool IsAnyCloneActive()
-    {
-        return bigCloneSpawner.cloneActive || smallCloneSpawner.cloneActive;
-    }
+    
 }
