@@ -18,6 +18,7 @@ public class BigCloneController : MonoBehaviour
         InitializeComponents();
         ApplySizeModifier();
         CinemachineSingleton.Instance.SetBigClone(transformBigClone);
+        
     }
 
     private void InitializeComponents()
