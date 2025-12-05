@@ -51,17 +51,9 @@ public class HealthSystem : IDamageable
 
     public void TakeDamage(float damage, Vector2 knockbackDirection)
     {
-        if (isDead) return;
-
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth);
         OnHealthChanged?.Invoke(currentHealth);
-
-        if (currentHealth <= 0)
-        {
-            isDead = true;
-            OnDeath?.Invoke();
-        }
     }
 
     public void Heal(float amount)
@@ -86,6 +78,11 @@ public class HealthSystem : IDamageable
     public float GetMaxHealth()
     {
         return maxHealth;
+    }
+
+    public float ResetHealth()
+    {
+       return currentHealth = maxHealth;
     }
 }
 

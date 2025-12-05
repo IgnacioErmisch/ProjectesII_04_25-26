@@ -170,4 +170,9 @@ public class EnergyController : MonoBehaviour
     {
         energySmallClone = image;
     }
+
+    public void ResetEnergy()
+    {
+        currentEnergy = maxEnergy;
+    }
 }
