@@ -31426,7 +31426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bab58ddc5200664aa6fe5268c8cb4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1886438627}
+  _player: {fileID: 240527483314117475, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
   perspectiveSwitch: {fileID: 5435904900046934709}
 --- !u!4 &1153160587
 Transform:
@@ -49367,6 +49367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatController: {fileID: 159555412}
   energyController: {fileID: 259296856}
+  player: {fileID: 1886438627}
 --- !u!114 &1886438632 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4682376492252064245, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}

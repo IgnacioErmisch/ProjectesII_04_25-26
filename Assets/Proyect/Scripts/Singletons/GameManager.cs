@@ -25,7 +25,14 @@ public class GameManager : MonoBehaviour
     {
         return _player;
     }
-
+    public void SetPlayer(GameObject player)
+    {
+        _player = player;
+    }
+    public void SetControlllingPlayer(PerspectiveSwitch perspective)
+    {
+       perspectiveSwitch = perspective;
+    }
     public bool GetControlllingPlayer()
     {
         return perspectiveSwitch.controllingPlayer;

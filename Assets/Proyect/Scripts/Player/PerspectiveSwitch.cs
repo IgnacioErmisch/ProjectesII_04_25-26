@@ -18,6 +18,8 @@ public class PerspectiveSwitch : MonoBehaviour
     private void Start()
     {
         controllingPlayer = true;
+        GameManager.Instance.SetControlllingPlayer(this);
+
     }
     private void SwitchCamera()
     {

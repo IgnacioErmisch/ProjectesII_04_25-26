@@ -13541,6 +13541,10 @@ PrefabInstance:
       propertyPath: cloneSpawnPoint
       value: 
       objectReference: {fileID: 1337840630}
+    - target: {fileID: 8217135377386519259, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 396160206374538548, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}

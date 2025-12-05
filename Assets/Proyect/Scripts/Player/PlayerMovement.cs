@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (perspectiveSwitch.GetControllingPlayer())
         {
-            Debug.Log("entra");
             MovePJ();
         }
         else
