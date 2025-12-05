@@ -154,6 +154,10 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         return healthSystem.GetMaxHealth();
     }
 
+    public float ResetHealth()
+    {
+        return healthSystem.ResetHealth();
+    }
     private void UpdateInvulnerability()
     {
         if (isInvulnerable && Time.time - lastDamageTime >= invulnerabilityDuration)

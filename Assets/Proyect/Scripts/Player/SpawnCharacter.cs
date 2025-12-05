@@ -5,7 +5,9 @@ public class SpawnCharacter : MonoBehaviour
 {
     [SerializeField] private PlayerCombatController combatController;
     [SerializeField] private EnergyController energyController;
+    [SerializeField] private PlayerCombatController playerCombatController;
     [SerializeField] private GameObject player;
+    [SerializeField] private CheckpointManager checkpointManager;
     void Awake()
     {
         GameManager.Instance.SetPlayer(player);
@@ -16,9 +18,9 @@ public class SpawnCharacter : MonoBehaviour
     {
         if(combatController.GetCurrentHealth() <= 0 || energyController.GetCurrentEnergy() <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            
-            
+            player.transform.position = checkpointManager.GetLastCheckpoint();
+            energyController.ResetEnergy();
+            playerCombatController.ResetHealth();
         }
     }
 
@@ -26,8 +28,10 @@ public class SpawnCharacter : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("BlastZone")|| collision.gameObject.CompareTag("Spikes"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            
+            player.transform.position = checkpointManager.GetLastCheckpoint();
+            energyController.ResetEnergy();
+            playerCombatController.ResetHealth();
+
         }
     }
 }
