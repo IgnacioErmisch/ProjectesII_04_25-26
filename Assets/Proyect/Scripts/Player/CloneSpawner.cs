@@ -14,6 +14,8 @@ public class CloneSpawner : MonoBehaviour
     public Camera playerCamera;
     private GameObject currentClone;
     public bool cloneActive = false;
+
+    public LayerMask groundLayer;
    
     public bool TrySpawnClone()
     {
@@ -32,17 +34,37 @@ public class CloneSpawner : MonoBehaviour
         if (!energyController.TryConsumeInitialCost(isSmallClone))
             return false;
 
-       
-        currentClone = Instantiate(clonePrefab, spawnPosition, Quaternion.identity);
-        cloneActive = true;
-        playerCamera.transform.SetParent(currentClone.transform);
-        playerCamera.transform.localPosition = new Vector3(2, 1, -5);
-        perspectiveSwitch.SwitchToClone();
-        energyController.RegisterClone(currentClone, isSmallClone);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position,3f, groundLayer);
+        Debug.Log(hit.rigidbody != null);
+        if(hit.rigidbody == null)
 
-        return true;
+        {
+            currentClone = Instantiate(clonePrefab, spawnPosition, Quaternion.identity);
+            cloneActive = true;
+            playerCamera.transform.SetParent(currentClone.transform);
+            playerCamera.transform.localPosition = new Vector3(2, 1, -5);
+            perspectiveSwitch.SwitchToClone();
+            energyController.RegisterClone(currentClone, isSmallClone);
+
+            return true;
+        }
+        return false;
     }
+    private void OnDrawGizmos()
+    {
+        Vector3 spawnPosition = cloneSpawnPoint.position;
+        Gizmos.DrawLine(transform.position, spawnPosition);
 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position, 3f, groundLayer);
+        if (hit.rigidbody != null)
+        {
+            Gizmos.DrawSphere((Vector3)hit.point, 0.2f);
+        }
+        else
+        {
+            Gizmos.DrawSphere(spawnPosition, 0.2f);
+        }
+    }
     public bool TryDespawnClone()
     {
         if (!cloneActive)
