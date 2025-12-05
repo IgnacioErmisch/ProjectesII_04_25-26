@@ -6,6 +6,7 @@ public class InputSpawnClone : MonoBehaviour
     [SerializeField] private CloneSpawner smallCloneSpawner;
     [SerializeField] private SwitchInterface switchInterface;
     [SerializeField] private Transform cloneSpawnerPoint;
+    [SerializeField] private PlayerJump playerJump;
     public GameObject QBigClone;
     public GameObject QSmallClone;
 
@@ -17,14 +18,14 @@ public class InputSpawnClone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetBigCloneSelected())
+        if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetBigCloneSelected() && playerJump.isGrounded)
         {
             bigCloneSpawner.TrySpawnClone();
             QBigClone.SetActive(true);
             QSmallClone.SetActive(false);
         }
 
-        else if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetSmallCloneSelected())
+        else if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetSmallCloneSelected() && playerJump.isGrounded)
         {
             smallCloneSpawner.TrySpawnClone();
             QBigClone.SetActive(false);

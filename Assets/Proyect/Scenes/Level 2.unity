@@ -30942,7 +30942,7 @@ Tilemap:
       - {fileID: 1304145915, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
-      m_AnimationSpeed: 6
+      m_AnimationSpeed: 6.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 153, y: 28, z: 0}
@@ -50258,8 +50258,20 @@ MonoBehaviour:
   smallCloneSpawner: {fileID: 159555413}
   switchInterface: {fileID: 1998334454}
   cloneSpawnerPoint: {fileID: 607243068}
+  playerJump: {fileID: 5435904900046934716}
   QBigClone: {fileID: 533474803}
   QSmallClone: {fileID: 1020517440}
+--- !u!114 &5435904900046934716 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6595192762629193903, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+  m_PrefabInstance: {fileID: 5435904900046934705}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886438627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d5d3f6c6735194586f67db4b706ded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6130475728901848263
 PrefabInstance:
   m_ObjectHideFlags: 0
