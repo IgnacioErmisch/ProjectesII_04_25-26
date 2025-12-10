@@ -6,6 +6,7 @@ public class BigCloneController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private BigCloneStats stats;
     private Transform transformBigClone;
+    public GameObject energyImage;
     public BigCloneMovement movement { get; private set; }
     private BigCloneWallDestroyer wallDestroyer;
     private WallContactDetector wallContactDetector;
@@ -18,6 +19,8 @@ public class BigCloneController : MonoBehaviour
         InitializeComponents();
         ApplySizeModifier();
         CinemachineSingleton.Instance.SetBigClone(transformBigClone);
+        GameManager.Instance.SetBigCloneEnergy(energyImage);
+
         
     }
 

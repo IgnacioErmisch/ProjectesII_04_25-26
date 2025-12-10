@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93446ce1633f1874c84f1570b3fcbe51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyImage: {fileID: 1142632818159327263}
   perspectiveSwitch: {fileID: 0}
 --- !u!61 &4937383365458126528
 BoxCollider2D:

@@ -18,7 +18,6 @@ public class TrackingTarget : MonoBehaviour
     {
         if (!gameManager.GetControlllingPlayer())
         {
-            Debug.Log("clon activo");
             if (CheckBigClone())
             {
                 cm.Target.TrackingTarget = bigCloneTracking;

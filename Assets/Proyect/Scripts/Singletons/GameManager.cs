@@ -5,12 +5,14 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
+    private GameObject energyBigClone;
+    private GameObject energySmallClone;
 
     public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -31,10 +33,29 @@ public class GameManager : MonoBehaviour
     }
     public void SetControlllingPlayer(PerspectiveSwitch perspective)
     {
-       perspectiveSwitch = perspective;
+        perspectiveSwitch = perspective;
     }
     public bool GetControlllingPlayer()
     {
         return perspectiveSwitch.controllingPlayer;
+    }
+
+    public void SetBigCloneEnergy(GameObject energyBigCloneImage)
+    {
+        energyBigClone = energyBigCloneImage;
+    }
+    public void SetSmallCloneEnergy(GameObject energySmallCloneImage)
+    {
+        energySmallClone = energySmallCloneImage;
+
+    }
+    public GameObject GetBigCloneEnergy()
+    {
+        return energyBigClone;
+    }
+
+    public GameObject GetSmallCloneEnergy()
+    {
+        return energySmallClone;
     }
 }
