@@ -9,6 +9,7 @@ public class SmallCloneController : MonoBehaviour
     private PerspectiveSwitch perspectiveSwitch;
     private SpriteRenderer spriteRenderer;
     private Transform transformSmallClone;
+    public GameObject energyImage;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
@@ -23,6 +24,7 @@ public class SmallCloneController : MonoBehaviour
         InitializeComponents();
         ApplySizeModifier();
         CinemachineSingleton.Instance.SetSmallClone(transformSmallClone);
+        GameManager.Instance.SetSmallCloneEnergy(energyImage);
     }
 
     private void InitializeComponents()

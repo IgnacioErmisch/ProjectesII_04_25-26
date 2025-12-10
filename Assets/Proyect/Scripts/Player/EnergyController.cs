@@ -103,15 +103,15 @@ public class EnergyController : MonoBehaviour
         {
             currentEnergy -= amount;
             currentEnergy = Mathf.Max(currentEnergy, 0f);
-            energyPlayer.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f);
             OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
+            energyPlayer.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); 
             if (energyBigClone != null)
             {
-                energyBigClone.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); ;
+                energyBigClone.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); 
             }
             if (energySmallClone != null)
             {
-                energySmallClone.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); ;
+                energySmallClone.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); 
             }
             CheckDeath();
         }
@@ -160,6 +160,11 @@ public class EnergyController : MonoBehaviour
     public float GetCurrentEnergy()
     {
         return currentEnergy;
+    }
+
+    public float GetMaxEnergy()
+    {
+        return maxEnergy;
     }
 
     public void GetBigClone(Image image)
