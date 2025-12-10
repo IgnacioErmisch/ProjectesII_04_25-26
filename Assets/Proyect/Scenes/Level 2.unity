@@ -49711,6 +49711,10 @@ PrefabInstance:
       propertyPath: cloneSpawnPoint
       value: 
       objectReference: {fileID: 607243068}
+    - target: {fileID: 1709634779136955750, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 3707068521133180164, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -49843,6 +49847,10 @@ PrefabInstance:
       propertyPath: cloneSpawnPoint
       value: 
       objectReference: {fileID: 607243068}
+    - target: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 396160206374538548, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
