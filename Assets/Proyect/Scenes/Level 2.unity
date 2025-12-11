@@ -28489,6 +28489,18 @@ PrefabInstance:
       propertyPath: antiCloneZone
       value: 
       objectReference: {fileID: 1447433228}
+    - target: {fileID: 7551786277891862393, guid: 402f7450b987bf14a8ea93b816bdf8af, type: 3}
+      propertyPath: m_Size.y
+      value: 0.51659775
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551786277891862393, guid: 402f7450b987bf14a8ea93b816bdf8af, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.06412506
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551786277891862393, guid: 402f7450b987bf14a8ea93b816bdf8af, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28754,6 +28766,10 @@ PrefabInstance:
       propertyPath: rightLimit
       value: 
       objectReference: {fileID: 1993700805}
+    - target: {fileID: 8369400868110152766, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -48302,7 +48318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1332551309}
   playerMovement: {fileID: 1886438632}
-  combatController: {fileID: 159555412}
+  playerJump: {fileID: 5435904900046934716}
 --- !u!1 &1344617710 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1635217541218530971, guid: 342d6971623396448822f2204dd92246, type: 3}
@@ -49788,6 +49804,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1020517440}
     - target: {fileID: 4682376492252064245, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4682376492252064245, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: switchInterface
       value: 
       objectReference: {fileID: 1998334454}
@@ -49851,6 +49871,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.71
       objectReference: {fileID: 0}
+    - target: {fileID: 6595192762629193903, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: maxJumps
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6705730991523056497, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -49878,6 +49902,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 396160206374538548, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+    - {fileID: 6858776554931627020, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 803699521442944123, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       insertIndex: -1

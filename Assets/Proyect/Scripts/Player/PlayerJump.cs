@@ -67,6 +67,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private float coyoteTime = 0.2f;
     [SerializeField] private int maxJumps = 1;
     [SerializeField] private int jumpCounter = 0;
+    public bool isJumping;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
@@ -92,10 +93,14 @@ public class PlayerJump : MonoBehaviour
 
     private void Update()
     {
+       
+        bool wasGrounded = isGrounded;
+
         isGrounded = groundChecker.IsGrounded();
         coyoteTimer.Update(isGrounded);
 
-        if(isGrounded && !RunParticles.isPlaying)
+   
+        if (isGrounded && !RunParticles.isPlaying)
         {
             RunParticles.Play();
         }
@@ -104,13 +109,17 @@ public class PlayerJump : MonoBehaviour
             RunParticles.Stop();
         }
 
-        if (isGrounded)
+        if (isGrounded && !wasGrounded)
         {
             jumpCounter = 0;
+            isJumping = false;
         }
 
+     
         if (Input.GetKeyDown(KeyCode.Space) && perspectiveSwitch.GetControllingPlayer())
         {
+            isJumping = true;
+
             if ((coyoteTimer.CanJump() && jumpCounter < maxJumps) || jumpCounter < maxJumps)
             {
                 JumpParticles.Play();

@@ -4,7 +4,8 @@ public class PlayerAnimatorController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerCombatController combatController;
+    [SerializeField] private PlayerJump playerJump;
+   
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -14,7 +15,7 @@ public class PlayerAnimatorController : MonoBehaviour
     void Update()
     {
         PlayWalkAnimation();
-        PlayAttackAnimation();
+        PlayJumpAnimation();
     }
 
     private void PlayWalkAnimation()
@@ -29,16 +30,16 @@ public class PlayerAnimatorController : MonoBehaviour
         }
     }
 
-    private void PlayAttackAnimation()
+    private void PlayJumpAnimation()
     {
-        if (combatController.isAttacking)
+        if (playerJump.isJumping)
         {
-            animator.SetBool("isAttacking", true);
+            animator.SetBool("isJumping", true);
 
         }
         else
         {
-            animator.SetBool("isAttacking", false);
+            animator.SetBool("isJumping", false);
         }
     }
 }
