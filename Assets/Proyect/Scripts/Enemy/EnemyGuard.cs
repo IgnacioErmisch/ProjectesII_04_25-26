@@ -37,6 +37,9 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField] private int jumpsHitDamage;
+    
+
     private enum State { Patrol, Chase, Attack, Dead }
     private State currentState = State.Patrol;
     private bool movingRight = true;

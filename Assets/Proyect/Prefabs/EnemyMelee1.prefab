@@ -78,9 +78,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1000457679
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: 679629863
+  m_SortingLayer: 4
+  m_SortingOrder: 1
   m_Sprite: {fileID: -187204711, guid: c68d1c3a67d549d49bffee1596de6c6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -104,7 +104,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100000
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -185,6 +185,7 @@ MonoBehaviour:
   knockbackForce: 8
   knockbackDuration: 0.4
   animator: {fileID: 0}
+  jumpsHitDamage: 0
 --- !u!1 &1554638934087737503
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +198,7 @@ GameObject:
   - component: {fileID: 5998900398842779379}
   m_Layer: 9
   m_Name: HitCollider
-  m_TagString: BasicGuardHitCollider
+  m_TagString: HitCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

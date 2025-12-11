@@ -255,7 +255,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46dfa8a320ed19a4c8b7e105dbf02370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceEnemy: 100
+  rb: {fileID: 0}
+  jumpDamage: 25
+  dashKnockbackForce: 0
 --- !u!1 &5316104002196046662
 GameObject:
   m_ObjectHideFlags: 0
