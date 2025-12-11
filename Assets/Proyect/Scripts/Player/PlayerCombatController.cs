@@ -1,13 +1,15 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
-
 
 public class PlayerCombatController : MonoBehaviour, IDamageable
 {
-
+    [Header("Health Settings")]
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private bool canRegenerate = true;
+    [SerializeField] private float regenerationRate = 5f;
+    [SerializeField] private float regenerationDelay = 3f;
 
+    [Header("Attack Settings")]
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackDamage = 20f;
     [SerializeField] private float attackRange = 1f;
@@ -15,67 +17,48 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float knockbackForce = 10f;
 
-
+    [Header("Knockback Settings")]
     [SerializeField] private float playerKnockbackForce = 5f;
     [SerializeField] private float playerKnockbackDuration = 0.3f;
     [SerializeField] private float invulnerabilityDuration = 1f;
 
+    [Header("Components")]
     [SerializeField] private Animator animator;
 
-
-    
     private HealthSystem healthSystem;
-    private PlayerMeleeAttack meleeAttack;
     private KnockbackSystem knockbackSystem;
     private Rigidbody2D rb;
-   
+    private float lastAttackTime;
+
     private float lastDamageTime;
     private bool isInvulnerable;
     public bool isAttacking;
-    [SerializeField] private bool canRegenerate = true;
-    [SerializeField] private float regenerationRate = 5f; 
-    [SerializeField] private float regenerationDelay = 3f; 
 
-    
     public event System.Action OnPlayerDeath;
-    public event System.Action<float, float> OnHealthChanged; 
+    public event System.Action<float, float> OnHealthChanged;
 
     private void Awake()
     {
-        InitializeSystems();
-    }
-
-    private void Start()
-    {
-       
-        OnHealthChanged?.Invoke(healthSystem.GetCurrentHealth(), healthSystem.GetMaxHealth());
-    }
-
-    private void InitializeSystems()
-    {
         rb = GetComponent<Rigidbody2D>();
 
-        
-        healthSystem = new HealthSystem(maxHealth);
+        healthSystem = gameObject.AddComponent<HealthSystem>();
+        healthSystem.SetMaxHealth(maxHealth);
         healthSystem.OnHealthChanged += (currentHealth) =>
         {
             OnHealthChanged?.Invoke(currentHealth, healthSystem.GetMaxHealth());
         };
         healthSystem.OnDeath += HandleDeath;
 
-       
-        meleeAttack = new PlayerMeleeAttack(
-            attackPoint,
-            attackDamage,
-            attackRange,
-            attackCooldown,
-            enemyLayer,
-            knockbackForce
-        );
-       
+        knockbackSystem = gameObject.AddComponent<KnockbackSystem>();
+        knockbackSystem.SetKnockbackForce(playerKnockbackForce);
+        knockbackSystem.SetKnockbackDuration(playerKnockbackDuration);
 
-       
-        knockbackSystem = new KnockbackSystem(rb, playerKnockbackForce, playerKnockbackDuration);
+        lastAttackTime = -attackCooldown;
+    }
+
+    private void Start()
+    {
+        OnHealthChanged?.Invoke(healthSystem.GetCurrentHealth(), healthSystem.GetMaxHealth());
     }
 
     private void Update()
@@ -83,23 +66,36 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         knockbackSystem.Update();
         UpdateInvulnerability();
         UpdateRegeneration();
-        
+
         if (Input.GetMouseButtonDown(0) && !knockbackSystem.IsKnockedBack())
         {
             if (!isAttacking)
             {
                 PerformAttack();
-
             }
-
         }
-       
     }
 
-  
     public void PerformAttack()
     {
-        meleeAttack.Attack();
+        if (Time.time - lastAttackTime < attackCooldown) return;
+
+        lastAttackTime = Time.time;
+
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            IDamageable damageable = enemy.GetComponent<IDamageable>();
+            if (damageable != null && !damageable.IsDead())
+            {
+                Vector2 knockbackDirection = (enemy.transform.position - attackPoint.position).normalized;
+                knockbackDirection.y = 0.3f;
+
+                damageable.TakeDamage(attackDamage, knockbackDirection * knockbackForce);
+            }
+        }
+
         StartCoroutine(AttackAnimation());
     }
 
@@ -145,10 +141,12 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     {
         return healthSystem.IsDead();
     }
+
     public float GetCurrentHealth()
     {
         return healthSystem.GetCurrentHealth();
     }
+
     public float GetMaxHealth()
     {
         return healthSystem.GetMaxHealth();
@@ -158,6 +156,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     {
         return healthSystem.ResetHealth();
     }
+
     private void UpdateInvulnerability()
     {
         if (isInvulnerable && Time.time - lastDamageTime >= invulnerabilityDuration)
@@ -169,9 +168,8 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     private void HandleDeath()
     {
         OnPlayerDeath?.Invoke();
-
-       
     }
+
     public Transform GetAttackPoint()
     {
         return attackPoint;
@@ -182,16 +180,9 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         healthSystem.Heal(amount);
     }
 
-   
-
     private void OnDrawGizmosSelected()
     {
-     
-        if (meleeAttack != null)
-        {
-            meleeAttack.DrawGizmos();
-        }
-        else if (attackPoint != null)
+        if (attackPoint != null)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);

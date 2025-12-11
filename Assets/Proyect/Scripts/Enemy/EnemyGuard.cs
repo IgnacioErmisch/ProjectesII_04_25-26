@@ -47,17 +47,20 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        InitializeSystems();
-    }
-
-    private void InitializeSystems()
-    {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        healthSystem = new HealthSystem(maxHealth);
+
+        healthSystem = gameObject.AddComponent<HealthSystem>();
+        healthSystem.SetMaxHealth(maxHealth);
         healthSystem.OnDeath += HandleDeath;
-        detectionSystem = new RadiusDetectionSystem(transform, detectionRadius, playerLayer);
-        knockbackSystem = new KnockbackSystem(rb, knockbackForce, knockbackDuration);
+
+        detectionSystem = gameObject.AddComponent<RadiusDetectionSystem>();
+        detectionSystem.SetDetectionRadius(detectionRadius);
+        detectionSystem.SetTargetLayer(playerLayer);
+
+        knockbackSystem = gameObject.AddComponent<KnockbackSystem>();
+        knockbackSystem.SetKnockbackForce(knockbackForce);
+        knockbackSystem.SetKnockbackDuration(knockbackDuration);
 
         if (rb != null)
         {
@@ -71,7 +74,6 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
         }
         else
         {
-            
             originalAttackPointLocalPosition = attackPoint.localPosition;
         }
     }
@@ -270,17 +272,20 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
 
     private void FlipSprite(bool flipLeft)
     {
-      
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = flipLeft;
+        }
+
         if (attackPoint != null && attackPoint != transform)
         {
             Vector3 newPosition = originalAttackPointLocalPosition;
 
-           
             if (flipLeft)
             {
                 newPosition.x = -Mathf.Abs(originalAttackPointLocalPosition.x);
             }
-            else 
+            else
             {
                 newPosition.x = Mathf.Abs(originalAttackPointLocalPosition.x);
             }

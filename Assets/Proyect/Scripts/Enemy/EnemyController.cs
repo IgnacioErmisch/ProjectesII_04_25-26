@@ -2,43 +2,35 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-
     [SerializeField] private float speed;
     [SerializeField] private GameObject leftLimit;
     [SerializeField] private GameObject rightLimit;
-    [SerializeField] private bool hitLeft;
-    [SerializeField] private bool hitRight;
-
-
-
     [SerializeField] private float enemyRadius;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject enemy;
 
+    private bool hitLeft;
+    private bool hitRight;
     private EnemyMovement enemyMovement;
     private EnemyChase enemyChase;
 
     private void Awake()
     {
-        InitializeComponents();
+        enemyMovement = gameObject.AddComponent<EnemyMovement>();
+        enemyMovement.speed = speed;
+        enemyMovement.leftLimit = leftLimit;
+        enemyMovement.rightLimit = rightLimit;
+        enemyMovement.enemyTransform = transform;
+
+        enemyChase = gameObject.AddComponent<EnemyChase>();
+        enemyChase.speed = speed;
+        enemyChase.player = player;
+        enemyChase.enemyRadius = enemyRadius;
+        enemyChase.enemy = gameObject;
     }
-
-    void Start()
-    {
-
-    }
-
-    private void InitializeComponents()
-    {
-        enemyMovement = new EnemyMovement(speed, leftLimit, rightLimit, hitLeft, hitRight, transform);
-        enemyChase = new EnemyChase(speed, player, enemyRadius, enemy);
-    }
-
 
     void Update()
     {
         bool chasing = enemyChase.PlayerInTarget();
-
         if (!chasing)
         {
             enemyMovement.EnemyMove();
@@ -52,7 +44,6 @@ public class EnemyController : MonoBehaviour
             enemyMovement.hitLeft = true;
             enemyMovement.hitRight = false;
         }
-
         if (collision.gameObject == rightLimit)
         {
             enemyMovement.hitRight = true;
@@ -63,7 +54,50 @@ public class EnemyController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(enemy.transform.position, enemyRadius);
-        
+        Gizmos.DrawWireSphere(transform.position, enemyRadius);
+    }
+}
+
+public class EnemyMovement : MonoBehaviour
+{
+    public float speed;
+    public GameObject leftLimit;
+    public GameObject rightLimit;
+    public bool hitLeft;
+    public bool hitRight;
+    public Transform enemyTransform;
+
+    public void EnemyMove()
+    {
+        if (hitLeft)
+        {
+            enemyTransform.Translate(Vector3.right * speed * Time.deltaTime);
+        }
+        else if (hitRight)
+        {
+            enemyTransform.Translate(Vector3.left * speed * Time.deltaTime);
+        }
+    }
+}
+
+public class EnemyChase : MonoBehaviour
+{
+    public float speed;
+    public GameObject player;
+    public GameObject enemy;
+    public float enemyRadius;
+
+    public bool PlayerInTarget()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(enemy.transform.position, enemyRadius);
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject == player)
+            {
+                enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, speed * Time.deltaTime);
+                return true;
+            }
+        }
+        return false;
     }
 }
