@@ -259,6 +259,11 @@ MonoBehaviour:
   dashSpeed: 3
   dashDuration: 0.5
   dashCooldown: 1
+  dashDamage: 999
+  dashKnockbackForce: 15
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   rb: {fileID: 1825444696045487236}
 --- !u!1 &7587641919788009837
 GameObject:
