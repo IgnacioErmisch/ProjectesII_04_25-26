@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 1825444696045487236}
   - component: {fileID: 6064560242407736156}
   - component: {fileID: 4937383365458126528}
+  - component: {fileID: 2940650665584716740}
   m_Layer: 6
   m_Name: BigClone
   m_TagString: BigClone
@@ -243,6 +244,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.262991, y: 1.5977058}
   m_EdgeRadius: 0
+--- !u!114 &2940650665584716740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6003483819887161510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae191a75ad3108140ba67dd65f0bd147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashSpeed: 3
+  dashDuration: 0.5
+  dashCooldown: 1
+  rb: {fileID: 1825444696045487236}
 --- !u!1 &7587641919788009837
 GameObject:
   m_ObjectHideFlags: 0
