@@ -79,7 +79,7 @@ public class BigCloneAttack : MonoBehaviour
 
                 if (damageable != null && !damageable.IsDead())
                 {
-                    
+                   
                     Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
                     damageable.TakeDamage(dashDamage, knockbackDirection * dashKnockbackForce);
 
