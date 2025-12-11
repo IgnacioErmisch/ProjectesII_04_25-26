@@ -6,6 +6,9 @@ public class BigCloneAttack : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashCooldown;
+    [SerializeField] private float dashDamage = 999f; // Daño letal
+    [SerializeField] private float dashKnockbackForce = 15f;
+    [SerializeField] private LayerMask enemyLayer; // Capa de enemigos
     [SerializeField] private Rigidbody2D rb;
 
     private bool isDashing = false;
@@ -20,17 +23,14 @@ public class BigCloneAttack : MonoBehaviour
 
     void Update()
     {
-       
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !isDashing)
         {
             StartDash();
         }
 
-      
         if (isDashing)
         {
             dashTimer -= Time.deltaTime;
-
             if (dashTimer <= 0)
             {
                 StopDash();
@@ -40,7 +40,6 @@ public class BigCloneAttack : MonoBehaviour
         if (!canDash)
         {
             cooldownTimer -= Time.deltaTime;
-
             if (cooldownTimer <= 0)
             {
                 canDash = true;
@@ -52,7 +51,6 @@ public class BigCloneAttack : MonoBehaviour
     {
         if (isDashing)
         {
-            
             rb.linearVelocity = new Vector2(rb.linearVelocity.x * dashSpeed, rb.linearVelocity.y);
         }
     }
@@ -63,18 +61,32 @@ public class BigCloneAttack : MonoBehaviour
         canDash = false;
         dashTimer = dashDuration;
         cooldownTimer = dashCooldown;
-
     }
 
     void StopDash()
     {
         isDashing = false;
-
-      
         rb.linearVelocity = new Vector2(rb.linearVelocity.x * 0.5f, rb.linearVelocity.y);
-
-        Debug.Log("Dash terminado");
     }
 
+ 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isDashing)
+        {
+            
+            IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
 
+                if (damageable != null && !damageable.IsDead())
+                {
+                    
+                    Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                    damageable.TakeDamage(dashDamage, knockbackDirection * dashKnockbackForce);
+
+                    
+                }
+        }
+    }
 }
+
+
