@@ -2,23 +2,21 @@ using UnityEngine;
 
 public class ElectricPulse : MonoBehaviour
 {
-    private float damage;
-    private float speed;
-    private float radius;
-    private LayerMask playerLayer;
-    private LayerMask groundLayer;
+    [Header("Pulse Settings")]
+    public float damage = 15f;
+    public float speed = 8f;
+    public float radius = 3f;
+    [SerializeField] private float lifetime = 3f;
+
+    [Header("Layer Settings")]
+    public LayerMask playerLayer;
+    public LayerMask groundLayer;
+
     private bool hasHit;
 
-    public void Initialize(float damage, float speed, float radius, LayerMask playerLayer, LayerMask groundLayer)
+    private void Start()
     {
-        this.damage = damage;
-        this.speed = speed;
-        this.radius = radius;
-        this.playerLayer = playerLayer;
-        this.groundLayer = groundLayer;
-        this.hasHit = false;
-
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, lifetime);
     }
 
     private void Update()
@@ -59,6 +57,7 @@ public class ElectricPulse : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (hasHit) return;

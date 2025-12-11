@@ -43,7 +43,34 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        InitializeSystems();
+        rb = GetComponent<Rigidbody2D>();
+
+        healthSystem = gameObject.AddComponent<HealthSystem>();
+        healthSystem.SetMaxHealth(maxHealth);
+        healthSystem.OnDeath += HandleDeath;
+
+        detectionSystem = gameObject.AddComponent<RadiusDetectionSystem>();
+        detectionSystem.SetDetectionRadius(detectionRadius);
+        detectionSystem.SetTargetLayer(playerLayer);
+
+        knockbackSystem = gameObject.AddComponent<KnockbackSystem>();
+        knockbackSystem.SetKnockbackForce(knockbackForce);
+        knockbackSystem.SetKnockbackDuration(knockbackDuration);
+
+        if (rb != null)
+        {
+            rb.gravityScale = 0f;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
+        }
+
+        if (pulseSpawnPoint == null)
+        {
+            pulseSpawnPoint = transform;
+        }
+        else
+        {
+            originalPulseSpawnPointLocalPosition = pulseSpawnPoint.localPosition;
+        }
     }
 
     private void Start()
@@ -56,29 +83,6 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
 
         transform.position = new Vector2(transform.position.x, patrolHeight);
         nextPulseTime = Time.time + pulseInterval;
-
-    
-       
-    }
-
-    private void InitializeSystems()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        healthSystem = new HealthSystem(maxHealth);
-        healthSystem.OnDeath += HandleDeath;
-        detectionSystem = new RadiusDetectionSystem(transform, detectionRadius, playerLayer);
-        knockbackSystem = new KnockbackSystem(rb, knockbackForce, knockbackDuration);
-
-        if (rb != null)
-        {
-            rb.gravityScale = 0f;
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
-        }
-
-        if (pulseSpawnPoint == null)
-        {
-            pulseSpawnPoint = transform;
-        }
     }
 
     private void Update()
@@ -129,7 +133,13 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
 
             ElectricPulse pulseScript = pulse.GetComponent<ElectricPulse>();
             if (pulseScript != null)
-                pulseScript.Initialize(pulseDamage, pulseSpeed, pulseRadius, playerLayer, groundLayer);
+            {
+                pulseScript.damage = pulseDamage;
+                pulseScript.speed = pulseSpeed;
+                pulseScript.radius = pulseRadius;
+                pulseScript.playerLayer = playerLayer;
+                pulseScript.groundLayer = groundLayer;
+            }
         }
         else
         {
@@ -182,21 +192,18 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
 
     private void FlipSprite(bool flipLeft)
     {
-        
         if (spriteRenderer != null)
             spriteRenderer.flipX = flipLeft;
 
-       
         if (pulseSpawnPoint != null && pulseSpawnPoint != transform)
         {
             Vector3 newPosition = originalPulseSpawnPointLocalPosition;
 
-            
             if (flipLeft)
             {
                 newPosition.x = -Mathf.Abs(originalPulseSpawnPointLocalPosition.x);
             }
-            else 
+            else
             {
                 newPosition.x = Mathf.Abs(originalPulseSpawnPointLocalPosition.x);
             }
