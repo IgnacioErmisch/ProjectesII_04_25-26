@@ -34,11 +34,12 @@ public class CloneSpawner : MonoBehaviour
         if (!energyController.TryConsumeInitialCost(isSmallClone))
             return false;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position,3f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position,spawnPosition.x, groundLayer);
         Debug.Log(hit.rigidbody != null);
         if(hit.rigidbody == null)
 
         {
+        Debug.Log("Bueno");   
             currentClone = Instantiate(clonePrefab, spawnPosition, Quaternion.identity);
             cloneActive = true;
             playerCamera.transform.SetParent(currentClone.transform);
@@ -50,6 +51,7 @@ public class CloneSpawner : MonoBehaviour
         }
         else
         {
+        Debug.Log("Malo");   
             currentClone = Instantiate(clonePrefab, transform.position, Quaternion.identity);
             cloneActive = true;
             playerCamera.transform.SetParent(currentClone.transform);
@@ -69,7 +71,7 @@ public class CloneSpawner : MonoBehaviour
         Vector3 spawnPosition = cloneSpawnPoint.position;
         Gizmos.DrawLine(transform.position, spawnPosition);
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position, 3f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position, 2, groundLayer);
         if (hit.rigidbody != null)
         {
             Gizmos.DrawSphere((Vector3)hit.point, 0.2f);

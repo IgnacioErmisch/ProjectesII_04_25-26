@@ -26933,7 +26933,7 @@ Transform:
   m_GameObject: {fileID: 607243067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.05, y: 0.5, z: 0}
+  m_LocalPosition: {x: 2.05, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49995,7 +49995,7 @@ MonoBehaviour:
   bigCloneSpawner: {fileID: 5435904900046934714}
   smallCloneSpawner: {fileID: 159555413}
   switchInterface: {fileID: 1998334454}
-  cloneSpawnerPoint: {fileID: 607243068}
+  cloneSpawnerPoint: {fileID: 0}
   playerJump: {fileID: 5435904900046934716}
   QBigClone: {fileID: 533474803}
   QSmallClone: {fileID: 1020517440}
