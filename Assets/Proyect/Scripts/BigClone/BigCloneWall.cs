@@ -38,6 +38,7 @@ public class BigCloneWallDestroyer
     public WallContactDetector wallContact;
     public WallDestructor wallDestructor;
     public bool isAttacking;
+    [SerializeField] private BigCloneAttack bigCloneAttack;
     public BigCloneWallDestroyer(WallContactDetector wallContact, WallDestructor wallDestructor)
     {
         this.wallContact = wallContact;

@@ -12,6 +12,7 @@ public class BigCloneController : MonoBehaviour
     private WallContactDetector wallContactDetector;
     private WallDestructor wallDestructor;
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
+    [SerializeField] private BigCloneAttack bigCloneAttack;
 
 
     private void Awake()

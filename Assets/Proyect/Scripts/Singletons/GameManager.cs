@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        _player = GameObject.Find("PJ");
+    }
+
     public GameObject GetPlayer()
     {
         return _player;

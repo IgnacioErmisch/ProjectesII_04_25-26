@@ -11,7 +11,7 @@ public class BigCloneAttack : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer; // Capa de enemigos
     [SerializeField] private Rigidbody2D rb;
 
-    private bool isDashing = false;
+    public bool isDashing = false;
     private bool canDash = true;
     private float dashTimer = 0f;
     private float cooldownTimer = 0f;
