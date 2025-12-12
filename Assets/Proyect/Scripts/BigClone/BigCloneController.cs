@@ -40,12 +40,8 @@ public class BigCloneController : MonoBehaviour
         wallContactDetector = new WallContactDetector();
         wallDestructor = new WallDestructor();
 
-        // --- CORREGIDO: constructor completo ---
-        wallDestroyer = new BigCloneWallDestroyer(
-            wallContactDetector,
-            wallDestructor,
-            bigCloneAttack    // <-- ahora sí entra la dependencia correcta
-        );
+        
+        wallDestroyer = new BigCloneWallDestroyer(wallContactDetector,wallDestructor,bigCloneAttack);
 
         perspectiveSwitch = FindFirstObjectByType<PerspectiveSwitch>();
     }

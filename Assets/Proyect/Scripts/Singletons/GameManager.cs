@@ -19,13 +19,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            Instance._player = _player;
+            Instance.perspectiveSwitch = perspectiveSwitch;
             Destroy(gameObject);
         }
-    }
-
-    private void Update()
-    {
-        _player = GameObject.Find("PJ");
     }
 
     public GameObject GetPlayer()

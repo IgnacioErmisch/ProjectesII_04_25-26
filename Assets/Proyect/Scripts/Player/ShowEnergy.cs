@@ -51,10 +51,14 @@ public class ShowEnergy : MonoBehaviour
         if (!perspectiveSwitch.controllingPlayer)
         {
             energyPlayer.SetActive(false);
-            if (energyBigClone != null && bigCloneSpawner.cloneActive) 
+            if (energyBigClone != null && bigCloneSpawner.cloneActive)
+                {Debug.Log("Barra Gordo");
                 energyBigClone.SetActive(true);
-            if (energySmallClone != null && smallCloneSpawner.cloneActive) 
+            }
+            if (energySmallClone != null && smallCloneSpawner.cloneActive)
+                {Debug.Log("Barra Nacho");
                 energySmallClone.SetActive(true);
+            }
         }
 
         if (!bigCloneSpawner.cloneActive && !smallCloneSpawner.cloneActive && energyController.GetCurrentEnergy() == energyController.GetMaxEnergy())
