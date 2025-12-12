@@ -272,7 +272,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 5435904900046934705}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886438627}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94d975d016f60c8498b3c947377af3a9, type: 3}
   m_Name: 
@@ -26530,6 +26530,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a91e81e18ef23304198a4b2373b77c51, type: 3}
+--- !u!4 &492653716 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2756181877665876585, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+  m_PrefabInstance: {fileID: 5435904900046934705}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &516981903 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2402269432518619640, guid: 86ecc1f515d5efd40bdd66c151a97b16, type: 3}
@@ -30702,7 +30707,7 @@ Tilemap:
       - {fileID: 1304145915, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
-      m_AnimationSpeed: 6
+      m_AnimationSpeed: 6.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 153, y: 28, z: 0}
@@ -49732,6 +49737,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1709634779136955750, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1709634779136955750, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: cloneSpawnPoint
       value: 
       objectReference: {fileID: 607243068}
@@ -49868,9 +49877,21 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: cloneBigPrefab
+      value: 
+      objectReference: {fileID: 6003483819887161510, guid: 278fdf5f4d49e4049aa0a26d00d576e4, type: 3}
+    - target: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: cloneSpawnPoint
       value: 
       objectReference: {fileID: 607243068}
+    - target: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: switchInterface
+      value: 
+      objectReference: {fileID: 1998334454}
+    - target: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: cloneSmallPrefab
+      value: 
+      objectReference: {fileID: 1887023663289730442, guid: 7123dcf322269324eace1f4f9ac51578, type: 3}
     - target: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 64
@@ -49992,10 +50013,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5390da918b54e2d449fa3062b8dffc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bigCloneSpawner: {fileID: 5435904900046934714}
-  smallCloneSpawner: {fileID: 159555413}
+  CloneSpawner: {fileID: 5435904900046934714}
   switchInterface: {fileID: 1998334454}
-  cloneSpawnerPoint: {fileID: 0}
+  cloneSpawnerPoint: {fileID: 492653716}
   playerJump: {fileID: 5435904900046934716}
   QBigClone: {fileID: 533474803}
   QSmallClone: {fileID: 1020517440}
