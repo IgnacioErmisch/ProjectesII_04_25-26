@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 4682376492252064245}
   - component: {fileID: 6595192762629193903}
   - component: {fileID: 7564787060841960555}
-  - component: {fileID: 1709634779136955750}
   - component: {fileID: 4502971120696559688}
   - component: {fileID: 4262907973614035345}
   m_Layer: 8
@@ -160,7 +159,7 @@ MonoBehaviour:
   isMoving: 0
   perspectiveSwitch: {fileID: 4262907973614035345}
   attackPoint: {fileID: 6094283585800770578}
-  cloneSpawnerPoint: {fileID: 0}
+  cloneSpawnerPoint: {fileID: 2756181877665876585}
 --- !u!114 &6595192762629193903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,36 +201,13 @@ MonoBehaviour:
   energyController: {fileID: 5557642741559168900}
   perspectiveSwitch: {fileID: 4262907973614035345}
   cinemachineSingleton: {fileID: 0}
-  clonePrefab: {fileID: 6003483819887161510, guid: 278fdf5f4d49e4049aa0a26d00d576e4, type: 3}
+  switchInterface: {fileID: 0}
+  cloneSmallPrefab: {fileID: 1887023663289730442, guid: 7123dcf322269324eace1f4f9ac51578, type: 3}
+  cloneBigPrefab: {fileID: 6003483819887161510, guid: 278fdf5f4d49e4049aa0a26d00d576e4, type: 3}
   spawnOffset: {x: 2, y: 0, z: 0}
   isSmallClone: 0
   spawners: []
-  cloneSpawnPoint: {fileID: 0}
-  playerCamera: {fileID: 6773113138284326154}
-  cloneActive: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!114 &1709634779136955750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240527483314117475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d975d016f60c8498b3c947377af3a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energyController: {fileID: 5557642741559168900}
-  perspectiveSwitch: {fileID: 4262907973614035345}
-  cinemachineSingleton: {fileID: 0}
-  clonePrefab: {fileID: 1887023663289730442, guid: 7123dcf322269324eace1f4f9ac51578, type: 3}
-  spawnOffset: {x: 2, y: 0, z: 0}
-  isSmallClone: 1
-  spawners: []
-  cloneSpawnPoint: {fileID: 0}
+  cloneSpawnPoint: {fileID: 2756181877665876585}
   playerCamera: {fileID: 6773113138284326154}
   cloneActive: 0
   groundLayer:

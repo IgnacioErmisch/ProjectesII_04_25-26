@@ -45,13 +45,13 @@ public class CloneSpawner : MonoBehaviour
             if(switchInterface.GetBigCloneSelected())
             {
                 Debug.Log("Grande");
-                currentClone = Instantiate(cloneBigPrefab, spawnPosition, Quaternion.identity); 
+                currentClone = Instantiate(cloneBigPrefab, spawnPosition + Vector3.up, Quaternion.identity); 
             }
             else if (switchInterface.GetSmallCloneSelected())
             { 
 
                 Debug.Log("Pequeño");
-                currentClone = Instantiate(cloneSmallPrefab, spawnPosition, Quaternion.identity);
+                currentClone = Instantiate(cloneSmallPrefab, spawnPosition + Vector3.up , Quaternion.identity);
             }
             cloneActive = true;
             playerCamera.transform.SetParent(currentClone.transform);
@@ -80,9 +80,9 @@ public class CloneSpawner : MonoBehaviour
             perspectiveSwitch.SwitchToClone();
             energyController.RegisterClone(currentClone, isSmallClone);
             if(spawnPosition.x - transform.position.x > 0)
-                transform.position += new Vector3(-3f, 0,0);
+                transform.position += new Vector3(-2f, 0,0);
             else
-                transform.position += new Vector3(3f, 0,0);
+                transform.position += new Vector3(2f, 0,0);
 
                 return true;
         }

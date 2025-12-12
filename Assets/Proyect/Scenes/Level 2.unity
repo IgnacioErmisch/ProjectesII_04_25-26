@@ -266,17 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdda2c51fe05cc84ba3aca6076fb41fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &159555413 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1709634779136955750, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
-  m_PrefabInstance: {fileID: 5435904900046934705}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886438627}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d975d016f60c8498b3c947377af3a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &159555419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 803699521442944123, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
@@ -30707,7 +30696,7 @@ Tilemap:
       - {fileID: 1304145915, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
-      m_AnimationSpeed: 6.0000005
+      m_AnimationSpeed: 6
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 153, y: 28, z: 0}
@@ -49767,7 +49756,7 @@ PrefabInstance:
     - target: {fileID: 4262907973614035345, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: smallCloneSpawner
       value: 
-      objectReference: {fileID: 159555413}
+      objectReference: {fileID: 0}
     - target: {fileID: 4492489314801187546, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -49807,7 +49796,7 @@ PrefabInstance:
     - target: {fileID: 4682376492252064245, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: smallCloneSpawner
       value: 
-      objectReference: {fileID: 159555413}
+      objectReference: {fileID: 0}
     - target: {fileID: 5338099875649414250, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -49896,7 +49885,8 @@ PrefabInstance:
       propertyPath: groundLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1709634779136955750, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
     m_RemovedGameObjects:
     - {fileID: 396160206374538548, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
     m_AddedGameObjects:
@@ -50045,7 +50035,7 @@ MonoBehaviour:
   energyPlayer: {fileID: 1759541075}
   perspectiveSwitch: {fileID: 5435904900046934709}
   bigCloneSpawner: {fileID: 5435904900046934714}
-  smallCloneSpawner: {fileID: 159555413}
+  smallCloneSpawner: {fileID: 0}
   energyController: {fileID: 259296856}
 --- !u!1001 &6130475728901848263
 PrefabInstance:
