@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class InputSpawnClone : MonoBehaviour
 {
-    [SerializeField] private CloneSpawner bigCloneSpawner;
-    [SerializeField] private CloneSpawner smallCloneSpawner;
+    [SerializeField] private CloneSpawner CloneSpawner;
+    //[SerializeField] private CloneSpawner smallCloneSpawner;
     [SerializeField] private SwitchInterface switchInterface;
     [SerializeField] private Transform cloneSpawnerPoint;
     [SerializeField] private PlayerJump playerJump;
@@ -20,14 +20,14 @@ public class InputSpawnClone : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetBigCloneSelected() && playerJump.isGrounded)
         {
-            bigCloneSpawner.TrySpawnClone();
+            CloneSpawner.TrySpawnClone();
             QBigClone.SetActive(true);
             QSmallClone.SetActive(false);
         }
 
         else if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetSmallCloneSelected() && playerJump.isGrounded)
         {
-            smallCloneSpawner.TrySpawnClone();
+            CloneSpawner.TrySpawnClone();
             QBigClone.SetActive(false);
             QSmallClone.SetActive(true);
         }
@@ -36,12 +36,12 @@ public class InputSpawnClone : MonoBehaviour
         {
             QBigClone.SetActive(false);
             QSmallClone.SetActive(false);
-            bigCloneSpawner.TryDespawnClone();
-            smallCloneSpawner.TryDespawnClone();
+            
+            CloneSpawner.TryDespawnClone();
         }
     }
     public bool IsAnyCloneActive()
     {
-        return bigCloneSpawner.cloneActive || smallCloneSpawner.cloneActive;
+        return CloneSpawner.cloneActive;
     }
 }

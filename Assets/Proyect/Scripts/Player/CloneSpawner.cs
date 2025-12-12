@@ -6,7 +6,9 @@ public class CloneSpawner : MonoBehaviour
     [SerializeField] private EnergyController energyController;
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private CinemachineSingleton cinemachineSingleton;
-    [SerializeField] private GameObject clonePrefab;
+    [SerializeField] private SwitchInterface switchInterface;
+    [SerializeField] private GameObject cloneSmallPrefab;
+    [SerializeField] private GameObject cloneBigPrefab;
     [SerializeField] private Vector3 spawnOffset = new Vector3(2f, 0f, 0f);
     [SerializeField] private bool isSmallClone = true;
     [SerializeField] private CloneSpawner[] spawners;
@@ -34,12 +36,23 @@ public class CloneSpawner : MonoBehaviour
         if (!energyController.TryConsumeInitialCost(isSmallClone))
             return false;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position,3f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position,2f, groundLayer);
         Debug.Log(hit.rigidbody != null);
         if(hit.rigidbody == null)
 
         {
-            currentClone = Instantiate(clonePrefab, spawnPosition, Quaternion.identity);
+         
+            if(switchInterface.GetBigCloneSelected())
+            {
+                Debug.Log("Grande");
+                currentClone = Instantiate(cloneBigPrefab, spawnPosition + Vector3.up, Quaternion.identity); 
+            }
+            else if (switchInterface.GetSmallCloneSelected())
+            { 
+
+                Debug.Log("Pequeño");
+                currentClone = Instantiate(cloneSmallPrefab, spawnPosition + Vector3.up , Quaternion.identity);
+            }
             cloneActive = true;
             playerCamera.transform.SetParent(currentClone.transform);
             playerCamera.transform.localPosition = new Vector3(2, 1, -5);
@@ -50,16 +63,26 @@ public class CloneSpawner : MonoBehaviour
         }
         else
         {
-            currentClone = Instantiate(clonePrefab, transform.position, Quaternion.identity);
+        
+            if (switchInterface.GetBigCloneSelected())
+            { 
+                currentClone = Instantiate(cloneBigPrefab, transform.position + Vector3.up * 2, Quaternion.identity); 
+                Debug.Log("Grande");
+            }
+            else if(switchInterface.GetSmallCloneSelected())
+            { 
+                currentClone = Instantiate(cloneSmallPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
+                Debug.Log("Pequeño");
+            }
             cloneActive = true;
             playerCamera.transform.SetParent(currentClone.transform);
             playerCamera.transform.localPosition = new Vector3(2, 1, -5);
             perspectiveSwitch.SwitchToClone();
             energyController.RegisterClone(currentClone, isSmallClone);
             if(spawnPosition.x - transform.position.x > 0)
-                transform.position += new Vector3(-3f, 0,0);
+                transform.position += new Vector3(-2f, 0,0);
             else
-                transform.position += new Vector3(3f, 0,0);
+                transform.position += new Vector3(2f, 0,0);
 
                 return true;
         }
@@ -69,7 +92,7 @@ public class CloneSpawner : MonoBehaviour
         Vector3 spawnPosition = cloneSpawnPoint.position;
         Gizmos.DrawLine(transform.position, spawnPosition);
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position, 3f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position, 2f, groundLayer);
         if (hit.rigidbody != null)
         {
             Gizmos.DrawSphere((Vector3)hit.point, 0.2f);
