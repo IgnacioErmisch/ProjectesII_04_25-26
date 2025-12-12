@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Vector3 originalAttackPointLocalPosition;
-    private Vector3 originalCloneSpawnerPointLocalPosition;
     private bool facingRight = true;
 
     void Start()
@@ -79,21 +78,20 @@ public class PlayerMovement : MonoBehaviour
         if (attackPoint != transform)
         {
             Vector3 newPosition = originalAttackPointLocalPosition;
-            Vector3 newPositionSpawner = originalCloneSpawnerPointLocalPosition;
 
             if (!facingRight)
             {
                 newPosition.x = -Mathf.Abs(originalAttackPointLocalPosition.x);
-                newPositionSpawner.x = -Mathf.Abs(originalCloneSpawnerPointLocalPosition.x + 0.6f);
+                cloneSpawnerPoint.localPosition = -cloneSpawnerPoint.localPosition;
             }
             else
             {
                 newPosition.x = Mathf.Abs(originalAttackPointLocalPosition.x);
-                newPositionSpawner.x = Mathf.Abs(originalCloneSpawnerPointLocalPosition.x);
+                cloneSpawnerPoint.localPosition = -cloneSpawnerPoint.localPosition;
+
             }
 
             attackPoint.localPosition = newPosition;
-            cloneSpawnerPoint.localPosition = newPositionSpawner;
         }
     }
 
