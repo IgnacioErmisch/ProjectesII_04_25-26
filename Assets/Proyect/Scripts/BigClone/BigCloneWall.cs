@@ -6,13 +6,8 @@ public class WallContactDetector
     private GameObject currentWall;
     private bool isTouching;
 
-    public bool IsTouchingWall() { 
-        return isTouching; 
-    }
-
-    public GameObject GetCurrentWall() { 
-        return currentWall;
-    }
+    public bool IsTouchingWall() { return isTouching; }
+    public GameObject GetCurrentWall() { return currentWall; }
 
     public void SetWallContact(GameObject wall, bool touching)
     {
@@ -35,28 +30,32 @@ public class WallDestructor
 
 public class BigCloneWallDestroyer
 {
-    public WallContactDetector wallContact;
-    public WallDestructor wallDestructor;
+    private WallContactDetector wallContact;
+    private WallDestructor wallDestructor;
+    private BigCloneAttack bigCloneAttack;
+
     public bool isAttacking;
-    [SerializeField] private BigCloneAttack bigCloneAttack;
-    public BigCloneWallDestroyer(WallContactDetector wallContact, WallDestructor wallDestructor)
+
+    // ---- NUEVO: Constructor completo ----
+    public BigCloneWallDestroyer(
+        WallContactDetector wallContact,
+        WallDestructor wallDestructor,
+        BigCloneAttack bigCloneAttack)
     {
         this.wallContact = wallContact;
         this.wallDestructor = wallDestructor;
+        this.bigCloneAttack = bigCloneAttack;
     }
 
     public void CheckAndDestroyWall()
     {
-        if (wallContact.IsTouchingWall() && Input.GetKeyDown(KeyCode.Mouse0))
+        
+        if (wallContact.IsTouchingWall() && bigCloneAttack.isDashing)
         {
-
             GameObject wall = wallContact.GetCurrentWall();
+
             if (wall != null)
-            {
                 wallDestructor.DestroyWall(wall);
-
-            }
-
         }
     }
 
@@ -72,4 +71,3 @@ public class BigCloneWallDestroyer
         runner.StartCoroutine(AttackAnimation());
     }
 }
-

@@ -68,33 +68,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        facingRight = !facingRight;
-
-        
-        
+        facingRight = !facingRight;     
         spriteRenderer.flipX = !facingRight;
         
-
-      
-        if (attackPoint != transform)
-        {
-            Vector3 newPosition = originalAttackPointLocalPosition;
+       
+            
             Vector3 newPositionSpawner = originalCloneSpawnerPointLocalPosition;
 
             if (!facingRight)
             {
-                newPosition.x = -Mathf.Abs(originalAttackPointLocalPosition.x);
+                
                 newPositionSpawner.x = -Mathf.Abs(originalCloneSpawnerPointLocalPosition.x + 0.6f);
             }
             else
             {
-                newPosition.x = Mathf.Abs(originalAttackPointLocalPosition.x);
+                
                 newPositionSpawner.x = Mathf.Abs(originalCloneSpawnerPointLocalPosition.x);
             }
 
-            attackPoint.localPosition = newPosition;
+           
             cloneSpawnerPoint.localPosition = newPositionSpawner;
-        }
+        
     }
 
     

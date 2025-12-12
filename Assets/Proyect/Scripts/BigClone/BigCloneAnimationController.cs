@@ -18,11 +18,11 @@ public class BigCloneAnimationController : MonoBehaviour
         Initialize();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         PlayWalkAnimation();
-        PlayAttackAnimation();
+        
     }
 
     private void Initialize()
@@ -32,7 +32,7 @@ public class BigCloneAnimationController : MonoBehaviour
         stats = new BigCloneStats();
         wallContactDetector = new WallContactDetector();
         wallDestructor = new WallDestructor();
-        bigCloneWallDestroyer = new BigCloneWallDestroyer(wallContactDetector, wallDestructor);
+        
     }
 
     private void PlayWalkAnimation()
@@ -50,16 +50,5 @@ public class BigCloneAnimationController : MonoBehaviour
         }
     }
 
-    private void PlayAttackAnimation()
-    {
-        if (bigCloneWallDestroyer.isAttacking)
-        {
-            animator.SetBool("isAttacking", true);
-
-        }
-        else
-        {
-            animator.SetBool("isAttacking", false);
-        }
-    }
+   
 }
