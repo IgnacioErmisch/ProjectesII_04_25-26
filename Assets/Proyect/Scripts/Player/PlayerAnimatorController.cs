@@ -47,14 +47,11 @@ public class PlayerAnimatorController : MonoBehaviour
 
     private void PlayDeathAnimation()
     {
-        if (playerCombatController.GetCurrentHealth() <= 0)
+        if (playerCombatController.IsDead())
         {
-            animator.SetBool("isDeath", true);
+            animator.SetTrigger("isDeath");
 
-        }
-        else
-        {
-            animator.SetBool("isDeath", false);
+
         }
     }
 

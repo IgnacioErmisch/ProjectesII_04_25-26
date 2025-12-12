@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform cloneSpawnerPoint;
+    [SerializeField] private PlayerCombatController playerCombatController;
 
 
 
@@ -33,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (perspectiveSwitch.GetControllingPlayer())
+        if (perspectiveSwitch.GetControllingPlayer() && !playerCombatController.IsDead() )
         {
             MovePJ();
         }
@@ -44,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void MovePJ()
+    public void MovePJ()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         rb2D.linearVelocity = new Vector2(horizontal * pjSpeed, rb2D.linearVelocity.y);

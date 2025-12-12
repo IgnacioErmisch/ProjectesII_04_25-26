@@ -49659,6 +49659,10 @@ PrefabInstance:
       propertyPath: cloneSpawnerPoint
       value: 
       objectReference: {fileID: 607243068}
+    - target: {fileID: 4682376492252064245, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: playerCombatController
+      value: 
+      objectReference: {fileID: 159555412}
     - target: {fileID: 5338099875649414250, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -49699,6 +49703,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.71
       objectReference: {fileID: 0}
+    - target: {fileID: 6201504506382012895, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2152097
+      objectReference: {fileID: 0}
+    - target: {fileID: 6201504506382012895, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0688535
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595192762629193903, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: maxJumps
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6705730991523056497, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -49719,6 +49735,14 @@ PrefabInstance:
       propertyPath: groundLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 8143037896304736361, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: playerJump
+      value: 
+      objectReference: {fileID: 5435904900046934715}
+    - target: {fileID: 8143037896304736361, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: playerCombatController
+      value: 
+      objectReference: {fileID: 159555412}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -49733,6 +49757,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09fc6b74b43b53b459094753890fb138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5435904900046934715 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6595192762629193903, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+  m_PrefabInstance: {fileID: 5435904900046934705}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d5d3f6c6735194586f67db4b706ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6130475728901848263

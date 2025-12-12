@@ -19,9 +19,9 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
 
     private HealthSystem healthSystem;
     private KnockbackSystem knockbackSystem;
-   
 
-   
+
+    [SerializeField] private PlayerMovement playerMovement;
 
     public event System.Action OnPlayerDeath;
     public event System.Action<float, float> OnHealthChanged;
@@ -53,13 +53,15 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
         if ( healthSystem.IsDead()) return;
 
         healthSystem.TakeDamage(damage, knockbackDirection);
-        knockbackSystem.ApplyKnockback(knockbackDirection);
+       
 
     }
 
     public bool IsDead()
     {
         return healthSystem.IsDead();
+      
+
     }
 
     public float GetCurrentHealth()
