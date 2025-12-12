@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cloneSpawnerPoint;
 
 
+
     private SpriteRenderer spriteRenderer;
     private Vector3 originalAttackPointLocalPosition;
     private Vector3 originalCloneSpawnerPointLocalPosition;
@@ -25,11 +26,6 @@ public class PlayerMovement : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();    
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-        if (attackPoint != null)
-        {
-            originalAttackPointLocalPosition = attackPoint.localPosition;
-            originalCloneSpawnerPointLocalPosition = cloneSpawnerPoint.localPosition;
-        }
 
     }
 

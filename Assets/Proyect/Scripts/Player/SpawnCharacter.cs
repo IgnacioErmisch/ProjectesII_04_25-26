@@ -1,37 +1,46 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 public class SpawnCharacter : MonoBehaviour
 {
     [SerializeField] private PlayerCombatController combatController;
     [SerializeField] private EnergyController energyController;
-    [SerializeField] private PlayerCombatController playerCombatController;
     [SerializeField] private GameObject player;
     [SerializeField] private CheckpointManager checkpointManager;
-    void Awake()
-    {
-        GameManager.Instance.SetPlayer(player);
-    }
 
-    // Update is called once per frame
+    private bool isRespawning = false;
+
     void Update()
     {
-        if(combatController.GetCurrentHealth() <= 0 || energyController.GetCurrentEnergy() <= 0)
+        if (!isRespawning && (combatController.GetCurrentHealth() <= 0 || energyController.GetCurrentEnergy() <= 0))
         {
-            player.transform.position = checkpointManager.GetLastCheckpoint();
-            energyController.ResetEnergy();
-            playerCombatController.ResetHealth();
+            StartRespawn();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("BlastZone")|| collision.gameObject.CompareTag("Spikes"))
+        if (!isRespawning && (collision.CompareTag("BlastZone") || collision.CompareTag("Spikes")))
         {
-            player.transform.position = checkpointManager.GetLastCheckpoint();
-            energyController.ResetEnergy();
-            playerCombatController.ResetHealth();
-
+            StartRespawn();
         }
+    }
+
+    private void StartRespawn()
+    {
+        isRespawning = true;
+        StartCoroutine(WaitForSpawn());
+    }
+
+    private IEnumerator WaitForSpawn()
+    {
+        
+        yield return new WaitForSeconds(2f);
+     
+        player.transform.position = checkpointManager.GetLastCheckpoint();
+        energyController.ResetEnergy();
+        combatController.ResetHealth();
+
+        isRespawning = false;
     }
 }
