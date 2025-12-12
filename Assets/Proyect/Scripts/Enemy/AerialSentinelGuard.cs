@@ -31,6 +31,7 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
     [Header("Visual")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
+    private aeAnimationController animationController;
 
     private HealthSystem healthSystem;
     private RadiusDetectionSystem detectionSystem;
@@ -44,6 +45,7 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animationController = GetComponent<aeAnimationController>();
 
         healthSystem = gameObject.AddComponent<HealthSystem>();
         healthSystem.SetMaxHealth(maxHealth);
@@ -125,7 +127,10 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
     }
 
     private void FireElectricPulse()
-    {
+    {     
+        {
+            animationController.PlayAttackAnimation();
+        }
         if (electricPulsePrefab != null)
         {
             Vector3 spawnPos = pulseSpawnPoint != null ? pulseSpawnPoint.position : transform.position;
@@ -149,6 +154,8 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
 
     private void FirePulseDirectly()
     {
+
+
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, pulseRadius, playerLayer);
 
         foreach (Collider2D hit in hits)
@@ -176,6 +183,11 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageable
         if (healthSystem.IsDead()) return;
         healthSystem.TakeDamage(damage, knockbackDirection);
         knockbackSystem.ApplyKnockback(knockbackDirection);
+
+        if (animationController != null)
+        {
+            animationController.PlayHitAnimation();
+        }
     }
 
     public bool IsDead() => healthSystem.IsDead();

@@ -23,6 +23,7 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private Transform attackPoint;
+    private egAnimationController animController;
 
     [Header("Knockback Settings")]
     [SerializeField] private float knockbackForce = 8f;
@@ -52,6 +53,7 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animController = GetComponent<egAnimationController>();
 
         healthSystem = gameObject.AddComponent<HealthSystem>();
         healthSystem.SetMaxHealth(maxHealth);
@@ -234,6 +236,12 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
     {
         lastAttackTime = Time.time;
 
+        
+        if (animController != null)
+        {
+            animController.PlayAttackAnimation();
+        }
+
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
 
         foreach (Collider2D hit in hits)
@@ -253,6 +261,12 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
 
         healthSystem.TakeDamage(damage, knockbackDirection);
         knockbackSystem.ApplyKnockback(knockbackDirection);
+
+        
+        if (animController != null)
+        {
+            animController.PlayHitAnimation();
+        }
     }
 
     public bool IsDead()
