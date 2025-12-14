@@ -172,7 +172,7 @@ Rigidbody2D:
   m_Mass: 1000000
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 6200000, guid: 8314e96b7b47c1d42af11533e4310d4b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -196,9 +196,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93446ce1633f1874c84f1570b3fcbe51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyImage: {fileID: 1142632818159327263}
+  maxSpeed: 7
+  acceleration: 100
+  deceleration: 60
+  airAcceleration: 90
+  airDeceleration: 90
+  groundCheck: {fileID: 0}
+  groundCheckRadius: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1088
+  edgeCheckFront: {fileID: 0}
+  edgeCheckBack: {fileID: 0}
+  edgeCheckDistance: 0.3
+  edgeClampSpeed: 4
+  attackPoint: {fileID: 0}
   perspectiveSwitch: {fileID: 0}
   bigCloneAttack: {fileID: 2940650665584716740}
+  energyImage: {fileID: 1142632818159327263}
 --- !u!61 &4937383365458126528
 BoxCollider2D:
   m_ObjectHideFlags: 0
