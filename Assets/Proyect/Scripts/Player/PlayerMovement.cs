@@ -3,74 +3,179 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float horizontal;
-    public float pjSpeed;
-    private Rigidbody2D rb2D;
-    public bool isMoving;
-    
+    [Header("Movement Settings")]
+    [SerializeField] private float maxSpeed = 8f;
+    [SerializeField] private float acceleration = 50f;
+    [SerializeField] private float deceleration = 60f;
+    [SerializeField] private float airAcceleration = 30f;
+    [SerializeField] private float airDeceleration = 30f;
 
+    [Header("Ground Detection")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private LayerMask groundLayer;
 
+    [Header("Edge Detection")]
+    [SerializeField] private Transform edgeCheckFront;
+    [SerializeField] private Transform edgeCheckBack;
+    [SerializeField] private float edgeCheckDistance = 0.3f;
+    [SerializeField] private float edgeClampSpeed = 2f;
+
+    [Header("References")]
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform cloneSpawnerPoint;
     [SerializeField] private PlayerCombatController playerCombatController;
 
+    public float horizontal { get; private set; }
+    public bool isMoving { get; private set; }
+    public bool isGrounded { get; private set; }
 
-
+    
+    private Rigidbody2D rb2D;
     private SpriteRenderer spriteRenderer;
     private bool facingRight = true;
+    private float currentSpeed;
+    private bool wasGrounded;
+    private bool isOnEdge;
 
     void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();    
+        rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-
     }
 
-    
-
-    void FixedUpdate()
-    {
-        if (perspectiveSwitch.GetControllingPlayer() && !playerCombatController.IsDead() )
+    void Update()
+    {    
+        wasGrounded = isGrounded;
+        isGrounded = CheckGround();
+       
+        if (perspectiveSwitch.GetControllingPlayer() && !playerCombatController.IsDead())
         {
-            MovePJ();
+            horizontal = Input.GetAxisRaw("Horizontal");
         }
         else
         {
-            rb2D.linearVelocity = Vector2.zero;
-           
+            horizontal = 0f;
+        }
+
+        CheckEdge();
+    }
+
+    void FixedUpdate()
+    {
+        if (perspectiveSwitch.GetControllingPlayer() && !playerCombatController.IsDead())
+        {
+            ApplyMovement();
+        }
+        else
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, deceleration * Time.fixedDeltaTime);
+            rb2D.linearVelocity = new Vector2(currentSpeed, rb2D.linearVelocity.y);
+        }
+
+        if (isOnEdge && isGrounded)
+        {
+            ClampToEdge();
         }
     }
 
-    public void MovePJ()
+    private void ApplyMovement()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        rb2D.linearVelocity = new Vector2(horizontal * pjSpeed, rb2D.linearVelocity.y);
-        isMoving = true;
+        float targetSpeed = horizontal * maxSpeed;
+        float accel = isGrounded ? acceleration : airAcceleration;
+        float decel = isGrounded ? deceleration : airDeceleration;
 
-        if (horizontal > 0 && !facingRight)
+        if (Mathf.Abs(horizontal) > 0.01f)
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, accel * Time.fixedDeltaTime);
+            isMoving = true;
+        }
+        else
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, decel * Time.fixedDeltaTime);
+            isMoving = Mathf.Abs(currentSpeed) > 0.1f;
+        }
+        
+        rb2D.linearVelocity = new Vector2(currentSpeed, rb2D.linearVelocity.y);
+
+        if (currentSpeed > 0.1f && !facingRight)
         {
             Flip();
         }
-        else if (horizontal < 0 && facingRight)
+        else if (currentSpeed < -0.1f && facingRight)
         {
             Flip();
         }
+    }
 
-        if (horizontal == 0)
+    private bool CheckGround()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    private void CheckEdge()
+    {
+        if (!isGrounded)
         {
-            isMoving = false;
+            isOnEdge = false;
+            return;
+        }
+  
+        Vector2 frontCheck = edgeCheckFront.position;
+        Vector2 backCheck = edgeCheckBack.position;
+        bool frontHasGround = Physics2D.Raycast(frontCheck, Vector2.down, edgeCheckDistance, groundLayer);
+        bool backHasGround = Physics2D.Raycast(backCheck, Vector2.down, edgeCheckDistance, groundLayer);
+        isOnEdge = !frontHasGround || !backHasGround;
+    }
+
+    private void ClampToEdge()
+    {
+        
+        if (Mathf.Abs(rb2D.linearVelocity.x) > edgeClampSpeed)
+        {
+            float clampedVelocity = Mathf.Sign(rb2D.linearVelocity.x) * edgeClampSpeed;
+            rb2D.linearVelocity = new Vector2(clampedVelocity, rb2D.linearVelocity.y);
         }
     }
 
     private void Flip()
     {
-        facingRight = !facingRight;     
+        facingRight = !facingRight;
         spriteRenderer.flipX = !facingRight;
-        cloneSpawnerPoint.localPosition = -cloneSpawnerPoint.localPosition;      
+        Vector3 attackScale = attackPoint.localScale;
+        attackScale.x *= -1;
+        attackPoint.localScale = attackScale;
 
+        cloneSpawnerPoint.localPosition = new Vector3(-cloneSpawnerPoint.localPosition.x, cloneSpawnerPoint.localPosition.y, cloneSpawnerPoint.localPosition.z);
+    }
+
+    public bool IsFacingRight()
+    {
+        return facingRight;
+    }
+    public float GetCurrentSpeed()
+    {
+        return currentSpeed;
+    }
+    public bool IsOnEdge()
+    {
+        return isOnEdge;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+
+        if (edgeCheckFront != null && edgeCheckBack != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(edgeCheckFront.position, edgeCheckFront.position + Vector3.down * edgeCheckDistance);
+            Gizmos.DrawLine(edgeCheckBack.position, edgeCheckBack.position + Vector3.down * edgeCheckDistance);
+        }
     }
 }
-
-    
