@@ -1,35 +1,136 @@
 using UnityEngine;
 
-
 public class SmallCloneMovment
 {
-    public Rigidbody2D rb;
-    public float speed;
-    public SmallCloneStats stat;
-    public float horizontal;
+    private Rigidbody2D rb;
+    private SmallCloneStats stat;
     private SpriteRenderer spriteRenderer;
-    private bool facingRight = true;
 
-    public SmallCloneMovment(Rigidbody2D rb, SmallCloneStats stat, SpriteRenderer spriteRenderer)
+   
+    private float maxSpeed;
+    private float acceleration = 45f;
+    private float deceleration = 55f;
+    private float airAcceleration = 28f;
+    private float airDeceleration = 28f;
+
+   
+    private Transform edgeCheckFront;
+    private Transform edgeCheckBack;
+    private float edgeCheckDistance = 0.3f;
+    private float edgeClampSpeed = 2f;
+
+    
+    private Transform groundCheck;
+    private float groundCheckRadius;
+    private LayerMask groundLayer;
+
+   
+    public float horizontal { get; private set; }
+    public bool isMoving { get; private set; }
+    public bool isGrounded { get; private set; }
+    private bool facingRight = true;
+    private float currentSpeed;
+    private bool isOnEdge;
+
+    public SmallCloneMovment(Rigidbody2D rb, SmallCloneStats stat, SpriteRenderer spriteRenderer,
+                             Transform groundCheck, float groundCheckRadius, LayerMask groundLayer,
+                             Transform edgeCheckFront, Transform edgeCheckBack)
     {
         this.rb = rb;
-        this.speed = 7f * stat.SpeedMultiplier;
+        this.stat = stat;
         this.spriteRenderer = spriteRenderer;
+        this.groundCheck = groundCheck;
+        this.groundCheckRadius = groundCheckRadius;
+        this.groundLayer = groundLayer;
+        this.edgeCheckFront = edgeCheckFront;
+        this.edgeCheckBack = edgeCheckBack;
+
+        this.maxSpeed = 7f * stat.SpeedMultiplier;
+        this.currentSpeed = 0f;
     }
 
-    public void Move()
+    public void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        isGrounded = CheckGround();
+        CheckEdge();
+    }
 
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+    public void Move(bool canControl)
+    {
+        if (canControl)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
+        else
+        {
+            horizontal = 0f;
+        }
 
-        if (horizontal > 0 && !facingRight)
+        ApplyMovement();
+
+        if (isOnEdge && isGrounded)
+        {
+            ClampToEdge();
+        }
+    }
+
+    private bool CheckGround()
+    {
+        if (groundCheck == null) return false;
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    private void ApplyMovement()
+    {
+        float targetSpeed = horizontal * maxSpeed;
+        float accel = isGrounded ? acceleration : airAcceleration;
+        float decel = isGrounded ? deceleration : airDeceleration;
+
+        if (Mathf.Abs(horizontal) > 0.01f)
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, accel * Time.fixedDeltaTime);
+            isMoving = true;
+        }
+        else
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, decel * Time.fixedDeltaTime);
+            isMoving = Mathf.Abs(currentSpeed) > 0.1f;
+        }
+
+        rb.linearVelocity = new Vector2(currentSpeed, rb.linearVelocity.y);
+
+        
+        if (currentSpeed > 0.1f && !facingRight)
         {
             Flip();
         }
-        else if (horizontal < 0 && facingRight)
+        else if (currentSpeed < -0.1f && facingRight)
         {
             Flip();
+        }
+    }
+
+    private void CheckEdge()
+    {
+        if (!isGrounded || edgeCheckFront == null || edgeCheckBack == null)
+        {
+            isOnEdge = false;
+            return;
+        }
+
+        Vector2 frontCheck = edgeCheckFront.position;
+        Vector2 backCheck = edgeCheckBack.position;
+        bool frontHasGround = Physics2D.Raycast(frontCheck, Vector2.down, edgeCheckDistance, groundLayer);
+        bool backHasGround = Physics2D.Raycast(backCheck, Vector2.down, edgeCheckDistance, groundLayer);
+        isOnEdge = !frontHasGround || !backHasGround;
+    }
+
+    private void ClampToEdge()
+    {
+        if (Mathf.Abs(rb.linearVelocity.x) > edgeClampSpeed)
+        {
+            float clampedVelocity = Mathf.Sign(rb.linearVelocity.x) * edgeClampSpeed;
+            rb.linearVelocity = new Vector2(clampedVelocity, rb.linearVelocity.y);
         }
     }
 
@@ -37,7 +138,20 @@ public class SmallCloneMovment
     {
         facingRight = !facingRight;
         spriteRenderer.flipX = !facingRight;
-
     }
 
+    public bool IsFacingRight()
+    {
+        return facingRight;
+    }
+
+    public float GetCurrentSpeed()
+    {
+        return currentSpeed;
+    }
+
+    public bool IsOnEdge()
+    {
+        return isOnEdge;
+    }
 }

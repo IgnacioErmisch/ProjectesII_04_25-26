@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            Instance._player = _player;
+            Instance.perspectiveSwitch = perspectiveSwitch;
             Destroy(gameObject);
         }
     }

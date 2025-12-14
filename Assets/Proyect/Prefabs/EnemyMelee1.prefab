@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2708209530383518620}
   - component: {fileID: 8369400868110152766}
   - component: {fileID: 7279799444899314154}
+  - component: {fileID: 2605356054043851956}
+  - component: {fileID: 4561867759333438744}
   m_Layer: 9
   m_Name: EnemyMelee1
   m_TagString: Enemy
@@ -186,6 +188,42 @@ MonoBehaviour:
   knockbackDuration: 0.4
   animator: {fileID: 0}
   jumpsHitDamage: 0
+--- !u!114 &2605356054043851956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377071508763594598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ff0fbd088648314a8e6e5b2c1a383e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  guardEnemy: {fileID: 0}
+--- !u!95 &4561867759333438744
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377071508763594598}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9c0db9ab54eb9d4459fbf87c21e07a8b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1554638934087737503
 GameObject:
   m_ObjectHideFlags: 0

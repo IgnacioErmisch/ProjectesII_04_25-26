@@ -18,14 +18,14 @@ public class InputSpawnClone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetBigCloneSelected() && playerJump.isGrounded)
+        if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.IsBigCloneSelected && playerJump.isGrounded)
         {
             CloneSpawner.TrySpawnClone();
             QBigClone.SetActive(true);
             QSmallClone.SetActive(false);
         }
 
-        else if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.GetSmallCloneSelected() && playerJump.isGrounded)
+        else if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() &&!switchInterface.IsBigCloneSelected && playerJump.isGrounded)
         {
             CloneSpawner.TrySpawnClone();
             QBigClone.SetActive(false);

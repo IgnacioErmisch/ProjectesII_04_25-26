@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 6382433900792764075}
   - component: {fileID: 7684383014567607738}
   - component: {fileID: 1345370940091578317}
+  - component: {fileID: 1298908649316226693}
+  - component: {fileID: -396571293580080156}
   m_Layer: 9
   m_Name: aerialEnemy1
   m_TagString: Enemy
@@ -162,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709af6b3e29e4fd45973bbf33a70b625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
+  maxHealth: 20
   patrolSpeed: 1.5
   patrolHeight: 32.7
   patrolRangeX: 12
@@ -220,6 +222,42 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.020122532, y: -0.16714124}
   m_Radius: 0.20223124
+--- !u!114 &1298908649316226693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848596653884366831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85076fe21e0d0d4eb7659f2437a0fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  aerial: {fileID: 0}
+--- !u!95 &-396571293580080156
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848596653884366831}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8bd292a90544f924dbe84ffef09cabab, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8325940882031475142
 GameObject:
   m_ObjectHideFlags: 0

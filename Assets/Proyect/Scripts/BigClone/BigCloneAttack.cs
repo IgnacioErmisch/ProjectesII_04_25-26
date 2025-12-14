@@ -6,12 +6,12 @@ public class BigCloneAttack : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashCooldown;
-    [SerializeField] private float dashDamage = 999f; // Daño letal
+    [SerializeField] private float dashDamage = 999f; 
     [SerializeField] private float dashKnockbackForce = 15f;
-    [SerializeField] private LayerMask enemyLayer; // Capa de enemigos
+    [SerializeField] private LayerMask enemyLayer; 
     [SerializeField] private Rigidbody2D rb;
 
-    private bool isDashing = false;
+    public bool isDashing = false;
     private bool canDash = true;
     private float dashTimer = 0f;
     private float cooldownTimer = 0f;

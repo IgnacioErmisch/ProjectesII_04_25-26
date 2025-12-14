@@ -9,11 +9,19 @@ public class SmallCloneController : MonoBehaviour
     private PerspectiveSwitch perspectiveSwitch;
     private SpriteRenderer spriteRenderer;
     private Transform transformSmallClone;
+
     public GameObject energyImage;
+
+    [Header("Ground Detection")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
-  
+
+    [Header("Edge Detection")]
+    [SerializeField] private Transform edgeCheckFront;
+    [SerializeField] private Transform edgeCheckBack;
+
+    [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 4f;
     [SerializeField] private float jumpMultiplier = 1f;
     [SerializeField] private int maxJumps = 2;
@@ -32,13 +40,10 @@ public class SmallCloneController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         transformSmallClone = GetComponent<Transform>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        stats = new SmallCloneStats();
-        movement = new SmallCloneMovment(rb, stats, spriteRenderer);      
-        GroundChecker groundChecker = new GroundChecker(groundCheck, groundCheckRadius, groundLayer);
-        CoyoteTimer coyoteTimer = new CoyoteTimer(coyoteTime);
-        JumpHandler jumpHandler = new JumpHandler(rb);
-        perspectiveSwitch = FindFirstObjectByType<PerspectiveSwitch>();
-        doubleJump = new SmallCloneDoubleJump(jumpHandler, groundChecker, coyoteTimer, jumpForce, jumpMultiplier, maxJumps);
+        stats = new SmallCloneStats(); 
+        perspectiveSwitch = FindFirstObjectByType<PerspectiveSwitch>();      
+        movement = new SmallCloneMovment(rb, stats, spriteRenderer,groundCheck, groundCheckRadius, groundLayer, edgeCheckFront, edgeCheckBack);
+        doubleJump = new SmallCloneDoubleJump(rb, groundCheck, groundCheckRadius, groundLayer, jumpForce, jumpMultiplier, coyoteTime, maxJumps);
     }
 
     private void ApplySizeModifier()
@@ -48,28 +53,33 @@ public class SmallCloneController : MonoBehaviour
 
     private void Update()
     {
-        doubleJump.Update();
-        HandleInput();
-    }
-
-    private void HandleInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && doubleJump.CanJump())
-        {
-            doubleJump.Jump();
-        }
+        bool canControl = !perspectiveSwitch.GetControllingPlayer(); 
+        movement.Update();       
+        doubleJump.Update(canControl);
     }
 
     private void FixedUpdate()
     {
+        bool canControl = !perspectiveSwitch.GetControllingPlayer();     
+        movement.Move(canControl);
+        doubleJump.FixedUpdate();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
        
-        if (!perspectiveSwitch.GetControllingPlayer())
+        if (groundCheck != null)
         {
-            movement.Move();
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
-        else
+
+        
+        if (edgeCheckFront != null && edgeCheckBack != null)
         {
-            rb.linearVelocity = Vector2.zero; 
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(edgeCheckFront.position, edgeCheckFront.position + Vector3.down * 0.3f);
+            Gizmos.DrawLine(edgeCheckBack.position, edgeCheckBack.position + Vector3.down * 0.3f);
         }
     }
 }

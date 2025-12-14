@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyImage: {fileID: 1142632818159327263}
   perspectiveSwitch: {fileID: 0}
+  bigCloneAttack: {fileID: 2940650665584716740}
 --- !u!61 &4937383365458126528
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -265,6 +266,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   rb: {fileID: 1825444696045487236}
+  isDashing: 0
 --- !u!1 &7587641919788009837
 GameObject:
   m_ObjectHideFlags: 0

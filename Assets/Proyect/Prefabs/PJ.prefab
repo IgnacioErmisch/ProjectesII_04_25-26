@@ -115,8 +115,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.06198883, y: 0.061540604}
-  m_Size: {x: 0.7464752, y: 1.2298355}
+  m_Offset: {x: -0.06198883, y: 0.0688535}
+  m_Size: {x: 0.7464752, y: 1.2152097}
   m_Direction: 0
 --- !u!50 &7419433715776339662
 Rigidbody2D:
@@ -163,6 +163,7 @@ MonoBehaviour:
   perspectiveSwitch: {fileID: 4262907973614035345}
   attackPoint: {fileID: 6094283585800770578}
   cloneSpawnerPoint: {fileID: 487263047496622441}
+  playerCombatController: {fileID: 4502971120696559688}
 --- !u!114 &6595192762629193903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,8 +178,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 11.5
   coyoteTime: 0.66
-  maxJumps: 1
+  maxJumps: 2
   jumpCounter: 0
+  isJumping: 0
   groundCheck: {fileID: 3095973515394586891}
   groundCheckRadius: 0.2
   groundLayer:
@@ -232,19 +234,11 @@ MonoBehaviour:
   canRegenerate: 1
   regenerationRate: 10
   regenerationDelay: 5
-  attackPoint: {fileID: 6094283585800770578}
-  attackDamage: 20
-  attackRange: 1
-  attackCooldown: 0.3
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  knockbackForce: 10
   playerKnockbackForce: 5
   playerKnockbackDuration: 0.3
   invulnerabilityDuration: 1
   animator: {fileID: 0}
-  isAttacking: 0
+  playerMovement: {fileID: 0}
 --- !u!114 &4262907973614035345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bigCloneSpawner: {fileID: 7564787060841960555}
-  smallCloneSpawner: {fileID: 0}
+  smallCloneSpawner: {fileID: 7564787060841960555}
   player: {fileID: 240527483314117475}
   playerCamera: {fileID: 6773113138284326154}
   controllingPlayer: 0
@@ -276,7 +270,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatController: {fileID: 4502971120696559688}
   energyController: {fileID: 5557642741559168900}
-  playerCombatController: {fileID: 4502971120696559688}
   player: {fileID: 240527483314117475}
   checkpointManager: {fileID: 0}
 --- !u!114 &4503241564842466741
@@ -5889,7 +5882,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 771780477578567273}
   playerMovement: {fileID: 4682376492252064245}
-  combatController: {fileID: 4502971120696559688}
+  playerJump: {fileID: 6595192762629193903}
+  playerCombatController: {fileID: 4502971120696559688}
 --- !u!1 &7719981557474387297
 GameObject:
   m_ObjectHideFlags: 0
