@@ -509,3 +509,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3671420164355731873}
   bigCloneController: {fileID: 6064560242407736156}
+  bigCloneAttack: {fileID: 2940650665584716740}
