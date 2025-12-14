@@ -157,9 +157,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990ed4ac7438a4444b7c8cc94c5d48b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontal: 0
-  pjSpeed: 7
-  isMoving: 0
+  maxSpeed: 8
+  acceleration: 50
+  deceleration: 60
+  airAcceleration: 30
+  airDeceleration: 30
+  groundCheck: {fileID: 0}
+  groundCheckRadius: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  edgeCheckFront: {fileID: 0}
+  edgeCheckBack: {fileID: 0}
+  edgeCheckDistance: 0.3
+  edgeClampSpeed: 2
   perspectiveSwitch: {fileID: 4262907973614035345}
   attackPoint: {fileID: 6094283585800770578}
   cloneSpawnerPoint: {fileID: 487263047496622441}
@@ -177,10 +188,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 11.5
-  coyoteTime: 0.66
+  minJumpForce: 6
   maxJumps: 2
-  jumpCounter: 0
-  isJumping: 0
+  normalGravityScale: 2.5
+  fallGravityMultiplier: 2
+  lowJumpMultiplier: 3
+  maxFallSpeed: 20
+  coyoteTime: 0.66
+  jumpBufferTime: 0.2
+  apexThreshold: 2
+  apexHangTime: 0.1
+  apexGravityMultiplier: 0.5
+  jumpCutMultiplier: 0.5
   groundCheck: {fileID: 3095973515394586891}
   groundCheckRadius: 0.2
   groundLayer:
@@ -188,9 +207,10 @@ MonoBehaviour:
     m_Bits: 64
   movement: {fileID: 4682376492252064245}
   perspectiveSwitch: {fileID: 4262907973614035345}
-  JumpParticles: {fileID: 7294801367233732497}
-  RunParticles: {fileID: 8217135377386519259}
-  isGrounded: 0
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
+  runParticles: {fileID: 0}
+  coyoteCounter: 0
 --- !u!114 &7564787060841960555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +229,6 @@ MonoBehaviour:
   switchInterface: {fileID: 0}
   cloneSmallPrefab: {fileID: 1887023663289730442, guid: 7123dcf322269324eace1f4f9ac51578, type: 3}
   cloneBigPrefab: {fileID: 6003483819887161510, guid: 278fdf5f4d49e4049aa0a26d00d576e4, type: 3}
-  spawnOffset: {x: 2, y: 0, z: 0}
   isSmallClone: 0
   spawners: []
   cloneSpawnPoint: {fileID: 487263047496622441}
@@ -363,7 +382,7 @@ Transform:
   m_GameObject: {fileID: 496295369235602771}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7199936, y: -0.27000046, z: 0.048621576}
+  m_LocalPosition: {x: 0, y: -0.27000046, z: 0.048621576}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -488,7 +507,7 @@ Transform:
   m_GameObject: {fileID: 2789915080622717676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7349999, z: -10}
+  m_LocalPosition: {x: -133.08, y: -31.155296, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -774,7 +793,7 @@ Transform:
   m_GameObject: {fileID: 6096019128422050995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.68, y: -0.58, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.77019, y: 0.77019, z: 0.77019}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5911,7 +5930,7 @@ Transform:
   m_GameObject: {fileID: 7719981557474387297}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.28, y: -0.24, z: 0}
+  m_LocalPosition: {x: -0.09, y: -0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6171,8 +6190,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
-      minScalar: 0.1
+      scalar: 1.1
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6635,7 +6654,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.5
+      value: 0.24
       mode: 0
       spread: 0
       speed:
@@ -10664,7 +10683,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d62d195ad62c0ce42b7a98ef1e631224, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
