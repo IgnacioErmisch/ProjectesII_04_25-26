@@ -14,7 +14,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private float maxFallSpeed = 20f;
 
     [Header("Coyote Time")]
-    [SerializeField] private float coyoteTime = 0.15f;
+    [SerializeField] private float coyoteTime;
 
     [Header("Jump Buffer")]
     [SerializeField] private float jumpBufferTime = 0.2f;
@@ -45,7 +45,7 @@ public class PlayerJump : MonoBehaviour
     private int jumpCounter = 0;
 
     
-    private float coyoteCounter;
+    public float coyoteCounter;
     private float jumpBufferCounter;
     private float apexHangCounter;  
     private Rigidbody2D rb;  
@@ -133,9 +133,8 @@ public class PlayerJump : MonoBehaviour
         
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-
         jumpCounter++;
-        coyoteCounter = 0f;
+     
         isJumping = true;
         jumpCut = false;
         
