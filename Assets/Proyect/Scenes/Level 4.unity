@@ -38780,6 +38780,14 @@ PrefabInstance:
       propertyPath: playerCombatController
       value: 
       objectReference: {fileID: 1567183207}
+    - target: {fileID: 5338099875649414250, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 5338099875649414250, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5557642741559168900, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: energyBigClone
       value: 
@@ -38828,6 +38836,14 @@ PrefabInstance:
       propertyPath: playerCombatController
       value: 
       objectReference: {fileID: 1567183207}
+    - target: {fileID: 8217135377386519259, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: UVModule.mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217135377386519259, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: UVModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6858776554931627020, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
