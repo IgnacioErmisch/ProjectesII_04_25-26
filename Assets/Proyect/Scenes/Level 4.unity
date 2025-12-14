@@ -39153,7 +39153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3268e178cfe61947866c0061d915b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 0}
+  transition: {fileID: 1568632777}
   transitionTime: 1
 --- !u!198 &1595287887 stripped
 ParticleSystem:
