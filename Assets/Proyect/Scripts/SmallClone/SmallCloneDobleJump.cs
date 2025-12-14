@@ -3,40 +3,24 @@ using UnityEngine;
 public class SmallCloneDoubleJump
 {
     private Rigidbody2D rb;
-
-    // Ground detection
     private Transform groundCheck;
     private float groundCheckRadius;
     private LayerMask groundLayer;
-
-    // Jump settings
     private float jumpForce;
     private float jumpMultiplier;
     private int maxJumps;
-
-    // Gravity controls
     private float normalGravityScale = 2.5f;
     private float fallGravityMultiplier = 2f;
     private float lowJumpMultiplier = 3f;
     private float maxFallSpeed = 20f;
-
-    // Apex settings
     private float apexThreshold = 2f;
     private float apexHangTime = 0.1f;
     private float apexGravityMultiplier = 0.5f;
-
-    // Jump cut
     private float jumpCutMultiplier = 0.5f;
-
-    // Coyote time
     private float coyoteTime;
     private float coyoteCounter;
-
-    // Jump buffer
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
-
-    // State
     private int jumpsRemaining;
     private bool wasGroundedLastFrame;
     private bool isAtApex;
@@ -68,7 +52,6 @@ public class SmallCloneDoubleJump
     {
         isGrounded = CheckGround();
 
-        // Coyote time
         if (isGrounded)
         {
             coyoteCounter = coyoteTime;
@@ -78,8 +61,7 @@ public class SmallCloneDoubleJump
         {
             coyoteCounter -= Time.deltaTime;
         }
-
-        // Reset jumps when landing
+     
         if (isGrounded && !wasGroundedLastFrame)
         {
             OnLand();
@@ -87,7 +69,6 @@ public class SmallCloneDoubleJump
 
         wasGroundedLastFrame = isGrounded;
 
-        // Jump buffer
         if (canControl)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -101,14 +82,13 @@ public class SmallCloneDoubleJump
 
             jumpHeld = Input.GetKey(KeyCode.Space);
 
-            // Handle buffered jump
+            
             if (jumpBufferCounter > 0f && CanJump())
             {
                 Jump();
                 jumpBufferCounter = 0f;
             }
-
-            // Jump cut
+           
             if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0f && !jumpCut)
             {
                 CutJump();
@@ -137,7 +117,6 @@ public class SmallCloneDoubleJump
 
     public bool CanJump()
     {
-        // First jump uses coyote time, additional jumps don't need it
         if (jumpsRemaining == maxJumps)
         {
             return coyoteCounter > 0f;
@@ -149,11 +128,9 @@ public class SmallCloneDoubleJump
     }
 
     public void Jump()
-    {
-        // Reset vertical velocity before jumping
+    {       
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * jumpMultiplier);
-
         jumpsRemaining--;
         coyoteCounter = 0f;
         isJumping = true;
@@ -189,22 +166,22 @@ public class SmallCloneDoubleJump
 
     private void ApplyGravityModifiers()
     {
-        // Apex hang
+        
         if (isAtApex && apexHangCounter > 0f)
         {
             rb.gravityScale = normalGravityScale * apexGravityMultiplier;
         }
-        // Falling
+        
         else if (rb.linearVelocity.y < 0f)
         {
             rb.gravityScale = normalGravityScale * fallGravityMultiplier;
         }
-        // Rising but not holding jump (short jump)
+        
         else if (rb.linearVelocity.y > 0f && !jumpHeld)
         {
             rb.gravityScale = normalGravityScale * lowJumpMultiplier;
         }
-        // Normal gravity
+        
         else
         {
             rb.gravityScale = normalGravityScale;
