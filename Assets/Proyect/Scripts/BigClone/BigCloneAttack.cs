@@ -6,8 +6,8 @@ public class BigCloneAttack : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashCooldown;
-    [SerializeField] private float dashDamage = 999f; 
-    [SerializeField] private float dashKnockbackForce = 15f;
+    [SerializeField] private float dashDamage; 
+    [SerializeField] private float dashKnockbackForce;
     [SerializeField] private LayerMask enemyLayer; 
     [SerializeField] private Rigidbody2D rb;
 
@@ -69,22 +69,21 @@ public class BigCloneAttack : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x * 0.5f, rb.linearVelocity.y);
     }
 
- 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (isDashing)
         {
-            
+
             IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
 
-                if (damageable != null && !damageable.IsDead())
-                {
-                   
-                    Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
-                    damageable.TakeDamage(dashDamage, knockbackDirection * dashKnockbackForce);
+            if (damageable != null && !damageable.IsDead())
+            {
 
-                    
-                }
+                Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                damageable.TakeDamage(dashDamage, knockbackDirection * dashKnockbackForce);
+
+
+            }
         }
     }
 }
