@@ -8,10 +8,10 @@ public class SmallCloneMovment
 
    
     private float maxSpeed;
-    private float acceleration = 45f;
+    private float acceleration = 105f;
     private float deceleration = 55f;
-    private float airAcceleration = 28f;
-    private float airDeceleration = 28f;
+    private float airAcceleration = 90f;
+    private float airDeceleration = 90f;
 
    
     private Transform edgeCheckFront;

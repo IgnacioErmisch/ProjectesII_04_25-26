@@ -4,31 +4,37 @@ public class SmallCloneAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private SmallCloneController smallCloneController;
-    [SerializeField] private SmallCloneDoubleJump smallCloneDoubleJump;
 
+    private SmallCloneMovment movement;
+    private SmallCloneDoubleJump doubleJump;
 
     void Start()
     {
         animator = GetComponent<Animator>();
 
+        if (smallCloneController == null)
+        {
+            smallCloneController = GetComponent<SmallCloneController>();
+        }
+
+        if (smallCloneController != null)
+        {
+            movement = smallCloneController.Movement;
+            doubleJump = smallCloneController.DoubleJump;
+        }
     }
 
     void Update()
     {
         PlayWalkAnimation();
         PlayJumpAnimation();
-
     }
-
 
     private void PlayWalkAnimation()
     {
-
-        if (smallCloneController.movement.GetMove())
+        if (movement != null && movement.isMoving)
         {
-
             animator.SetBool("isWalking", true);
-
         }
         else
         {
@@ -38,17 +44,13 @@ public class SmallCloneAnimationController : MonoBehaviour
 
     private void PlayJumpAnimation()
     {
-
-        if (smallCloneDoubleJump.isJumping)
+        if (doubleJump != null && doubleJump.isJumping)
         {
-
             animator.SetBool("isJumping", true);
-
         }
         else
         {
             animator.SetBool("isJumping", false);
         }
     }
-
 }
