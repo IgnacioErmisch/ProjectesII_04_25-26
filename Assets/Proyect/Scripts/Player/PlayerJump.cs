@@ -42,7 +42,7 @@ public class PlayerJump : MonoBehaviour
    
     public bool isJumping { get; private set; }
     public bool isGrounded { get; private set; }
-    private int jumpCounter = 0;
+    public int jumpCounter = 0;
 
     
     public float coyoteCounter;
@@ -69,8 +69,9 @@ public class PlayerJump : MonoBehaviour
         {
             OnLand();
         }
-        
-        if (isGrounded)
+
+     
+        if (isGrounded && !isJumping)
         {
             coyoteCounter = coyoteTime;
             jumpCounter = 0;
