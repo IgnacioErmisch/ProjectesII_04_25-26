@@ -27,6 +27,9 @@ public class SmallCloneController : MonoBehaviour
     [SerializeField] private int maxJumps = 2;
     [SerializeField] private float coyoteTime = 0.1f;
 
+    public SmallCloneMovment Movement => movement;
+    public SmallCloneDoubleJump DoubleJump => doubleJump;
+
     private void Awake()
     {
         InitializeComponents();
