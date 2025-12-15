@@ -32,10 +32,7 @@ public class SmallCloneAnimationController : MonoBehaviour
 
     private void PlayWalkAnimation()
     {
-<<<<<<< HEAD
 
-      
-=======
         if (movement != null && movement.isMoving)
         {
             animator.SetBool("isWalking", true);
@@ -44,15 +41,12 @@ public class SmallCloneAnimationController : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
->>>>>>> feature/small-animation
+
     }
 
     private void PlayJumpAnimation()
     {
-<<<<<<< HEAD
-
-       
-=======
+     
         if (doubleJump != null && doubleJump.isJumping)
         {
             animator.SetBool("isJumping", true);
@@ -61,6 +55,6 @@ public class SmallCloneAnimationController : MonoBehaviour
         {
             animator.SetBool("isJumping", false);
         }
->>>>>>> feature/small-animation
+
     }
 }
