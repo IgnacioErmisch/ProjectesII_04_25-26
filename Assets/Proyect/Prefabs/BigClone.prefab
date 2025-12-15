@@ -510,6 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3671420164355731873}
   bigCloneController: {fileID: 6064560242407736156}
+  bigCloneAttack: {fileID: 2940650665584716740}
 --- !u!1001 &4294300877521789554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -588,4 +589,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5800350169276503837, guid: 24fa55c4f1386e04ea2800527f88c4e1, type: 3}
   m_PrefabInstance: {fileID: 4294300877521789554}
   m_PrefabAsset: {fileID: 0}
-  bigCloneAttack: {fileID: 2940650665584716740}
