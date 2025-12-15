@@ -24,31 +24,13 @@ public class SmallCloneAnimationController : MonoBehaviour
     private void PlayWalkAnimation()
     {
 
-        if (smallCloneController.movement.GetMove())
-        {
-
-            animator.SetBool("isWalking", true);
-
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
+      
     }
 
     private void PlayJumpAnimation()
     {
 
-        if (smallCloneDoubleJump.isJumping)
-        {
-
-            animator.SetBool("isJumping", true);
-
-        }
-        else
-        {
-            animator.SetBool("isJumping", false);
-        }
+       
     }
 
 }
