@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2756181877665876585}
   m_Layer: 8
-  m_Name: cloneSpawnPoint
+  m_Name: cloneSpawnPointsecondary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 70458858330299151}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.05, y: 0, z: 0}
+  m_LocalPosition: {x: -2.05, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,9 +76,10 @@ Transform:
   - {fileID: 3095973515394586891}
   - {fileID: 1791987560738549216}
   - {fileID: 7137420604852846058}
-  - {fileID: 6094283585800770578}
   - {fileID: 2756181877665876585}
   - {fileID: 487263047496622441}
+  - {fileID: 5072849847044475279}
+  - {fileID: 2080179544714288419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &6201504506382012895
@@ -160,20 +161,21 @@ MonoBehaviour:
   maxSpeed: 8
   acceleration: 50
   deceleration: 60
-  airAcceleration: 30
-  airDeceleration: 30
-  groundCheck: {fileID: 0}
+  airAcceleration: 80
+  airDeceleration: 80
+  groundCheck: {fileID: 3095973515394586891}
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  edgeCheckFront: {fileID: 0}
-  edgeCheckBack: {fileID: 0}
+    m_Bits: 1088
+  edgeCheckFront: {fileID: 2080179544714288419}
+  edgeCheckBack: {fileID: 5072849847044475279}
   edgeCheckDistance: 0.3
-  edgeClampSpeed: 2
+  edgeClampSpeed: 5
   perspectiveSwitch: {fileID: 4262907973614035345}
-  attackPoint: {fileID: 6094283585800770578}
+  attackPoint: {fileID: 2080179544714288419}
   cloneSpawnerPoint: {fileID: 487263047496622441}
+  cloneSpawnerPointSecond: {fileID: 2756181877665876585}
   playerCombatController: {fileID: 4502971120696559688}
 --- !u!114 &6595192762629193903
 MonoBehaviour:
@@ -196,7 +198,7 @@ MonoBehaviour:
   maxFallSpeed: 20
   coyoteTime: 0.66
   jumpBufferTime: 0.2
-  apexThreshold: 2
+  apexThreshold: 0.5
   apexHangTime: 0.1
   apexGravityMultiplier: 0.5
   jumpCutMultiplier: 0.5
@@ -204,12 +206,12 @@ MonoBehaviour:
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   movement: {fileID: 4682376492252064245}
   perspectiveSwitch: {fileID: 4262907973614035345}
-  jumpParticles: {fileID: 0}
+  jumpParticles: {fileID: 7294801367233732497}
   landParticles: {fileID: 0}
-  runParticles: {fileID: 0}
+  runParticles: {fileID: 8217135377386519259}
   coyoteCounter: 0
 --- !u!114 &7564787060841960555
 MonoBehaviour:
@@ -231,7 +233,8 @@ MonoBehaviour:
   cloneBigPrefab: {fileID: 6003483819887161510, guid: 278fdf5f4d49e4049aa0a26d00d576e4, type: 3}
   isSmallClone: 0
   spawners: []
-  cloneSpawnPoint: {fileID: 487263047496622441}
+  cloneSpawnPointPrincipal: {fileID: 487263047496622441}
+  cloneSpawnPointSecondary: {fileID: 2756181877665876585}
   playerCamera: {fileID: 6773113138284326154}
   cloneActive: 0
   groundLayer:
@@ -257,7 +260,7 @@ MonoBehaviour:
   playerKnockbackDuration: 0.3
   invulnerabilityDuration: 1
   animator: {fileID: 0}
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 4682376492252064245}
 --- !u!114 &4262907973614035345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +354,7 @@ Transform:
   m_GameObject: {fileID: 258715426845299223}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0799942, y: -0.383, z: 0.048621576}
+  m_LocalPosition: {x: -0.087, y: -0.387, z: 0.048621576}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -388,6 +391,37 @@ Transform:
   m_Children:
   - {fileID: 1145505421331888871}
   - {fileID: 757182365317605591}
+  m_Father: {fileID: 803699521442944123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1027781026406807912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2080179544714288419}
+  m_Layer: 8
+  m_Name: edgeFront
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2080179544714288419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027781026406807912}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 803699521442944123}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1100733331561892819
@@ -456,7 +490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 487263047496622441}
   m_Layer: 8
-  m_Name: cloneSpawnPoint
+  m_Name: cloneSpawnPointPrincipal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,7 +541,7 @@ Transform:
   m_GameObject: {fileID: 2789915080622717676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -133.08, y: -31.155296, z: -10}
+  m_LocalPosition: {x: 0, y: 1.7349999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5657,37 +5691,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!1 &6858776554931627020
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6094283585800770578}
-  m_Layer: 8
-  m_Name: pointer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6094283585800770578
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6858776554931627020}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.71, y: 0.07999992, z: 0.048621576}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 803699521442944123}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7483324949170877799
 GameObject:
   m_ObjectHideFlags: 0
@@ -6190,8 +6193,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.1
-      minScalar: 1
+      scalar: 0.3
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10736,3 +10739,34 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &8727857644481429741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5072849847044475279}
+  m_Layer: 8
+  m_Name: edgeBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5072849847044475279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727857644481429741}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 803699521442944123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
