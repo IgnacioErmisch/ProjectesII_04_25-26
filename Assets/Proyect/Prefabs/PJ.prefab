@@ -80,6 +80,8 @@ Transform:
   - {fileID: 487263047496622441}
   - {fileID: 5072849847044475279}
   - {fileID: 2080179544714288419}
+  - {fileID: 938728165749865189}
+  - {fileID: 7158913538546463987}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &6201504506382012895
@@ -168,12 +170,12 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1088
-  edgeCheckFront: {fileID: 2080179544714288419}
-  edgeCheckBack: {fileID: 5072849847044475279}
+  edgeCheckFront: {fileID: 7158913538546463987}
+  edgeCheckBack: {fileID: 938728165749865189}
   edgeCheckDistance: 0.3
   edgeClampSpeed: 5
   perspectiveSwitch: {fileID: 4262907973614035345}
-  attackPoint: {fileID: 2080179544714288419}
+  attackPoint: {fileID: 7158913538546463987}
   cloneSpawnerPoint: {fileID: 487263047496622441}
   cloneSpawnerPointSecond: {fileID: 2756181877665876585}
   playerCombatController: {fileID: 4502971120696559688}
@@ -512,6 +514,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 803699521442944123}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2650819572762512945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7158913538546463987}
+  m_Layer: 8
+  m_Name: edgeFront
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7158913538546463987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650819572762512945}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 803699521442944123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2789915080622717676
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +575,7 @@ Transform:
   m_GameObject: {fileID: 2789915080622717676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -133.08, y: -31.66, z: -10}
+  m_LocalPosition: {x: -4.3099995, y: 1.79, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5725,10 +5758,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5217957864929364863}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.2177363, y: 0}
-  m_AnchorMax: {x: 0.6952956, y: 0.795557}
-  m_AnchoredPosition: {x: 9.7908325, y: -15.331482}
-  m_SizeDelta: {x: -68.783066, y: -30.66306}
+  m_AnchorMin: {x: 0.23446135, y: 0}
+  m_AnchorMax: {x: 0.72316986, y: 0.86}
+  m_AnchoredPosition: {x: 3.28479, y: -7.939575}
+  m_SizeDelta: {x: -17.606245, y: -15.979082}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4589047907345811101
 CanvasRenderer:
@@ -6076,8 +6109,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6
-      minScalar: 3
+      scalar: 3
+      minScalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6194,7 +6227,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
+      scalar: 0.5
       minScalar: 0.1
       maxCurve:
         serializedVersion: 2
@@ -7276,7 +7309,7 @@ ParticleSystem:
   UVModule:
     serializedVersion: 2
     enabled: 0
-    mode: 0
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -10731,7 +10764,7 @@ ParticleSystemRenderer:
   m_VertexStreams: 00010304
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
@@ -10740,6 +10773,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &8244776827285998193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 938728165749865189}
+  m_Layer: 8
+  m_Name: edgeBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &938728165749865189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8244776827285998193}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 803699521442944123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8727857644481429741
 GameObject:
   m_ObjectHideFlags: 0

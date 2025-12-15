@@ -16,13 +16,17 @@ public class SwitchInterface : MonoBehaviour
     {
         TabSwitch();
     }
+
+    private void Start()
+    {
+        SmallClone.color = darkColor;
+    }
     private void TabSwitch()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             IsBigCloneSelected = !IsBigCloneSelected;
 
-            Debug.Log(IsBigCloneSelected ? "ClonGrande" : "ClonPequeño");
             BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
             SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
         }
