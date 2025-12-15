@@ -10,6 +10,8 @@ public class SwitchInterface : MonoBehaviour
 
     [SerializeField] private Color bigSelectedColor;
     [SerializeField] private Color smallSelectedColor;
+    Color darkColor = new Color32(41, 39, 39, 255);
+
     void Update()
     {
         TabSwitch();
@@ -19,10 +21,10 @@ public class SwitchInterface : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             IsBigCloneSelected = !IsBigCloneSelected;
-            
+
             Debug.Log(IsBigCloneSelected ? "ClonGrande" : "ClonPequeño");
-            BigClone.color = IsBigCloneSelected ? bigSelectedColor : Color.white;
-            SmallClone.color = IsBigCloneSelected ? Color.white : smallSelectedColor;
+            BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
+            SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
         }
     }
 }

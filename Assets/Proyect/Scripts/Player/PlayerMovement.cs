@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform cloneSpawnerPoint;
+    [SerializeField] private Transform cloneSpawnerPointSecond;
     [SerializeField] private PlayerCombatController playerCombatController;
 
     public float horizontal { get; private set; }
@@ -148,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
         attackPoint.localScale = attackScale;
 
         cloneSpawnerPoint.localPosition = new Vector3(-cloneSpawnerPoint.localPosition.x, cloneSpawnerPoint.localPosition.y, cloneSpawnerPoint.localPosition.z);
+        cloneSpawnerPointSecond.localPosition = new Vector3(-cloneSpawnerPointSecond.localPosition.x, cloneSpawnerPointSecond.localPosition.y, cloneSpawnerPointSecond.localPosition.z);
     }
 
     public bool IsFacingRight()

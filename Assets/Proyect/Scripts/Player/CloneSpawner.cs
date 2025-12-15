@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class CloneSpawner : MonoBehaviour
 {
@@ -11,7 +10,8 @@ public class CloneSpawner : MonoBehaviour
     [SerializeField] private GameObject cloneBigPrefab;
     [SerializeField] private bool isSmallClone = true;
     [SerializeField] private CloneSpawner[] spawners;
-    [SerializeField] private Transform cloneSpawnPoint;
+    [SerializeField] private Transform cloneSpawnPointPrincipal;
+    [SerializeField] private Transform cloneSpawnPointSecondary;
     public Camera playerCamera;
     private GameObject currentClone;
     public bool cloneActive = false;
@@ -30,12 +30,15 @@ public class CloneSpawner : MonoBehaviour
         if (cloneActive)
             return false;
 
-        Vector3 spawnPosition = cloneSpawnPoint.position;
+        Vector3 spawnPosition = cloneSpawnPointPrincipal.position;
           
         if (!energyController.TryConsumeInitialCost(isSmallClone))
             return false;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position,2f, groundLayer);
+        Vector3 direction = spawnPosition - transform.position;
+        float distance = direction.magnitude;
+        direction.Normalize();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, groundLayer);
         Debug.Log(hit.rigidbody != null);
         if(hit.rigidbody == null)
         {         
@@ -47,7 +50,7 @@ public class CloneSpawner : MonoBehaviour
             else if (!switchInterface.IsBigCloneSelected)
             { 
 
-                currentClone = Instantiate(cloneSmallPrefab, spawnPosition + Vector3.up , Quaternion.identity);
+                currentClone = Instantiate(cloneSmallPrefab, spawnPosition , Quaternion.identity);
                 energyController.RegisterClone(currentClone, isSmallClone);
             }
             cloneActive = true;
@@ -59,35 +62,35 @@ public class CloneSpawner : MonoBehaviour
         }
         else
         {
-        
+            Vector3 spawnPositionSecondary = cloneSpawnPointSecondary.position;
+            
             if (switchInterface.IsBigCloneSelected)
             { 
-                currentClone = Instantiate(cloneBigPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
+                currentClone = Instantiate(cloneBigPrefab, spawnPositionSecondary + Vector3.up, Quaternion.identity);
                 energyController.RegisterClone(currentClone, isSmallClone);
             }
             else if(!switchInterface.IsBigCloneSelected)
             { 
-                currentClone = Instantiate(cloneSmallPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
+                currentClone = Instantiate(cloneSmallPrefab, spawnPositionSecondary, Quaternion.identity);
                 energyController.RegisterClone(currentClone, isSmallClone);
             }
             cloneActive = true;
             playerCamera.transform.SetParent(currentClone.transform);
             playerCamera.transform.localPosition = new Vector3(2, 1, -5);
             perspectiveSwitch.SwitchToClone();
-            if(spawnPosition.x - transform.position.x > 0)
-                transform.position += new Vector3(-2f, 0,0);
-            else
-                transform.position += new Vector3(2f, 0,0);
+            
 
                 return true;
         }
     }
     private void OnDrawGizmos()
     {
-        Vector3 spawnPosition = cloneSpawnPoint.position;
+        Vector3 spawnPosition = cloneSpawnPointPrincipal.position;
         Gizmos.DrawLine(transform.position, spawnPosition);
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, spawnPosition - transform.position, 2f, groundLayer);
+        Vector3 direction = spawnPosition - transform.position;
+        float distance = direction.magnitude;
+        direction.Normalize();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, groundLayer);
         if (hit.rigidbody != null)
         {
             Gizmos.DrawSphere((Vector3)hit.point, 0.2f);
