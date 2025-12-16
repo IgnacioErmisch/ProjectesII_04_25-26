@@ -8,6 +8,9 @@ public class SmallCloneAnimationController : MonoBehaviour
     private SmallCloneMovment movement;
     private SmallCloneDoubleJump doubleJump;
 
+    private void Awake()
+    {
+    }
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -22,6 +25,7 @@ public class SmallCloneAnimationController : MonoBehaviour
             movement = smallCloneController.Movement;
             doubleJump = smallCloneController.DoubleJump;
         }
+        GameManager.Instance.SetSmallController(this);
     }
 
     void Update()
@@ -56,5 +60,10 @@ public class SmallCloneAnimationController : MonoBehaviour
             animator.SetBool("isJumping", false);
         }
 
+    }
+    public void ResetAnimations()
+    {
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isJumping", false);
     }
 }

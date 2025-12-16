@@ -8,10 +8,12 @@ public class BigCloneAnimationController : MonoBehaviour
     [SerializeField] private BigCloneWallDestroyer bigCloneWallDestroyer;
     [SerializeField] private BigCloneAttack bigCloneAttack;
 
+   
     void Start()
     {
         animator = GetComponent<Animator>();
         Initialize();
+        GameManager.Instance.SetBigController(this);    
     }
 
     
@@ -55,6 +57,10 @@ public class BigCloneAnimationController : MonoBehaviour
             animator.SetBool("isAttacking", false);
         }
     }
-
+    public void ResetAnimations()
+    {
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isAttacking", false);
+    }
 
 }

@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     private GameObject energyBigClone;
     private GameObject energySmallClone;
+    private BigCloneAnimationController _bigCloneController;
+    private SmallCloneAnimationController _smallCloneController;
 
     public static GameManager Instance { get; private set; }
 
@@ -59,5 +61,21 @@ public class GameManager : MonoBehaviour
     public GameObject GetSmallCloneEnergy()
     {
         return energySmallClone;
+    }
+    public void SetBigController(BigCloneAnimationController bigCloneController)
+    {
+        _bigCloneController = bigCloneController;
+    }
+    public BigCloneAnimationController GetBigController()
+    {
+        return _bigCloneController;
+    }
+    public void SetSmallController(SmallCloneAnimationController smallCloneController)
+    {
+        _smallCloneController = smallCloneController;
+    }
+    public SmallCloneAnimationController GetSmallController()
+    {
+        return _smallCloneController;
     }
 }

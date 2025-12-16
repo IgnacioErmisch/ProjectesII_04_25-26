@@ -47,14 +47,14 @@ public class SmallCloneDoubleJump
         this.jumpCounter = 0;
     }
 
-    public void Update(bool canControl)
+    public void Update(bool canControl, ParticleSystem particleLand, ParticleSystem particleJump)
     {
         wasGrounded = isGrounded;
         isGrounded = CheckGround();
 
         if (isGrounded && !wasGrounded)
         {
-            OnLand();
+            OnLand(particleLand);
         }
 
 
@@ -85,7 +85,7 @@ public class SmallCloneDoubleJump
 
             if (jumpBufferCounter > 0f && CanJump())
             {
-                PerformJump();
+                PerformJump(particleJump);
                 jumpBufferCounter = 0f;
             }
 
@@ -115,13 +115,17 @@ public class SmallCloneDoubleJump
         return jumpCounter < maxJumps && (isGrounded || coyoteCounter > 0f);
     }
 
-    public void PerformJump()
+    public void PerformJump(ParticleSystem particleJump)
     {       
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * jumpMultiplier);
         jumpCounter++;
         isJumping = true;
         jumpCut = false;
+        if(particleJump != null)
+        {
+            particleJump.Play();
+        }
     }
 
     private void CutJump()
@@ -183,12 +187,24 @@ public class SmallCloneDoubleJump
         }
     }
 
-    private void OnLand()
+    public void OnLand(ParticleSystem particleLand)
     {
         isJumping = false;
         jumpCut = false;
+        if(particleLand != null)
+        {
+            particleLand.Play();
+        }
+    }
+    public bool Landed()
+    {
+        return wasGrounded == false && isGrounded == true;
     }
 
+    public bool IsJumping()
+    {         
+        return isJumping; 
+    }
     public bool IsAtApex()
     {
         return isAtApex;
@@ -198,4 +214,6 @@ public class SmallCloneDoubleJump
     {
         return rb != null ? rb.linearVelocity.y : 0f;
     }
+
+    
 }
