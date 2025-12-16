@@ -4,15 +4,49 @@ public class PerspectiveSwitch : MonoBehaviour
 {
     [SerializeField] private CloneSpawner bigCloneSpawner;
     [SerializeField] private CloneSpawner smallCloneSpawner;
+    [SerializeField] private PlayerAnimatorController playerAnimatorController;
+    [SerializeField] private BigCloneAnimationController bigCloneAnimatorController;
+    [SerializeField] private SmallCloneAnimationController smallCloneAnimatorController;
     public GameObject player;
     public Camera playerCamera;
     public bool controllingPlayer = true;
 
     void Update()
     {
+        SetClones();
         if (Input.GetKeyDown(KeyCode.C))
         {
             SwitchCamera();
+        }
+        if(!controllingPlayer)
+        {
+            playerAnimatorController.ResetAnimations();
+
+        }
+        else
+        {
+            if (bigCloneAnimatorController != null)
+            {
+                GameManager.Instance.GetBigController().ResetAnimations();
+            }
+            if (smallCloneAnimatorController != null)
+            {
+               GameManager.Instance.GetSmallController().ResetAnimations();
+            }
+
+
+        }
+        
+    }
+    private void SetClones()
+    {
+        if(bigCloneAnimatorController == null)
+        {
+            bigCloneAnimatorController = GameManager.Instance.GetBigController();
+        }
+        if(smallCloneAnimatorController == null)
+        {
+            smallCloneAnimatorController = GameManager.Instance.GetSmallController();
         }
     }
     private void Start()

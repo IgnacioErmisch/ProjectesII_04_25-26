@@ -55,18 +55,24 @@ public class BigCloneMovement
         }
     }
 
-    
+
     public void UpdateMovement()
     {
         wasGrounded = isGrounded;
         isGrounded = CheckGround();
-
-        horizontal = Input.GetAxisRaw("Horizontal");
-
         CheckEdge();
     }
-    public void Move()
+    public void Move(bool canMove)
     {
+        if (canMove)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
+        else
+        {
+            horizontal = 0f;
+        }
+
         ApplyMovement();
         bool isCurrentlyMoving = isGrounded && isMoving && Mathf.Abs(currentSpeed) > 0.1f;
   
@@ -84,8 +90,9 @@ public class BigCloneMovement
         {
             ClampToEdge();
         }
+        
     }
-
+    
     private void ApplyMovement()
     {
         float targetSpeed = horizontal * maxSpeed;

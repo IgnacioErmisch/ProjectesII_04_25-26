@@ -52,11 +52,11 @@ public class ShowEnergy : MonoBehaviour
         {
             energyPlayer.SetActive(false);
             if (energyBigClone != null && bigCloneSpawner.cloneActive)
-                {Debug.Log("Barra Gordo");
+            {
                 energyBigClone.SetActive(true);
             }
             if (energySmallClone != null && smallCloneSpawner.cloneActive)
-                {Debug.Log("Barra Nacho");
+            {
                 energySmallClone.SetActive(true);
             }
         }

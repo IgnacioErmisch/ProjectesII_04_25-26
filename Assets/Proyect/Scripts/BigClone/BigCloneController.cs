@@ -79,7 +79,6 @@ public class BigCloneController : MonoBehaviour
 
     private void Update()
     {
-   
         if (movement != null && !perspectiveSwitch.GetControllingPlayer())
         {
             movement.UpdateMovement();
@@ -97,9 +96,9 @@ public class BigCloneController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!perspectiveSwitch.GetControllingPlayer())
+        if (movement != null)
         {
-            movement.Move();
+            movement.Move(!perspectiveSwitch.GetControllingPlayer());
         }
         else
         {

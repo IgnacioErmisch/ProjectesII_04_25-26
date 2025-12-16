@@ -9,6 +9,9 @@ public class SmallCloneController : MonoBehaviour
     private PerspectiveSwitch perspectiveSwitch;
     private SpriteRenderer spriteRenderer;
     private Transform transformSmallClone;
+    [SerializeField] private ParticleSystem jumpParticles;
+    [SerializeField] private ParticleSystem landParticles;
+    [SerializeField] private ParticleSystem runParticles;
 
     public GameObject energyImage;
 
@@ -59,7 +62,8 @@ public class SmallCloneController : MonoBehaviour
     {
         bool canControl = !perspectiveSwitch.GetControllingPlayer(); 
         movement.Update();       
-        doubleJump.Update(canControl);
+        doubleJump.Update(canControl, landParticles, jumpParticles);
+        UpdateParticles();
     }
 
     private void FixedUpdate()
@@ -84,6 +88,21 @@ public class SmallCloneController : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(edgeCheckFront.position, edgeCheckFront.position + Vector3.down * 0.3f);
             Gizmos.DrawLine(edgeCheckBack.position, edgeCheckBack.position + Vector3.down * 0.3f);
+        }
+    }
+    private void UpdateParticles()
+    {
+
+        if (runParticles != null && movement != null)
+        {
+            if (movement.isGrounded && movement.isMoving && !runParticles.isPlaying)
+            {
+                runParticles.Play();
+            }
+            else if ((!movement.isGrounded || !movement.isMoving) && runParticles.isPlaying)
+            {
+                runParticles.Stop();
+            }
         }
     }
 }

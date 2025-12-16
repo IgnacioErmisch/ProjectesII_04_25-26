@@ -278,6 +278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bigCloneSpawner: {fileID: 7564787060841960555}
   smallCloneSpawner: {fileID: 7564787060841960555}
+  playerAnimatorController: {fileID: 8143037896304736361}
   player: {fileID: 240527483314117475}
   playerCamera: {fileID: 6773113138284326154}
   controllingPlayer: 0
