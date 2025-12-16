@@ -15,6 +15,7 @@ TagManager:
   - BlastZone
   - BasicGuardHitCollider
   - HitCollider
+  - Audio
   layers:
   - Default
   - TransparentFX
