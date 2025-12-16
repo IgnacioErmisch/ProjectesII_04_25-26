@@ -48,26 +48,33 @@ public class BigCloneMovement
         this.groundLayer = groundLayer;
     }
 
-    
+
     public void UpdateMovement()
     {
         wasGrounded = isGrounded;
         isGrounded = CheckGround();
-
-        horizontal = Input.GetAxisRaw("Horizontal");
-
         CheckEdge();
     }
-    public void Move()
+    public void Move(bool canMove)
     {
+        if (canMove)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
+        else
+        {
+            horizontal = 0f;
+        }
+
         ApplyMovement();
 
         if (isOnEdge && isGrounded)
         {
             ClampToEdge();
         }
+        
     }
-
+    
     private void ApplyMovement()
     {
         float targetSpeed = horizontal * maxSpeed;

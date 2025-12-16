@@ -7,13 +7,15 @@ public class BigCloneAnimationController : MonoBehaviour
     [SerializeField] private BigCloneController bigCloneController;
     [SerializeField] private BigCloneWallDestroyer bigCloneWallDestroyer;
     [SerializeField] private BigCloneAttack bigCloneAttack;
+    public BigCloneMovement movement;
 
-   
+
     void Start()
     {
         animator = GetComponent<Animator>();
         Initialize();
         GameManager.Instance.SetBigController(this);    
+        movement = bigCloneController.movement;
     }
 
     
@@ -31,10 +33,9 @@ public class BigCloneAnimationController : MonoBehaviour
 
     private void PlayWalkAnimation()
     {
-
-        if (bigCloneController.movement.GetMove())
+        if (movement != null && movement.isMoving)
         {
-
+            
             animator.SetBool("isWalking", true);
 
         }
