@@ -21,18 +21,18 @@ public class SmallCloneDoubleJump
     private float coyoteCounter;
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
-    private int jumpsRemaining;
-    private bool wasGroundedLastFrame;
     private bool isAtApex;
     private float apexHangCounter;
     private bool jumpHeld;
     private bool jumpCut;
+    private bool wasGrounded;
+    private int jumpCounter = 0;
     public bool isJumping { get; private set; }
     public bool isGrounded { get; private set; }
 
     public SmallCloneDoubleJump(Rigidbody2D rb, Transform groundCheck, float groundCheckRadius,
                                 LayerMask groundLayer, float jumpForce, float jumpMultiplier,
-                                float coyoteTime, int maxJumps = 2)
+                                float coyoteTime, int maxJumps = 2, int jumpCounter = 0)
     {
         this.rb = rb;
         this.groundCheck = groundCheck;
@@ -42,62 +42,57 @@ public class SmallCloneDoubleJump
         this.jumpMultiplier = jumpMultiplier;
         this.coyoteTime = coyoteTime;
         this.maxJumps = maxJumps;
-        this.jumpsRemaining = maxJumps;
-        this.wasGroundedLastFrame = false;
         this.jumpBufferCounter = 0f;
         this.coyoteCounter = 0f;
+        this.jumpCounter = 0;
     }
 
     public void Update(bool canControl)
     {
+        wasGrounded = isGrounded;
         isGrounded = CheckGround();
 
-        if (isGrounded)
+        if (isGrounded && !wasGrounded)
+        {
+            OnLand();
+        }
+
+
+        if (isGrounded && !isJumping)
         {
             coyoteCounter = coyoteTime;
-            jumpsRemaining = maxJumps;
+            jumpCounter = 0;
         }
         else
         {
             coyoteCounter -= Time.deltaTime;
         }
-     
-        if (isGrounded && !wasGroundedLastFrame)
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            OnLand();
-        }
-
-        wasGroundedLastFrame = isGrounded;
-
-        if (canControl)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                jumpBufferCounter = jumpBufferTime;
-            }
-            else
-            {
-                jumpBufferCounter -= Time.deltaTime;
-            }
-
-            jumpHeld = Input.GetKey(KeyCode.Space);
-
-            
-            if (jumpBufferCounter > 0f && CanJump())
-            {
-                Jump();
-                jumpBufferCounter = 0f;
-            }
-           
-            if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0f && !jumpCut)
-            {
-                CutJump();
-            }
+            jumpBufferCounter = jumpBufferTime;
         }
         else
         {
             jumpBufferCounter -= Time.deltaTime;
-            jumpHeld = false;
+        }
+
+        jumpHeld = Input.GetKey(KeyCode.Space);
+        
+
+        if (canControl)
+        {
+
+            if (jumpBufferCounter > 0f && CanJump())
+            {
+                PerformJump();
+                jumpBufferCounter = 0f;
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0f && !jumpCut)
+            {
+                CutJump();
+            }
         }
 
         CheckApex();
@@ -117,22 +112,14 @@ public class SmallCloneDoubleJump
 
     public bool CanJump()
     {
-        if (jumpsRemaining == maxJumps)
-        {
-            return coyoteCounter > 0f;
-        }
-        else
-        {
-            return jumpsRemaining > 0;
-        }
+        return jumpCounter < maxJumps && (isGrounded || coyoteCounter > 0f);
     }
 
-    public void Jump()
+    public void PerformJump()
     {       
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * jumpMultiplier);
-        jumpsRemaining--;
-        coyoteCounter = 0f;
+        jumpCounter++;
         isJumping = true;
         jumpCut = false;
     }
@@ -200,11 +187,6 @@ public class SmallCloneDoubleJump
     {
         isJumping = false;
         jumpCut = false;
-    }
-
-    public int GetJumpsRemaining()
-    {
-        return jumpsRemaining;
     }
 
     public bool IsAtApex()

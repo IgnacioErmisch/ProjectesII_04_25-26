@@ -210,6 +210,7 @@ MonoBehaviour:
   jumpMultiplier: 1
   maxJumps: 2
   coyoteTime: 0.66
+  jumpCounter: 0
 --- !u!70 &3040771992612995455
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

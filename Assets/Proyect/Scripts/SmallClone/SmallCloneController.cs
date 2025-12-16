@@ -26,6 +26,7 @@ public class SmallCloneController : MonoBehaviour
     [SerializeField] private float jumpMultiplier = 1f;
     [SerializeField] private int maxJumps = 2;
     [SerializeField] private float coyoteTime = 0.1f;
+    [SerializeField] private int jumpCounter = 0;
 
     public SmallCloneMovment Movement => movement;
     public SmallCloneDoubleJump DoubleJump => doubleJump;
@@ -46,7 +47,7 @@ public class SmallCloneController : MonoBehaviour
         stats = new SmallCloneStats(); 
         perspectiveSwitch = FindFirstObjectByType<PerspectiveSwitch>();      
         movement = new SmallCloneMovment(rb, stats, spriteRenderer,groundCheck, groundCheckRadius, groundLayer, edgeCheckFront, edgeCheckBack);
-        doubleJump = new SmallCloneDoubleJump(rb, groundCheck, groundCheckRadius, groundLayer, jumpForce, jumpMultiplier, coyoteTime, maxJumps);
+        doubleJump = new SmallCloneDoubleJump(rb, groundCheck, groundCheckRadius, groundLayer, jumpForce, jumpMultiplier, coyoteTime, maxJumps, jumpCounter);
     }
 
     private void ApplySizeModifier()
