@@ -398,17 +398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdda2c51fe05cc84ba3aca6076fb41fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &159555413 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1709634779136955750, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
-  m_PrefabInstance: {fileID: 5435904900046934705}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886438627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d975d016f60c8498b3c947377af3a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &159555419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 803699521442944123, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
@@ -29789,7 +29778,7 @@ Tilemap:
       - {fileID: 1304145915, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
-      m_AnimationSpeed: 6.0000005
+      m_AnimationSpeed: 6
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 153, y: 28, z: 0}
@@ -29812,7 +29801,7 @@ Tilemap:
       - {fileID: 1304145915, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
       - {fileID: -1270245095, guid: 48a7e8dda5f91984cb5948827a050c83, type: 3}
-      m_AnimationSpeed: 6.0000005
+      m_AnimationSpeed: 6
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -30274,6 +30263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1886438627}
+  perspectiveSwitch: {fileID: 0}
 --- !u!4 &1153160587
 Transform:
   m_ObjectHideFlags: 0
@@ -47315,7 +47305,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1332551309}
   playerMovement: {fileID: 1886438632}
-  combatController: {fileID: 159555412}
+  playerJump: {fileID: 0}
+  playerCombatController: {fileID: 0}
 --- !u!1 &1344617710 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1635217541218530971, guid: 342d6971623396448822f2204dd92246, type: 3}
@@ -47972,6 +47963,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatController: {fileID: 159555412}
   energyController: {fileID: 259296856}
+  player: {fileID: 0}
+  checkpointManager: {fileID: 0}
 --- !u!114 &1886438632 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4682376492252064245, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
@@ -48036,12 +48029,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d051da6c5b5677d439cf8a3ded1bb8f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bigCloneSelected: {fileID: 19165982}
-  smallCloneSelected: {fileID: 423844954}
-  EBigClone: {fileID: 1351515394}
-  ESmallClone: {fileID: 561445937}
-  isBigCloneSelected: 0
-  isSmallCloneSelected: 0
+  IsBigCloneSelected: 0
+  BigClone: {fileID: 0}
+  SmallClone: {fileID: 0}
+  bigSelectedColor: {r: 0, g: 0, b: 0, a: 0}
+  smallSelectedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2016800167 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2736426891366717293, guid: 8f549a68c5a00654c9ab9babcc302524, type: 3}
@@ -48569,11 +48561,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 803699521442944123, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.21
+      value: 111
       objectReference: {fileID: 0}
     - target: {fileID: 803699521442944123, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.445
+      value: 29.8
       objectReference: {fileID: 0}
     - target: {fileID: 803699521442944123, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_LocalPosition.z
@@ -48626,7 +48618,7 @@ PrefabInstance:
     - target: {fileID: 4262907973614035345, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: smallCloneSpawner
       value: 
-      objectReference: {fileID: 159555413}
+      objectReference: {fileID: 0}
     - target: {fileID: 4492489314801187546, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -48658,7 +48650,7 @@ PrefabInstance:
     - target: {fileID: 4682376492252064245, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: smallCloneSpawner
       value: 
-      objectReference: {fileID: 159555413}
+      objectReference: {fileID: 0}
     - target: {fileID: 5338099875649414250, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_SortingLayer
       value: 2

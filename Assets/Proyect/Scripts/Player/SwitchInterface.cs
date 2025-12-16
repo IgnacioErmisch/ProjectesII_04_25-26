@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SwitchInterface : MonoBehaviour
 {
-    public bool IsBigCloneSelected { get; private set; } = true;
+    [SerializeField] public bool IsBigCloneSelected;
     [SerializeField] private Image BigClone;
     [SerializeField] private Image SmallClone;
 
@@ -19,16 +19,21 @@ public class SwitchInterface : MonoBehaviour
 
     private void Start()
     {
-        SmallClone.color = darkColor;
+        BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
+        SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
     }
     private void TabSwitch()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            IsBigCloneSelected = !IsBigCloneSelected;
 
-            BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
-            SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
+            if (BigClone != null && SmallClone != null)
+            {
+                IsBigCloneSelected = !IsBigCloneSelected;
+                BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
+                SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
+            }
+           
         }
     }
 }

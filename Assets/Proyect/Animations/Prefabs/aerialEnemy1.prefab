@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   patrolSpeed: 1.5
-  patrolHeight: 32.7
+  patrolHeight: 4.58
   patrolRangeX: 12
   patrolCenter: {x: 0, y: 0}
   electricPulsePrefab: {fileID: 2136761268959517295, guid: a6a8c034ece449f4080364d1ed13e453, type: 3}

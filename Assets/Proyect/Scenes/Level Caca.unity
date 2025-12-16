@@ -49087,12 +49087,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d051da6c5b5677d439cf8a3ded1bb8f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bigCloneSelected: {fileID: 19165982}
-  smallCloneSelected: {fileID: 423844954}
-  EBigClone: {fileID: 1351515394}
-  ESmallClone: {fileID: 561445937}
-  isBigCloneSelected: 0
-  isSmallCloneSelected: 0
+  IsBigCloneSelected: 0
+  BigClone: {fileID: 0}
+  SmallClone: {fileID: 0}
+  bigSelectedColor: {r: 0, g: 0, b: 0, a: 0}
+  smallSelectedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2016800167 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2736426891366717293, guid: 8f549a68c5a00654c9ab9babcc302524, type: 3}
@@ -49554,11 +49553,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 803699521442944123, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.21
+      value: 113.4
       objectReference: {fileID: 0}
     - target: {fileID: 803699521442944123, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.445
+      value: 29.5
       objectReference: {fileID: 0}
     - target: {fileID: 803699521442944123, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_LocalPosition.z
@@ -49596,6 +49595,14 @@ PrefabInstance:
       propertyPath: smallCloneSpawner
       value: 
       objectReference: {fileID: 5435904900046934717}
+    - target: {fileID: 4492489314801187546, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -133.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492489314801187546, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -31.21
+      objectReference: {fileID: 0}
     - target: {fileID: 4503241564842466741, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: QBigClone
       value: 

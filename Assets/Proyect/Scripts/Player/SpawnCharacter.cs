@@ -22,9 +22,15 @@ public class SpawnCharacter : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("BlastZone") || collision.CompareTag("Spikes"))
+        if (collision.CompareTag("Spikes"))
         {
             StartCoroutine(WaitForSpawn());
+        }
+        if (collision.CompareTag("BlastZone"))
+        {
+            energyController.ResetEnergy();
+            combatController.ResetHealth();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
     private IEnumerator WaitForSpawn()
@@ -35,8 +41,6 @@ public class SpawnCharacter : MonoBehaviour
         energyController.ResetEnergy();
         combatController.ResetHealth();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-
 
     }
 }
