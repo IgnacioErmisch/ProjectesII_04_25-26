@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cloneSpawnerPoint;
     [SerializeField] private Transform cloneSpawnerPointSecond;
     [SerializeField] private PlayerCombatController playerCombatController;
-
+    private SoundManager soundManager;
     public float horizontal { get; private set; }
     public bool isMoving { get; private set; }
     public bool isGrounded { get; private set; }
@@ -39,11 +40,16 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     private bool wasGrounded;
     private bool isOnEdge;
+    private bool wasMoving;
 
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -59,6 +65,18 @@ public class PlayerMovement : MonoBehaviour
         {
             horizontal = 0f;
         }
+        bool isCurrentlyMoving = isGrounded && isMoving && Mathf.Abs(currentSpeed) > 0.1f;
+
+        if (isCurrentlyMoving && !wasMoving)
+        {
+            soundManager.PlayLoop(soundManager.movementP);
+        }
+        else if (!isCurrentlyMoving && wasMoving)
+        {
+            soundManager.StopLoop();
+        }
+
+        wasMoving = isCurrentlyMoving;
 
         CheckEdge();
     }

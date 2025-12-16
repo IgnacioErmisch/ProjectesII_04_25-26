@@ -10,6 +10,7 @@ public class BigCloneAttack : MonoBehaviour
     [SerializeField] private float dashKnockbackForce;
     [SerializeField] private LayerMask enemyLayer; 
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private SoundManager soundManager;
 
     public bool isDashing = false;
     private bool canDash = true;
@@ -19,6 +20,10 @@ public class BigCloneAttack : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -57,6 +62,7 @@ public class BigCloneAttack : MonoBehaviour
 
     void StartDash()
     {
+        soundManager.PlaySFX(soundManager.dash);
         isDashing = true;
         canDash = false;
         dashTimer = dashDuration;

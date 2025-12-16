@@ -24,6 +24,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerMovement playerMovement;
 
     public event System.Action OnPlayerDeath;
+    private SoundManager soundManager;
     public event System.Action<float, float> OnHealthChanged;
 
     private void Awake()
@@ -36,8 +37,9 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
             OnHealthChanged?.Invoke(currentHealth, healthSystem.GetMaxHealth());
         };
         healthSystem.OnDeath += HandleDeath;
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
 
-      
+
     }
 
     private void Start()
@@ -82,6 +84,7 @@ public class PlayerCombatController : MonoBehaviour, IDamageable
  
     private void HandleDeath()
     {
+        soundManager.PlaySFX(soundManager.death);
         OnPlayerDeath?.Invoke();
     }
 
