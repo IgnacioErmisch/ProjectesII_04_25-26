@@ -39,6 +39,9 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private ParticleSystem landParticles;
     [SerializeField] private ParticleSystem runParticles;
 
+    [Header("Audio")]
+    [SerializeField] SoundManager soundManager;
+
    
     public bool isJumping { get; private set; }
     public bool isGrounded { get; private set; }
@@ -57,7 +60,8 @@ public class PlayerJump : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-       
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
+
     }
 
     private void Update()
@@ -131,19 +135,20 @@ public class PlayerJump : MonoBehaviour
 
     private void PerformJump()
     {
-        
+        soundManager.PlaySFX(soundManager.jump);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         jumpCounter++;
-     
+
         isJumping = true;
         jumpCut = false;
-        
+
 
         if (jumpParticles != null)
         {
             jumpParticles.Play();
         }
+        
     }
 
     private void CutJump()

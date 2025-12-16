@@ -29,6 +29,7 @@ public class SmallCloneDoubleJump
     private int jumpCounter = 0;
     public bool isJumping { get; private set; }
     public bool isGrounded { get; private set; }
+    [SerializeField] private SoundManager soundManager;
 
     public SmallCloneDoubleJump(Rigidbody2D rb, Transform groundCheck, float groundCheckRadius,
                                 LayerMask groundLayer, float jumpForce, float jumpMultiplier,
@@ -45,7 +46,13 @@ public class SmallCloneDoubleJump
         this.jumpBufferCounter = 0f;
         this.coyoteCounter = 0f;
         this.jumpCounter = 0;
+        GameObject audioObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioObject != null)
+        {
+            this.soundManager = audioObject.GetComponent<SoundManager>();
+        }
     }
+   
 
     public void Update(bool canControl)
     {
@@ -116,12 +123,14 @@ public class SmallCloneDoubleJump
     }
 
     public void PerformJump()
-    {       
+    {
+        
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * jumpMultiplier);
         jumpCounter++;
         isJumping = true;
         jumpCut = false;
+        soundManager.PlaySFX(soundManager.jump);
     }
 
     private void CutJump()

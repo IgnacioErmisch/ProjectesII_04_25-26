@@ -24,6 +24,8 @@ public class SmallCloneMovment
     private float groundCheckRadius;
     private LayerMask groundLayer;
 
+    private SoundManager soundManager;
+
    
     public float horizontal { get; private set; }
     public bool isMoving { get; private set; }
@@ -31,6 +33,7 @@ public class SmallCloneMovment
     private bool facingRight = true;
     private float currentSpeed;
     private bool isOnEdge;
+    private bool wasMoving;
 
     public SmallCloneMovment(Rigidbody2D rb, SmallCloneStats stat, SpriteRenderer spriteRenderer,
                              Transform groundCheck, float groundCheckRadius, LayerMask groundLayer,
@@ -47,6 +50,11 @@ public class SmallCloneMovment
 
         this.maxSpeed = 7f * stat.SpeedMultiplier;
         this.currentSpeed = 0f;
+        GameObject audioObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioObject != null)
+        {
+            this.soundManager = audioObject.GetComponent<SoundManager>();
+        }
     }
 
     public void Update()
@@ -67,6 +75,19 @@ public class SmallCloneMovment
         }
 
         ApplyMovement();
+        bool isCurrentlyMoving = isGrounded && isMoving && Mathf.Abs(currentSpeed) > 0.1f;
+      
+            if (isCurrentlyMoving && !wasMoving)
+            {
+                soundManager.PlayLoop(soundManager.movementSC); 
+            }
+            else if (!isCurrentlyMoving && wasMoving)
+            {
+                soundManager.StopLoop();
+            }
+        
+
+        wasMoving = isCurrentlyMoving;
 
         if (isOnEdge && isGrounded)
         {

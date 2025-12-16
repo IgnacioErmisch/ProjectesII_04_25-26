@@ -12,12 +12,17 @@ public class CloneSpawner : MonoBehaviour
     [SerializeField] private CloneSpawner[] spawners;
     [SerializeField] private Transform cloneSpawnPointPrincipal;
     [SerializeField] private Transform cloneSpawnPointSecondary;
+    SoundManager soundManager;
     public Camera playerCamera;
     private GameObject currentClone;
     public bool cloneActive = false;
 
     public LayerMask groundLayer;
-   
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
+    }
+
     public bool TrySpawnClone()
     {
        
@@ -41,7 +46,8 @@ public class CloneSpawner : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, groundLayer);
         Debug.Log(hit.rigidbody != null);
         if(hit.rigidbody == null)
-        {         
+        {
+            soundManager.PlaySFX(soundManager.spawnClon);
             if(switchInterface.IsBigCloneSelected)
             {
                 currentClone = Instantiate(cloneBigPrefab, spawnPosition + Vector3.up, Quaternion.identity);

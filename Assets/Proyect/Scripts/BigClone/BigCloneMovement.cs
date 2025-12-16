@@ -27,6 +27,8 @@ public class BigCloneMovement
     private float currentSpeed;
     private bool wasGrounded;
     private bool isOnEdge;
+    private SoundManager soundManager;
+    private bool wasMoving;
 
     public BigCloneMovement(
         Rigidbody2D rb,
@@ -46,6 +48,11 @@ public class BigCloneMovement
         this.edgeCheckFront = edgeCheckFront;
         this.edgeCheckBack = edgeCheckBack;
         this.groundLayer = groundLayer;
+        GameObject audioObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioObject != null)
+        {
+            this.soundManager = audioObject.GetComponent<SoundManager>();
+        }
     }
 
     
@@ -61,7 +68,18 @@ public class BigCloneMovement
     public void Move()
     {
         ApplyMovement();
-
+        bool isCurrentlyMoving = isGrounded && isMoving && Mathf.Abs(currentSpeed) > 0.1f;
+  
+            if (isCurrentlyMoving && !wasMoving)
+            {
+                soundManager.PlayLoop(soundManager.movementBC); 
+            }
+            else if (!isCurrentlyMoving && wasMoving)
+            {
+                soundManager.StopLoop();
+            }
+        
+        wasMoving = isCurrentlyMoving;
         if (isOnEdge && isGrounded)
         {
             ClampToEdge();
