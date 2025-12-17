@@ -22,6 +22,7 @@ public class SwitchInterface : MonoBehaviour
     {
         BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
         SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
+        gameManager = GameManager.Instance;
     }
     private void TabSwitch()
     {
