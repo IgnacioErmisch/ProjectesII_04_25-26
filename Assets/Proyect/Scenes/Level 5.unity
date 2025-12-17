@@ -3195,6 +3195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1802752030}
   perspectiveSwitch: {fileID: 1802752028}
+  cloneSpawner: {fileID: 0}
 --- !u!4 &690177416
 Transform:
   m_ObjectHideFlags: 0
@@ -3633,7 +3634,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3218099744113761063, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4777075642979453360, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
       propertyPath: m_Name
