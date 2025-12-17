@@ -7,6 +7,7 @@ public class SwitchInterface : MonoBehaviour
     [SerializeField] public bool IsBigCloneSelected;
     [SerializeField] private Image BigClone;
     [SerializeField] private Image SmallClone;
+    [SerializeField] private GameManager gameManager;
 
     [SerializeField] private Color bigSelectedColor;
     [SerializeField] private Color smallSelectedColor;
@@ -24,7 +25,7 @@ public class SwitchInterface : MonoBehaviour
     }
     private void TabSwitch()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !gameManager.GetCloneActive())
         {
 
             if (BigClone != null && SmallClone != null)

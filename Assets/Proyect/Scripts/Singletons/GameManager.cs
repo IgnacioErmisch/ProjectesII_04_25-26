@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
+    [SerializeField] private CloneSpawner cloneSpawner;
     private GameObject energyBigClone;
     private GameObject energySmallClone;
     private BigCloneAnimationController _bigCloneController;
@@ -44,6 +45,10 @@ public class GameManager : MonoBehaviour
         return perspectiveSwitch.controllingPlayer;
     }
 
+    public bool GetCloneActive()
+    {
+        return cloneSpawner.cloneActive;        
+    }
     public void SetBigCloneEnergy(GameObject energyBigCloneImage)
     {
         energyBigClone = energyBigCloneImage;
