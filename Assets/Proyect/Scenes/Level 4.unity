@@ -6263,7 +6263,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 56
-      m_TileSpriteIndex: 54
+      m_TileSpriteIndex: 57
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -15900,14 +15900,14 @@ Tilemap:
     m_Data: {fileID: -208196912, guid: 13aec38b3c8cdf54aabd49bec570fb29, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 1010625740, guid: 13aec38b3c8cdf54aabd49bec570fb29, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 1063497727, guid: 13aec38b3c8cdf54aabd49bec570fb29, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 7
     m_Data: {fileID: -2113114458, guid: 13aec38b3c8cdf54aabd49bec570fb29, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1063497727, guid: 13aec38b3c8cdf54aabd49bec570fb29, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -229333483, guid: 13aec38b3c8cdf54aabd49bec570fb29, type: 3}
   - m_RefCount: 6
@@ -17180,6 +17180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1653380631}
   perspectiveSwitch: {fileID: 1653380632}
+  cloneSpawner: {fileID: 1653380636}
 --- !u!4 &690177416
 Transform:
   m_ObjectHideFlags: 0
@@ -37668,7 +37669,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3218099744113761063, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4777075642979453360, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
       propertyPath: m_Name
@@ -37791,6 +37792,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1340434647}
     - target: {fileID: 8628478302887266359, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 690177415}
+    - target: {fileID: 8628478302887266359, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
       propertyPath: IsBigCloneSelected
       value: 1
       objectReference: {fileID: 0}
@@ -37818,6 +37823,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09fc6b74b43b53b459094753890fb138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1653380636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+  m_PrefabInstance: {fileID: 1567183206}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653380631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d975d016f60c8498b3c947377af3a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1788350062
