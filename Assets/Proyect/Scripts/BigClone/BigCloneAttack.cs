@@ -11,6 +11,7 @@ public class BigCloneAttack : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer; 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SoundManager soundManager;
+    [SerializeField] private SpriteRenderer sr;
 
     public bool isDashing = false;
     private bool canDash = true;
@@ -20,6 +21,7 @@ public class BigCloneAttack : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponentInChildren<SpriteRenderer>();
     }
     private void Awake()
     {
@@ -56,7 +58,16 @@ public class BigCloneAttack : MonoBehaviour
     {
         if (isDashing)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x * dashSpeed, rb.linearVelocity.y);
+            if (!sr.flipX)
+            {
+                rb.linearVelocity = new Vector2(dashSpeed, rb.linearVelocity.y);
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(-dashSpeed, rb.linearVelocity.y);
+
+            }
+
         }
     }
 

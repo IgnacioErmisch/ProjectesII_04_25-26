@@ -5140,7 +5140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae191a75ad3108140ba67dd65f0bd147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 3
+  dashSpeed: 15
   dashDuration: 0.5
   dashCooldown: 1
   dashDamage: 150
@@ -5149,6 +5149,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   rb: {fileID: 1825444696045487236}
+  soundManager: {fileID: 0}
+  sr: {fileID: 8790202237903686020}
   isDashing: 0
 --- !u!1 &7408190003627785854
 GameObject:
