@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         {
             Instance._player = _player;
             Instance.perspectiveSwitch = perspectiveSwitch;
+            Instance.cloneSpawner = cloneSpawner;
             Destroy(gameObject);
         }
     }

@@ -38,16 +38,29 @@ public class EnergyController : MonoBehaviour
     public delegate void PlayerDeathDelegate();
     public event PlayerDeathDelegate OnPlayerDeath;
 
+    private PerspectiveSwitch perspectiveSwitch;
+    private PlayerCombatController playerCombatController;
+    private HealthSystem healthSystem;
+    private SoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
+
+    }
+
     private void Start()
     {
         currentEnergy = maxEnergy;
         OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
-        
+        perspectiveSwitch = GetComponentInParent<PerspectiveSwitch>();
+        playerCombatController = GetComponentInParent<PlayerCombatController>();
+        healthSystem = GetComponentInParent<HealthSystem>();
     }
 
     private void Update()
     {
-        if (isDead) return;
+        if (playerCombatController.IsDead()) return;
 
         if (activeClones.Count > 0)
         {
@@ -62,7 +75,7 @@ public class EnergyController : MonoBehaviour
 
     public bool TryConsumeInitialCost(bool isSmall)
     {
-        if (isDead) return false;
+        if (playerCombatController.IsDead()) return false;
 
         float cost = isSmall ? smallCloneInitialCost : largeCloneInitialCost;
         if (currentEnergy >= cost)
@@ -76,7 +89,7 @@ public class EnergyController : MonoBehaviour
 
     public void RegisterClone(GameObject clone, bool isSmall)
     {
-        if (isDead) return;
+        if (playerCombatController.IsDead()) return;
 
         float drainRate = isSmall ? smallCloneDrainPerSecond : largeCloneDrainPerSecond;
         if (!activeClones.ContainsKey(clone))
@@ -119,11 +132,15 @@ public class EnergyController : MonoBehaviour
 
     private void CheckDeath()
     {
-        if (currentEnergy <= 0 && !isDead)
+        if (currentEnergy <= 0 && !playerCombatController.IsDead())
         {
-            isDead = true;
+            healthSystem.IsDeadTrue();
             StopRegeneration();
             OnPlayerDeath?.Invoke();
+            perspectiveSwitch.controllingPlayer = true; 
+            soundManager.PlaySFX(soundManager.death);
+            
+
         }
     }
 

@@ -7,8 +7,6 @@ public class SpawnCharacter : MonoBehaviour
     [SerializeField] private PlayerCombatController combatController;
     [SerializeField] private EnergyController energyController;
     [SerializeField] private GameObject player;
-    [SerializeField] private CheckpointManager checkpointManager;
-
    
 
     void Update()
@@ -36,7 +34,7 @@ public class SpawnCharacter : MonoBehaviour
     private IEnumerator WaitForSpawn()
     {
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         //player.transform.position = checkpointManager.GetLastCheckpoint();
         energyController.ResetEnergy();
         combatController.ResetHealth();

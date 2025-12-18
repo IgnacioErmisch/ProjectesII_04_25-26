@@ -15,7 +15,7 @@ public class SmallCloneDoubleJump
     private float maxFallSpeed = 20f;
     private float apexThreshold = 2f;
     private float apexHangTime = 0.1f;
-    private float apexGravityMultiplier = 0.5f;
+    private float apexGravityMultiplier = 1.5f;
     private float jumpCutMultiplier = 0.5f;
     private float coyoteTime;
     private float coyoteCounter;
