@@ -6091,7 +6091,7 @@ SpriteRenderer:
   m_SortingLayerID: -1357442105
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 473528096, guid: c68d1c3a67d549d49bffee1596de6c6c, type: 3}
+  m_Sprite: {fileID: 530654797, guid: e8466f3bba3932b49a65f3fefdf9f217, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6903,71 +6903,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
---- !u!1001 &670439108
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1377071508763594598, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_Name
-      value: EnemyRedShroom
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -13.969
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.475
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643562710328642762, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7279799444899314154, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: leftLimit
-      value: 
-      objectReference: {fileID: 1079812878}
-    - target: {fileID: 7279799444899314154, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
-      propertyPath: rightLimit
-      value: 
-      objectReference: {fileID: 1331355459}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27d8a7d577c028b4493652f2c43a27b9, type: 3}
 --- !u!1 &685114013
 GameObject:
   m_ObjectHideFlags: 0
@@ -7002,7 +6937,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.53900003, y: 0.62738556}
   m_AnchorMax: {x: 0.58359814, y: 0.656}
-  m_AnchoredPosition: {x: -1.089, y: 0.39000034}
+  m_AnchoredPosition: {x: -1.089, y: 0.53}
   m_SizeDelta: {x: -0.3014747, y: -0.018543884}
   m_Pivot: {x: 0.49999887, y: 0.5}
 --- !u!114 &685114015
@@ -7025,7 +6960,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Small Clone can kill enemies by jumping on their heads
+  m_text: Small Clone can kill blue enemies by jumping on their heads
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3e3ab0f75d0eb90488d98c770b4821a4, type: 2}
   m_sharedMaterial: {fileID: -8271695671536910209, guid: 3e3ab0f75d0eb90488d98c770b4821a4, type: 2}
@@ -7590,7 +7525,7 @@ SpriteRenderer:
   m_SortingLayerID: -1357442105
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 473528096, guid: c68d1c3a67d549d49bffee1596de6c6c, type: 3}
+  m_Sprite: {fileID: -813124978, guid: e8466f3bba3932b49a65f3fefdf9f217, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12211,6 +12146,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927627671}
   m_CullTransparentMesh: 1
+--- !u!1001 &1966826333
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1377071508763594598, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_Name
+      value: EnemyBlueShroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 2242407336774715265, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: leftLimit
+      value: 
+      objectReference: {fileID: 1079812878}
+    - target: {fileID: 2242407336774715265, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: rightLimit
+      value: 
+      objectReference: {fileID: 1331355459}
+    - target: {fileID: 2242407336774715265, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: attackRange
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.05664
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.05664
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.52832
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.4501
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
 --- !u!1 &2021493077
 GameObject:
   m_ObjectHideFlags: 0
@@ -12578,5 +12594,5 @@ SceneRoots:
   - {fileID: 318732887}
   - {fileID: 1005137202}
   - {fileID: 2102214553}
-  - {fileID: 670439108}
   - {fileID: 731770905}
+  - {fileID: 1966826333}
