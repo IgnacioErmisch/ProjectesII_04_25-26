@@ -27,7 +27,7 @@ public class SmallCloneAttack : MonoBehaviour
         if (collision.gameObject.CompareTag("HitCollider"))
         {
             soundManager.PlaySFX(soundManager.jumpOnEnemies);
-            IDamageable damageable = collision.gameObject.GetComponentInParent<IDamageable>();
+            IDamageableBlue damageable = collision.gameObject.GetComponentInParent<IDamageableBlue>();
 
             if (damageable != null && !damageable.IsDead())
             {
