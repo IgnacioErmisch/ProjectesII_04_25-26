@@ -214,6 +214,7 @@ MonoBehaviour:
   jumpParticles: {fileID: 7294801367233732497}
   landParticles: {fileID: 8045416976597361143}
   runParticles: {fileID: 8217135377386519259}
+  soundManager: {fileID: 0}
   jumpCounter: 0
   coyoteCounter: 0
 --- !u!114 &7564787060841960555
@@ -279,6 +280,8 @@ MonoBehaviour:
   bigCloneSpawner: {fileID: 7564787060841960555}
   smallCloneSpawner: {fileID: 7564787060841960555}
   playerAnimatorController: {fileID: 8143037896304736361}
+  bigCloneAnimatorController: {fileID: 0}
+  smallCloneAnimatorController: {fileID: 0}
   player: {fileID: 240527483314117475}
   playerCamera: {fileID: 6773113138284326154}
   controllingPlayer: 0
@@ -314,8 +317,6 @@ MonoBehaviour:
   switchInterface: {fileID: 0}
   cloneSpawnerPoint: {fileID: 2756181877665876585}
   playerJump: {fileID: 6595192762629193903}
-  QBigClone: {fileID: 0}
-  QSmallClone: {fileID: 0}
 --- !u!114 &7218787180392879174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,7 +578,7 @@ Transform:
   m_GameObject: {fileID: 2789915080622717676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -133.08, y: -31.66, z: -10}
+  m_LocalPosition: {x: -4.3099995, y: 1.79, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
