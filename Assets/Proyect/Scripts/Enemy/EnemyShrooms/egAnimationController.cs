@@ -16,7 +16,7 @@ public class egAnimationController : MonoBehaviour
     private void Update()
     {
        
-        if (guardEnemy.IsDead())
+        if (guardEnemy.IsDead()) 
         {
             animator.SetTrigger("Die");
             animator.SetBool("IsWalking", false);

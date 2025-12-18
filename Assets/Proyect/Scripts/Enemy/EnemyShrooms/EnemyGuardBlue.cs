@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BasicGuardEnemy : MonoBehaviour, IDamageable
+public class EnemyGuardBlue : MonoBehaviour, IDamageableBlue
 {
     [Header("Health Settings")]
     [SerializeField] private float maxHealth = 50f;
@@ -39,7 +39,7 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
     private SpriteRenderer spriteRenderer;
 
     [SerializeField] private int jumpsHitDamage;
-    
+
 
     private enum State { Patrol, Chase, Attack, Dead }
     private State currentState = State.Patrol;
@@ -236,7 +236,7 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
     {
         lastAttackTime = Time.time;
 
-        
+
         if (animController != null)
         {
             animController.PlayAttackAnimation();
@@ -262,7 +262,7 @@ public class BasicGuardEnemy : MonoBehaviour, IDamageable
         healthSystem.TakeDamage(damage, knockbackDirection);
         knockbackSystem.ApplyKnockback(knockbackDirection);
 
-        
+
         if (animController != null)
         {
             animController.PlayHitAnimation();
