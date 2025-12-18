@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eca12bfa19a60540a1ac42d1bf00548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: a1e6c5f046e8f6b4fb4c47c77c8dfa32, type: 2}
   musicSource: {fileID: 7548728961936921110}
   sfxSource: {fileID: 3252990015607997506}
   loopSource: {fileID: 5463734643743232458}
@@ -317,6 +318,8 @@ MonoBehaviour:
   movementSC: {fileID: 0}
   movementBC: {fileID: 0}
   movementP: {fileID: 0}
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
 --- !u!1 &7780479685084991648
 GameObject:
   m_ObjectHideFlags: 0
