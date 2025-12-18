@@ -1806,9 +1806,9 @@ RectTransform:
   - {fileID: 723935538}
   - {fileID: 1830300703}
   - {fileID: 80646674}
-  - {fileID: 827384671}
   - {fileID: 1696904300}
   - {fileID: 349340481}
+  - {fileID: 827384671}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2289,8 +2289,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3e3ab0f75d0eb90488d98c770b4821a4, type: 2}
+  m_sharedMaterial: {fileID: -8271695671536910209, guid: 3e3ab0f75d0eb90488d98c770b4821a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2314,7 +2314,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.3
+  m_fontSize: 31.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2425,8 +2425,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3e3ab0f75d0eb90488d98c770b4821a4, type: 2}
+  m_sharedMaterial: {fileID: -8271695671536910209, guid: 3e3ab0f75d0eb90488d98c770b4821a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2450,7 +2450,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34
+  m_fontSize: 31.35
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2969,7 +2969,7 @@ PrefabInstance:
     - target: {fileID: 3491663732503957534, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: background
       value: 
-      objectReference: {fileID: 8300000, guid: 79ab73ea5e091304f9329baa8f9556d0, type: 3}
+      objectReference: {fileID: 8300000, guid: af7b09e7722e1164a99aa60dc851703d, type: 3}
     - target: {fileID: 3491663732503957534, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: musicSlider
       value: 
@@ -3090,8 +3090,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Exit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3e3ab0f75d0eb90488d98c770b4821a4, type: 2}
+  m_sharedMaterial: {fileID: -8271695671536910209, guid: 3e3ab0f75d0eb90488d98c770b4821a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3115,7 +3115,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.2
+  m_fontSize: 30.4
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

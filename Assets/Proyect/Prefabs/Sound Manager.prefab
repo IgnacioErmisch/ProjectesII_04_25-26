@@ -309,7 +309,7 @@ MonoBehaviour:
   musicSource: {fileID: 7548728961936921110}
   sfxSource: {fileID: 3252990015607997506}
   loopSource: {fileID: 5463734643743232458}
-  background: {fileID: 0}
+  background: {fileID: 8300000, guid: 5b5e8a2c957038441bbb0cd832fd3e9d, type: 3}
   death: {fileID: 8300000, guid: f808717d31db0ef4c9e0460820d9658d, type: 3}
   dash: {fileID: 8300000, guid: 1a7408b8b27dcd042bad844f6eb4c626, type: 3}
   jumpOnEnemies: {fileID: 8300000, guid: ffeee875d0970b84680753f879af8ebd, type: 3}
