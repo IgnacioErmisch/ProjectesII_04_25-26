@@ -5,6 +5,7 @@ public class SmallCloneAttack : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private int jumpDamage;
+    [SerializeField] private int jumpForce;
     [SerializeField] private float dashKnockbackForce = 0f;
     private SoundManager soundManager;
 
@@ -40,7 +41,7 @@ public class SmallCloneAttack : MonoBehaviour
             if (transform.position.y > collision.bounds.max.y)
             {
                
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 15f);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             }
         }
     }

@@ -25,10 +25,10 @@ public class SmallCloneController : MonoBehaviour
     [SerializeField] private Transform edgeCheckBack;
 
     [Header("Jump Settings")]
-    [SerializeField] private float jumpForce = 4f;
-    [SerializeField] private float jumpMultiplier = 1f;
-    [SerializeField] private int maxJumps = 2;
-    [SerializeField] private float coyoteTime = 0.1f;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float jumpMultiplier;
+    [SerializeField] private int maxJumps;
+    [SerializeField] private float coyoteTime;
     [SerializeField] private int jumpCounter = 0;
 
     public SmallCloneMovment Movement => movement;

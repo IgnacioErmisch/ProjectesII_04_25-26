@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7472535701331512490}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.7082593}
-  m_AnchorMax: {x: 0.18960416, y: 1}
-  m_AnchoredPosition: {x: -1.4001465, y: 24.499939}
-  m_SizeDelta: {x: -11.210327, y: 45.719482}
+  m_AnchorMin: {x: 0.030520834, y: 0.7082593}
+  m_AnchorMax: {x: 0.162, y: 0.9284445}
+  m_AnchoredPosition: {x: 2.1140137, y: -1.7199097}
+  m_SizeDelta: {x: -19.583405, y: -3.4403}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6662760722097747100
 CanvasRenderer:
@@ -58,14 +58,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.5254902, b: 0.5254902, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -427538135, guid: 0b4b24e22d2dacd4abc8629590cff863, type: 3}
+  m_Sprite: {fileID: -5393935934716961467, guid: 89bd57d2739ba7242bef5625e3a9107a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -107,10 +107,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7472535701331512490}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.14752084, y: 0.7082593}
-  m_AnchorMax: {x: 0.28500003, y: 0.95914817}
-  m_AnchoredPosition: {x: 0.5, y: -1}
-  m_SizeDelta: {x: 1.1557617, y: -2.4727783}
+  m_AnchorMin: {x: 0.16825001, y: 0.7082593}
+  m_AnchorMax: {x: 0.26958328, y: 0.8847778}
+  m_AnchoredPosition: {x: 1, y: -1.6401062}
+  m_SizeDelta: {x: -9.103897, y: -3.7530975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2868762187982025090
 CanvasRenderer:
@@ -133,14 +133,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5137255, g: 0.56078434, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -427538135, guid: 0b4b24e22d2dacd4abc8629590cff863, type: 3}
+  m_Sprite: {fileID: 4424445544294979093, guid: 89bd57d2739ba7242bef5625e3a9107a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -289,6 +289,7 @@ MonoBehaviour:
   IsBigCloneSelected: 1
   BigClone: {fileID: 8350903152538821813}
   SmallClone: {fileID: 6835530190349916535}
+  gameManager: {fileID: 0}
   bigSelectedColor: {r: 1, g: 0.5254902, b: 0.5254902, a: 1}
   smallSelectedColor: {r: 0.5137255, g: 0.56078434, b: 1, a: 1}
 --- !u!1 &4777075642979453360
