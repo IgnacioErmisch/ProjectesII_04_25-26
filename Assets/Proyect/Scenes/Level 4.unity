@@ -39392,6 +39392,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3252990015607997506, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1917051928984469119, guid: fbf3db6e6df9f8348a74d6a1af00d104, type: 2}
     - target: {fileID: 3491663732503957534, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: dash
       value: 
@@ -39432,6 +39436,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sound Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7548728961936921110, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -6543832015284087129, guid: fbf3db6e6df9f8348a74d6a1af00d104, type: 2}
     - target: {fileID: 8073576616385107821, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.09382
