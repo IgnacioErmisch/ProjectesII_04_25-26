@@ -204,16 +204,16 @@ MonoBehaviour:
   apexHangTime: 0.1
   apexGravityMultiplier: 5
   jumpCutMultiplier: 0.5
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 3095973515394586891}
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1088
-  movement: {fileID: 0}
-  perspectiveSwitch: {fileID: 0}
-  jumpParticles: {fileID: 0}
-  landParticles: {fileID: 0}
-  runParticles: {fileID: 0}
+  movement: {fileID: 4682376492252064245}
+  perspectiveSwitch: {fileID: 4262907973614035345}
+  jumpParticles: {fileID: 7294801367233732497}
+  landParticles: {fileID: 8045416976597361143}
+  runParticles: {fileID: 8217135377386519259}
   soundManager: {fileID: 0}
   jumpCounter: 0
   coyoteCounter: 0.66
@@ -300,7 +300,6 @@ MonoBehaviour:
   combatController: {fileID: 4502971120696559688}
   energyController: {fileID: 5557642741559168900}
   player: {fileID: 240527483314117475}
-  checkpointManager: {fileID: 0}
 --- !u!114 &4503241564842466741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,7 +577,7 @@ Transform:
   m_GameObject: {fileID: 2789915080622717676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -133.96, y: -31.710001, z: -10}
+  m_LocalPosition: {x: -0.14999962, y: 1.6099999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10970,5 +10969,10 @@ PrefabInstance:
 --- !u!4 &7883883944685023685 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 983828037429990509, guid: f91edac4d13fc4343ba96bb6a843ad05, type: 3}
+  m_PrefabInstance: {fileID: 6975632506578970024}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8045416976597361143 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1110556030845387871, guid: f91edac4d13fc4343ba96bb6a843ad05, type: 3}
   m_PrefabInstance: {fileID: 6975632506578970024}
   m_PrefabAsset: {fileID: 0}

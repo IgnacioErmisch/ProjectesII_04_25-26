@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AerialSentinelEnemy : MonoBehaviour, IDamageable
+public class AerialSentinelEnemy : MonoBehaviour, IDamageableBlue
 {
     [Header("Health Settings")]
     [SerializeField] private float maxHealth = 40f;

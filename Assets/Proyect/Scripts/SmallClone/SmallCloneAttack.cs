@@ -5,7 +5,7 @@ public class SmallCloneAttack : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private int jumpDamage;
-    [SerializeField] private int jumpForce;
+    [SerializeField] private float jumpForce;
     [SerializeField] private float dashKnockbackForce = 0f;
     private SoundManager soundManager;
 
@@ -27,7 +27,7 @@ public class SmallCloneAttack : MonoBehaviour
         if (collision.gameObject.CompareTag("HitCollider"))
         {
             soundManager.PlaySFX(soundManager.jumpOnEnemies);
-            IDamageable damageable = collision.gameObject.GetComponentInParent<IDamageable>();
+            IDamageableBlue damageable = collision.gameObject.GetComponentInParent<IDamageableBlue>();
 
             if (damageable != null && !damageable.IsDead())
             {
@@ -40,7 +40,6 @@ public class SmallCloneAttack : MonoBehaviour
 
             if (transform.position.y > collision.bounds.max.y)
             {
-               
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             }
         }

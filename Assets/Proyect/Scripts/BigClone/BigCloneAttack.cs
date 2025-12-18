@@ -91,7 +91,7 @@ public class BigCloneAttack : MonoBehaviour
         if (isDashing)
         {
 
-            IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+            IDamageableRed damageable = collision.gameObject.GetComponent<IDamageableRed>();
 
             if (damageable != null && !damageable.IsDead())
             {

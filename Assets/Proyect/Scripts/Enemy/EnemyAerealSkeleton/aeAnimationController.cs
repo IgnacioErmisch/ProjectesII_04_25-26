@@ -1,37 +1,33 @@
 using UnityEngine;
 
-public class egAnimationController : MonoBehaviour
+public class aeAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private BasicGuardEnemy guardEnemy;
-    private Rigidbody2D rb;
+    [SerializeField] private AerialSentinelEnemy aerial;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        guardEnemy = GetComponent<BasicGuardEnemy>();
-        rb = GetComponent<Rigidbody2D>();
+        aerial = GetComponent<AerialSentinelEnemy>();
     }
 
     private void Update()
     {
-       
-        if (guardEnemy.IsDead())
+        if (aerial.IsDead())
         {
             animator.SetTrigger("Die");
             animator.SetBool("IsWalking", false);
-            enabled = false; 
+            enabled = false;
             return;
         }
-        
-       
-        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
-        animator.SetBool("IsWalking", isMoving);
+
+        // Siempre está caminando mientras está vivo
+        animator.SetBool("IsWalking", true);
     }
 
     public void PlayAttackAnimation()
     {
-        if (!guardEnemy.IsDead())
+        if (!aerial.IsDead())
         {
             animator.SetTrigger("Attack");
         }
@@ -39,7 +35,7 @@ public class egAnimationController : MonoBehaviour
 
     public void PlayHitAnimation()
     {
-        if (!guardEnemy.IsDead())
+        if (!aerial.IsDead())
         {
             animator.SetTrigger("TakeDamage");
         }

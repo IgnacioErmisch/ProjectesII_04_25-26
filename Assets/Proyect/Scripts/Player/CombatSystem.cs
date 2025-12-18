@@ -8,6 +8,20 @@ public interface IDamageable
     float GetCurrentHealth();
 }
 
+public interface IDamageableBlue
+{
+    void TakeDamage(float damage, Vector2 knockbackDirection);
+    bool IsDead();
+    float GetCurrentHealth();
+}
+
+public interface IDamageableRed
+{
+    void TakeDamage(float damage, Vector2 knockbackDirection);
+    bool IsDead();
+    float GetCurrentHealth();
+}
+
 public interface IAttacker
 {
     void Attack();
