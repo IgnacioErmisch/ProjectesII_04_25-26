@@ -39842,7 +39842,7 @@ PrefabInstance:
     - target: {fileID: 3252990015607997506, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -1917051928984469119, guid: fbf3db6e6df9f8348a74d6a1af00d104, type: 2}
+      objectReference: {fileID: 398947354316977177, guid: a1e6c5f046e8f6b4fb4c47c77c8dfa32, type: 2}
     - target: {fileID: 3491663732503957534, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: dash
       value: 
@@ -39879,6 +39879,10 @@ PrefabInstance:
       propertyPath: jumpOnEnemies
       value: 
       objectReference: {fileID: 8300000, guid: ffeee875d0970b84680753f879af8ebd, type: 3}
+    - target: {fileID: 5463734643743232458, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 398947354316977177, guid: a1e6c5f046e8f6b4fb4c47c77c8dfa32, type: 2}
     - target: {fileID: 6712730999145950105, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: m_Name
       value: Sound Manager
@@ -39886,7 +39890,7 @@ PrefabInstance:
     - target: {fileID: 7548728961936921110, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -6543832015284087129, guid: fbf3db6e6df9f8348a74d6a1af00d104, type: 2}
+      objectReference: {fileID: 2659355568829072653, guid: a1e6c5f046e8f6b4fb4c47c77c8dfa32, type: 2}
     - target: {fileID: 8073576616385107821, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.09382
