@@ -40,6 +40,7 @@ public class EnergyController : MonoBehaviour
 
     private PerspectiveSwitch perspectiveSwitch;
     private PlayerCombatController playerCombatController;
+    private HealthSystem healthSystem;
     private SoundManager soundManager;
 
     private void Awake()
@@ -54,6 +55,7 @@ public class EnergyController : MonoBehaviour
         OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
         perspectiveSwitch = GetComponentInParent<PerspectiveSwitch>();
         playerCombatController = GetComponentInParent<PlayerCombatController>();
+        healthSystem = GetComponentInParent<HealthSystem>();
     }
 
     private void Update()
@@ -130,9 +132,9 @@ public class EnergyController : MonoBehaviour
 
     private void CheckDeath()
     {
-        if (currentEnergy <= 0)
+        if (currentEnergy <= 0 && !playerCombatController.IsDead())
         {
-            playerCombatController.IsDead();
+            healthSystem.IsDeadTrue();
             StopRegeneration();
             OnPlayerDeath?.Invoke();
             perspectiveSwitch.controllingPlayer = true; 

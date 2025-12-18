@@ -45,7 +45,7 @@ public class PlayerAnimatorController : MonoBehaviour
         }
     }
 
-    private void PlayDeathAnimation()
+    public void PlayDeathAnimation()
     {
         if (playerCombatController.IsDead())
         {
