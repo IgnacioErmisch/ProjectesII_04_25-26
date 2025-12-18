@@ -4,11 +4,12 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
-    private bool menuIsOpen; 
+    [SerializeField] private GameObject bindsMenu;
     void Start()
     {
         pauseMenu.SetActive(false);
-        menuIsOpen = false;
+        bindsMenu.SetActive(false);
+    
     }
 
     // Update is called once per frame
@@ -23,16 +24,27 @@ public class MenuManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             pauseMenu.SetActive(true);
+            Time.timeScale= 0;
          
         }    
     }
     public void Return()
     {
-         pauseMenu.SetActive(false);
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
     }
     public void Exit()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("menuPrincipal");
+    }
+
+    public void OpenBindsMenu()
+    {
+        bindsMenu.SetActive(true);
+    }
+    public void CloseBindsMenu()
+    {
+        bindsMenu.SetActive(false);
     }
 
 }
