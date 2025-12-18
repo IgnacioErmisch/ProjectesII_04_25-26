@@ -78,6 +78,10 @@ public class HealthSystem : MonoBehaviour, IDamageable
         OnHealthChanged?.Invoke(currentHealth);
     }
 
+    public void IsDeadTrue()
+    {
+        isDead = !isDead;
+    }
     public bool IsDead()
     {
         return isDead;

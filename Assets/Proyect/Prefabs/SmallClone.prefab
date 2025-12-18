@@ -264,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   jumpDamage: 25
+  jumpForce: 20
   dashKnockbackForce: 0
 --- !u!1 &5316104002196046662
 GameObject:
