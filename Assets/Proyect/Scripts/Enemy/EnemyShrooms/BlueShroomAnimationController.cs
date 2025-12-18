@@ -1,19 +1,21 @@
 using UnityEngine;
-
-public class aeAnimationController : MonoBehaviour
+public class BlueShroomAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private AerialSentinelEnemy aerial;
+    [SerializeField] private EnemyGuardBlue guardEnemy;
+    private Rigidbody2D rb;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        aerial = GetComponent<AerialSentinelEnemy>();
+        guardEnemy = GetComponent<EnemyGuardBlue>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        if (aerial.IsDead())
+
+        if (guardEnemy.IsDead())
         {
             animator.SetTrigger("Die");
             animator.SetBool("IsWalking", false);
@@ -21,13 +23,14 @@ public class aeAnimationController : MonoBehaviour
             return;
         }
 
-        // Siempre está caminando mientras está vivo
-        animator.SetBool("IsWalking", true);
+
+        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
+        animator.SetBool("IsWalking", isMoving);
     }
 
     public void PlayAttackAnimation()
     {
-        if (!aerial.IsDead())
+        if (!guardEnemy.IsDead())
         {
             animator.SetTrigger("Attack");
         }
@@ -35,7 +38,7 @@ public class aeAnimationController : MonoBehaviour
 
     public void PlayHitAnimation()
     {
-        if (!aerial.IsDead())
+        if (!guardEnemy.IsDead())
         {
             animator.SetTrigger("TakeDamage");
         }

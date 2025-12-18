@@ -23,7 +23,7 @@ public class EnemyGuardBlue : MonoBehaviour, IDamageableBlue
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private Transform attackPoint;
-    private egAnimationController animController;
+    private BlueShroomAnimationController animController;
 
     [Header("Knockback Settings")]
     [SerializeField] private float knockbackForce = 8f;
@@ -53,7 +53,7 @@ public class EnemyGuardBlue : MonoBehaviour, IDamageableBlue
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        animController = GetComponent<egAnimationController>();
+        animController = GetComponent<BlueShroomAnimationController>();
 
         healthSystem = gameObject.AddComponent<HealthSystem>();
         healthSystem.SetMaxHealth(maxHealth);
