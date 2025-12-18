@@ -11565,6 +11565,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8676423717666472868, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
   m_PrefabInstance: {fileID: 1238436773}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &683014059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683014058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849e0b69ddf362541ad762d3f0bad223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSlider: {fileID: 1238436774}
+  sfxSlider: {fileID: 1238436775}
 --- !u!1 &690177414
 GameObject:
   m_ObjectHideFlags: 0
@@ -11906,6 +11920,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3252990015607997506, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 398947354316977177, guid: a1e6c5f046e8f6b4fb4c47c77c8dfa32, type: 2}
     - target: {fileID: 3491663732503957534, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: sfxSlider
       value: 
@@ -11914,10 +11932,18 @@ PrefabInstance:
       propertyPath: musicSlider
       value: 
       objectReference: {fileID: 1238436774}
+    - target: {fileID: 5463734643743232458, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 398947354316977177, guid: a1e6c5f046e8f6b4fb4c47c77c8dfa32, type: 2}
     - target: {fileID: 6712730999145950105, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: m_Name
       value: Sound Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7548728961936921110, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 2659355568829072653, guid: a1e6c5f046e8f6b4fb4c47c77c8dfa32, type: 2}
     - target: {fileID: 8073576616385107821, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.09382
@@ -16799,7 +16825,10 @@ PrefabInstance:
     - {fileID: 4641539966304935248, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
     - {fileID: 446943790419762058, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8676423717666472868, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 683014059}
   m_SourcePrefab: {fileID: 100100000, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
 --- !u!114 &1238436774 stripped
 MonoBehaviour:

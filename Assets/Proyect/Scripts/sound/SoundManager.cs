@@ -6,12 +6,11 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-   
     public AudioMixer audioMixer;
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
-    [SerializeField] private AudioSource loopSource;  
-    public AudioClip background;  
+    [SerializeField] private AudioSource loopSource;
+    public AudioClip background;
     public AudioClip death;
     public AudioClip dash;
     public AudioClip jumpOnEnemies;
@@ -19,13 +18,14 @@ public class SoundManager : MonoBehaviour
     public AudioClip spawnClon;
     public AudioClip movementSC;
     public AudioClip movementBC;
-    public AudioClip movementP;    
+    public AudioClip movementP;
     public Slider musicSlider;
     public Slider sfxSlider;
+    private float currentMusicVolume;
+    private float currentSFXVolume;
 
     private void Awake()
     {
-      
         if (Instance == null)
         {
             Instance = this;
@@ -40,64 +40,81 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        
         musicSource.clip = background;
         musicSource.loop = true;
         musicSource.Play();
-
-        float musicValue = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
-        float sfxValue = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
-
-        SetMusicVolume(musicValue);
-        SetSFXVolume(sfxValue);     
-        ConfigureSliders(musicValue, sfxValue);
+        currentMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+        currentSFXVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
+        ApplyMusicVolume(currentMusicVolume);
+        ApplySFXVolume(currentSFXVolume);
+        ConfigureSliders();
     }
 
-    private void ConfigureSliders(float musicValue, float sfxValue)
+    private void ConfigureSliders()
     {
         if (musicSlider != null)
         {
-            musicSlider.value = musicValue;
+            musicSlider.value = currentMusicVolume;
+            musicSlider.onValueChanged.RemoveListener(SetMusicVolume);
             musicSlider.onValueChanged.AddListener(SetMusicVolume);
         }
 
         if (sfxSlider != null)
         {
-            sfxSlider.value = sfxValue;
+            sfxSlider.value = currentSFXVolume;
+            sfxSlider.onValueChanged.RemoveListener(SetSFXVolume);
             sfxSlider.onValueChanged.AddListener(SetSFXVolume);
         }
     }
 
-   
     public void AssignSliders(Slider music, Slider sfx)
     {
+
+        if (musicSlider != null)
+        {
+            musicSlider.onValueChanged.RemoveListener(SetMusicVolume);
+        }
+        if (sfxSlider != null)
+        {
+            sfxSlider.onValueChanged.RemoveListener(SetSFXVolume);
+        }
+
         musicSlider = music;
         sfxSlider = sfx;
 
-        float musicValue = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
-        float sfxValue = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
-
-        ConfigureSliders(musicValue, sfxValue);
+        ConfigureSliders();
     }
 
-   
-    public void SetMusicVolume(float value)
+ 
+    private void ApplyMusicVolume(float value)
     {
         float volume = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1)) * 20;
         audioMixer.SetFloat("MusicVolume", volume);
+    }
+
+   
+    private void ApplySFXVolume(float value)
+    {
+        float volume = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1)) * 20;
+        audioMixer.SetFloat("SFXVolume", volume);
+    }
+
+    public void SetMusicVolume(float value)
+    {
+        currentMusicVolume = value;
+        ApplyMusicVolume(value);
         PlayerPrefs.SetFloat("MusicVolume", value);
         PlayerPrefs.Save();
     }
 
     public void SetSFXVolume(float value)
     {
-        float volume = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1)) * 20;
-        audioMixer.SetFloat("SFXVolume", volume);
+        currentSFXVolume = value;
+        ApplySFXVolume(value);
         PlayerPrefs.SetFloat("SFXVolume", value);
         PlayerPrefs.Save();
     }
 
-   
     public void PlaySFX(AudioClip clip)
     {
         sfxSource.PlayOneShot(clip);
@@ -118,5 +135,4 @@ public class SoundManager : MonoBehaviour
         loopSource.Stop();
         loopSource.clip = null;
     }
-
 }
