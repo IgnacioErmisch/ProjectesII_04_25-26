@@ -30,6 +30,7 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
         }
         else
         {
@@ -54,16 +55,17 @@ public class SoundManager : MonoBehaviour
     {
         if (musicSlider != null)
         {
-            musicSlider.value = currentMusicVolume;
+            musicSlider.SetValueWithoutNotify(currentMusicVolume);
             musicSlider.onValueChanged.RemoveListener(SetMusicVolume);
             musicSlider.onValueChanged.AddListener(SetMusicVolume);
+            ApplyMusicVolume(currentMusicVolume); 
         }
-
         if (sfxSlider != null)
         {
-            sfxSlider.value = currentSFXVolume;
+            sfxSlider.SetValueWithoutNotify(currentSFXVolume);
             sfxSlider.onValueChanged.RemoveListener(SetSFXVolume);
             sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+            ApplySFXVolume(currentSFXVolume); 
         }
     }
 
