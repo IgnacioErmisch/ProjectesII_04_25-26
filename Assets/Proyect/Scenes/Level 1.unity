@@ -11682,6 +11682,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1238436775}
     - target: {fileID: 3491663732503957534, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 8300000, guid: 79ab73ea5e091304f9329baa8f9556d0, type: 3}
+    - target: {fileID: 3491663732503957534, guid: 598cc2b256494ca479b3db9360ca1dcb, type: 3}
       propertyPath: musicSlider
       value: 
       objectReference: {fileID: 1238436774}
