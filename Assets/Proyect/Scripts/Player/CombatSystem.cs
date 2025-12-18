@@ -1,6 +1,21 @@
 using UnityEngine;
+using System.Collections;
 
 public interface IDamageable
+{
+    void TakeDamage(float damage, Vector2 knockbackDirection);
+    bool IsDead();
+    float GetCurrentHealth();
+}
+
+public interface IDamageableBlue
+{
+    void TakeDamage(float damage, Vector2 knockbackDirection);
+    bool IsDead();
+    float GetCurrentHealth();
+}
+
+public interface IDamageableRed
 {
     void TakeDamage(float damage, Vector2 knockbackDirection);
     bool IsDead();
@@ -33,31 +48,35 @@ public interface IEnemyState
     void Exit();
 }
 
-public class HealthSystem : IDamageable
+
+public class HealthSystem : MonoBehaviour, IDamageable
 {
-    private float maxHealth;
+    [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
     private bool isDead;
 
     public event System.Action<float> OnHealthChanged;
     public event System.Action OnDeath;
 
-    public HealthSystem(float maxHealth)
+    private void Awake()
     {
-        this.maxHealth = maxHealth;
-        this.currentHealth = maxHealth;
-        this.isDead = false;
+        currentHealth = maxHealth;
+        isDead = false;
+    }
+
+    public void SetMaxHealth(float health)
+    {
+        maxHealth = health;
+        currentHealth = health;
     }
 
     public void TakeDamage(float damage, Vector2 knockbackDirection)
     {
-        if (isDead) return;
-
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth);
         OnHealthChanged?.Invoke(currentHealth);
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isDead)
         {
             isDead = true;
             OnDeath?.Invoke();
@@ -73,6 +92,10 @@ public class HealthSystem : IDamageable
         OnHealthChanged?.Invoke(currentHealth);
     }
 
+    public void IsDeadTrue()
+    {
+        isDead = !isDead;
+    }
     public bool IsDead()
     {
         return isDead;
@@ -87,23 +110,38 @@ public class HealthSystem : IDamageable
     {
         return maxHealth;
     }
+
+    public float ResetHealth()
+    {
+        currentHealth = maxHealth;
+        isDead = false;
+        return currentHealth;
+    }
 }
 
-public class KnockbackSystem
+
+public class KnockbackSystem : MonoBehaviour
 {
+    [SerializeField] private float knockbackForce = 5f;
+    [SerializeField] private float knockbackDuration = 0.3f;
+
     private Rigidbody2D rb;
-    private float knockbackForce;
-    private float knockbackDuration;
     private float knockbackTimer;
     private bool isKnockedBack;
 
-    public KnockbackSystem(Rigidbody2D rb, float knockbackForce, float knockbackDuration)
+    private void Awake()
     {
-        this.rb = rb;
-        this.knockbackForce = knockbackForce;
-        this.knockbackDuration = knockbackDuration;
-        this.knockbackTimer = 0f;
-        this.isKnockedBack = false;
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void SetKnockbackForce(float force)
+    {
+        knockbackForce = force;
+    }
+
+    public void SetKnockbackDuration(float duration)
+    {
+        knockbackDuration = duration;
     }
 
     public void ApplyKnockback(Vector2 direction)
@@ -135,18 +173,27 @@ public class KnockbackSystem
 }
 
 
-public class RadiusDetectionSystem : IDetectionSystem
+public class RadiusDetectionSystem : MonoBehaviour, IDetectionSystem
 {
+    [SerializeField] private float detectionRadius = 5f;
+    [SerializeField] private LayerMask targetLayer;
+
     private Transform owner;
-    private float detectionRadius;
-    private LayerMask targetLayer;
     private Transform currentTarget;
 
-    public RadiusDetectionSystem(Transform owner, float detectionRadius, LayerMask targetLayer)
+    private void Awake()
     {
-        this.owner = owner;
-        this.detectionRadius = detectionRadius;
-        this.targetLayer = targetLayer;
+        owner = transform;
+    }
+
+    public void SetDetectionRadius(float radius)
+    {
+        detectionRadius = radius;
+    }
+
+    public void SetTargetLayer(LayerMask layer)
+    {
+        targetLayer = layer;
     }
 
     public bool DetectTarget()
@@ -176,28 +223,22 @@ public class RadiusDetectionSystem : IDetectionSystem
 }
 
 
-public class PlayerMeleeAttack : IAttacker
+public class PlayerMeleeAttack : MonoBehaviour, IAttacker
 {
-    private Transform attackPoint;
-    private float attackDamage;
-    private float attackRange;
-    private float attackCooldown;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private float attackDamage = 20f;
+    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float knockbackForce = 10f;
+
     private float lastAttackTime;
-    private LayerMask enemyLayer;
-    private float knockbackForce;
 
     public event System.Action OnAttackPerformed;
 
-    public PlayerMeleeAttack(Transform attackPoint, float attackDamage, float attackRange,
-                             float attackCooldown, LayerMask enemyLayer, float knockbackForce)
+    private void Awake()
     {
-        this.attackPoint = attackPoint;
-        this.attackDamage = attackDamage;
-        this.attackRange = attackRange;
-        this.attackCooldown = attackCooldown;
-        this.enemyLayer = enemyLayer;
-        this.knockbackForce = knockbackForce;
-        this.lastAttackTime = -attackCooldown;
+        lastAttackTime = -attackCooldown;
     }
 
     public void Attack()
@@ -215,7 +256,7 @@ public class PlayerMeleeAttack : IAttacker
             if (damageable != null && !damageable.IsDead())
             {
                 Vector2 knockbackDirection = (enemy.transform.position - attackPoint.position).normalized;
-                knockbackDirection.y = 0.3f; 
+                knockbackDirection.y = 0.3f;
 
                 damageable.TakeDamage(attackDamage, knockbackDirection * knockbackForce);
             }
@@ -248,25 +289,19 @@ public class EnemyStateContext
 }
 
 
-public class PatrolState : IEnemyState
+public class PatrolState : MonoBehaviour, IEnemyState
 {
-    private EnemyStateContext context;
-    private IMovementSystem patrolMovement;
-
-    public PatrolState(EnemyStateContext context, IMovementSystem patrolMovement)
-    {
-        this.context = context;
-        this.patrolMovement = patrolMovement;
-    }
+    public EnemyStateContext context;
+    public IMovementSystem patrolMovement;
 
     public void Enter()
     {
-        
+
     }
 
     public void Update()
     {
-        
+
     }
 
     public void Exit()
@@ -276,18 +311,13 @@ public class PatrolState : IEnemyState
 }
 
 
-public class ChaseState : IEnemyState
+public class ChaseState : MonoBehaviour, IEnemyState
 {
-    private EnemyStateContext context;
-
-    public ChaseState(EnemyStateContext context)
-    {
-        this.context = context;
-    }
+    public EnemyStateContext context;
 
     public void Enter()
     {
-        
+
     }
 
     public void Update()
@@ -307,14 +337,9 @@ public class ChaseState : IEnemyState
 }
 
 
-public class AttackState : IEnemyState
+public class AttackState : MonoBehaviour, IEnemyState
 {
-    private EnemyStateContext context;
-
-    public AttackState(EnemyStateContext context)
-    {
-        this.context = context;
-    }
+    public EnemyStateContext context;
 
     public void Enter()
     {
@@ -332,6 +357,6 @@ public class AttackState : IEnemyState
 
     public void Exit()
     {
-    
+
     }
 }

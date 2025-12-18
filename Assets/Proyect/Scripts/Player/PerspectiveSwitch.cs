@@ -4,25 +4,57 @@ public class PerspectiveSwitch : MonoBehaviour
 {
     [SerializeField] private CloneSpawner bigCloneSpawner;
     [SerializeField] private CloneSpawner smallCloneSpawner;
+    [SerializeField] private PlayerAnimatorController playerAnimatorController;
+    [SerializeField] private BigCloneAnimationController bigCloneAnimatorController;
+    [SerializeField] private SmallCloneAnimationController smallCloneAnimatorController;
     public GameObject player;
     public Camera playerCamera;
     public bool controllingPlayer = true;
-    private Rigidbody2D playerRb;
 
-    private void Start()
-    {
-        playerRb = player.GetComponent<Rigidbody2D>();
-        playerRb.bodyType = RigidbodyType2D.Dynamic;
-
-    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        SetClones();
+        if (Input.GetKeyDown(KeyCode.C))
         {
             SwitchCamera();
         }
-    }
+        if(!controllingPlayer)
+        {
+            playerAnimatorController.ResetAnimations();
 
+        }
+        else
+        {
+            if (bigCloneAnimatorController != null)
+            {
+                GameManager.Instance.GetBigController().ResetAnimations();
+            }
+            if (smallCloneAnimatorController != null)
+            {
+               GameManager.Instance.GetSmallController().ResetAnimations();
+            }
+
+
+        }
+        
+    }
+    private void SetClones()
+    {
+        if(bigCloneAnimatorController == null)
+        {
+            bigCloneAnimatorController = GameManager.Instance.GetBigController();
+        }
+        if(smallCloneAnimatorController == null)
+        {
+            smallCloneAnimatorController = GameManager.Instance.GetSmallController();
+        }
+    }
+    private void Start()
+    {
+        controllingPlayer = true;
+        GameManager.Instance.SetControlllingPlayer(this);
+
+    }
     private void SwitchCamera()
     {
         CloneSpawner activeSpawner = GetActiveSpawner();
@@ -37,15 +69,13 @@ public class PerspectiveSwitch : MonoBehaviour
         {
             playerCamera.transform.SetParent(currentClone.transform);
             playerCamera.transform.localPosition = new Vector3(2, 1, -5);
-            playerRb.bodyType = RigidbodyType2D.Static;
-            cloneRb.bodyType = RigidbodyType2D.Dynamic;
+           
         }
         else
         {
             playerCamera.transform.SetParent(player.transform);
             playerCamera.transform.localPosition = new Vector3(2, 2, -5);
-            playerRb.bodyType = RigidbodyType2D.Dynamic;
-            cloneRb.bodyType = RigidbodyType2D.Static;
+       
         }
 
 

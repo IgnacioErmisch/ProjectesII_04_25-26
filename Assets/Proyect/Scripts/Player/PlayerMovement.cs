@@ -1,117 +1,201 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float horizontal;
-    public float pjSpeed;
-    private Rigidbody2D rb2D;
-    public bool isMoving;
+    [Header("Movement Settings")]
+    [SerializeField] private float maxSpeed = 8f;
+    [SerializeField] private float acceleration = 50f;
+    [SerializeField] private float deceleration = 60f;
+    [SerializeField] private float airAcceleration = 30f;
+    [SerializeField] private float airDeceleration = 30f;
 
-    [SerializeField] private CloneSpawner bigCloneSpawner;
-    [SerializeField] private CloneSpawner smallCloneSpawner;
+    [Header("Ground Detection")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private LayerMask groundLayer;
+
+    [Header("Edge Detection")]
+    [SerializeField] private Transform edgeCheckFront;
+    [SerializeField] private Transform edgeCheckBack;
+    [SerializeField] private float edgeCheckDistance = 0.3f;
+    [SerializeField] private float edgeClampSpeed = 2f;
+
+    [Header("References")]
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform cloneSpawnerPoint;
+    [SerializeField] private Transform cloneSpawnerPointSecond;
+    [SerializeField] private PlayerCombatController playerCombatController;
+    private SoundManager soundManager;
+    public float horizontal { get; private set; }
+    public bool isMoving { get; private set; }
+    public bool isGrounded { get; private set; }
 
+    
+    private Rigidbody2D rb2D;
     private SpriteRenderer spriteRenderer;
-    private Vector3 originalAttackPointLocalPosition;
-    private Vector3 originalCloneSpawnerPointLocalPosition;
     private bool facingRight = true;
+    private float currentSpeed;
+    private bool wasGrounded;
+    private bool isOnEdge;
+    private bool wasMoving;
 
     void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();    
+        rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-        if (attackPoint != null)
-        {
-            originalAttackPointLocalPosition = attackPoint.localPosition;
-            originalCloneSpawnerPointLocalPosition = cloneSpawnerPoint.localPosition;
-        }
-
+    }
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive())
-            bigCloneSpawner.TrySpawnClone();
-        if (Input.GetKeyDown(KeyCode.Q))
+    void Update()
+    {    
+        wasGrounded = isGrounded;
+        isGrounded = CheckGround();
+       
+        if (perspectiveSwitch.GetControllingPlayer() && !playerCombatController.IsDead())
         {
-            bigCloneSpawner.TryDespawnClone();
-            smallCloneSpawner.TryDespawnClone();
+            horizontal = Input.GetAxisRaw("Horizontal");
         }
-        if (Input.GetKeyDown(KeyCode.C) && !IsAnyCloneActive())
-            smallCloneSpawner.TrySpawnClone();
+        else
+        {
+            horizontal = 0f;
+        }
+        bool isCurrentlyMoving = isGrounded && isMoving && Mathf.Abs(currentSpeed) > 0.1f;
+
+        if (isCurrentlyMoving && !wasMoving)
+        {
+            soundManager.PlayLoop(soundManager.movementP);
+        }
+        else if (!isCurrentlyMoving && wasMoving)
+        {
+            soundManager.StopLoop();
+        }
+
+        wasMoving = isCurrentlyMoving;
+
+        CheckEdge();
     }
 
     void FixedUpdate()
     {
-        if (perspectiveSwitch.GetControllingPlayer())
+        if (perspectiveSwitch.GetControllingPlayer() && !playerCombatController.IsDead())
         {
-            MovePJ();
+            ApplyMovement();
         }
         else
         {
-            rb2D.linearVelocity = Vector2.zero;
-           
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, deceleration * Time.fixedDeltaTime);
+            rb2D.linearVelocity = new Vector2(currentSpeed, rb2D.linearVelocity.y);
+        }
+
+        if (isOnEdge && isGrounded)
+        {
+            ClampToEdge();
         }
     }
 
-    private void MovePJ()
+    private void ApplyMovement()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        rb2D.linearVelocity = new Vector2(horizontal * pjSpeed, rb2D.linearVelocity.y);
-        isMoving = true;
+        float targetSpeed = horizontal * maxSpeed;
+        float accel = isGrounded ? acceleration : airAcceleration;
+        float decel = isGrounded ? deceleration : airDeceleration;
 
-        if (horizontal > 0 && !facingRight)
+        if (Mathf.Abs(horizontal) > 0.01f)
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, accel * Time.fixedDeltaTime);
+            isMoving = true;
+        }
+        else
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, decel * Time.fixedDeltaTime);
+            isMoving = Mathf.Abs(currentSpeed) > 0.1f;
+        }
+        
+        rb2D.linearVelocity = new Vector2(currentSpeed, rb2D.linearVelocity.y);
+
+        if (currentSpeed > 0.1f && !facingRight)
         {
             Flip();
         }
-        else if (horizontal < 0 && facingRight)
+        else if (currentSpeed < -0.1f && facingRight)
         {
             Flip();
         }
+    }
 
-        if (horizontal == 0)
+    private bool CheckGround()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    private void CheckEdge()
+    {
+        if (!isGrounded)
         {
-            isMoving = false;
+            isOnEdge = false;
+            return;
+        }
+  
+        Vector2 frontCheck = edgeCheckFront.position;
+        Vector2 backCheck = edgeCheckBack.position;
+        bool frontHasGround = Physics2D.Raycast(frontCheck, Vector2.down, edgeCheckDistance, groundLayer);
+        bool backHasGround = Physics2D.Raycast(backCheck, Vector2.down, edgeCheckDistance, groundLayer);
+        isOnEdge = !frontHasGround || !backHasGround;
+    }
+
+    private void ClampToEdge()
+    {
+        
+        if (Mathf.Abs(rb2D.linearVelocity.x) > edgeClampSpeed)
+        {
+            float clampedVelocity = Mathf.Sign(rb2D.linearVelocity.x) * edgeClampSpeed;
+            rb2D.linearVelocity = new Vector2(clampedVelocity, rb2D.linearVelocity.y);
         }
     }
 
     private void Flip()
     {
         facingRight = !facingRight;
-
-        
-        
         spriteRenderer.flipX = !facingRight;
-        
+        Vector3 attackScale = attackPoint.localScale;
+        attackScale.x *= -1;
+        attackPoint.localScale = attackScale;
 
-      
-        if (attackPoint != transform)
-        {
-            Vector3 newPosition = originalAttackPointLocalPosition;
-            Vector3 newPositionSpawner = originalCloneSpawnerPointLocalPosition;
-
-            if (!facingRight)
-            {
-                newPosition.x = -Mathf.Abs(originalAttackPointLocalPosition.x);
-                newPositionSpawner.x = -Mathf.Abs(originalCloneSpawnerPointLocalPosition.x + 0.6f);
-            }
-            else
-            {
-                newPosition.x = Mathf.Abs(originalAttackPointLocalPosition.x);
-                newPositionSpawner.x = Mathf.Abs(originalCloneSpawnerPointLocalPosition.x);
-            }
-
-            attackPoint.localPosition = newPosition;
-            cloneSpawnerPoint.localPosition = newPositionSpawner;
-        }
+        cloneSpawnerPoint.localPosition = new Vector3(-cloneSpawnerPoint.localPosition.x, cloneSpawnerPoint.localPosition.y, cloneSpawnerPoint.localPosition.z);
+        cloneSpawnerPointSecond.localPosition = new Vector3(-cloneSpawnerPointSecond.localPosition.x, cloneSpawnerPointSecond.localPosition.y, cloneSpawnerPointSecond.localPosition.z);
     }
 
-    public bool IsAnyCloneActive()
+    public bool IsFacingRight()
     {
-        return bigCloneSpawner.cloneActive || smallCloneSpawner.cloneActive;
+        return facingRight;
+    }
+    public float GetCurrentSpeed()
+    {
+        return currentSpeed;
+    }
+    public bool IsOnEdge()
+    {
+        return isOnEdge;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+
+        if (edgeCheckFront != null && edgeCheckBack != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(edgeCheckFront.position, edgeCheckFront.position + Vector3.down * edgeCheckDistance);
+            Gizmos.DrawLine(edgeCheckBack.position, edgeCheckBack.position + Vector3.down * edgeCheckDistance);
+        }
     }
 }

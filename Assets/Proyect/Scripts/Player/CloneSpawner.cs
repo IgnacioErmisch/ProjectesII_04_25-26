@@ -1,19 +1,28 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class CloneSpawner : MonoBehaviour
 {
     [SerializeField] private EnergyController energyController;
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
-    [SerializeField] private GameObject clonePrefab;
-    [SerializeField] private Vector3 spawnOffset = new Vector3(2f, 0f, 0f);
+    [SerializeField] private CinemachineSingleton cinemachineSingleton;
+    [SerializeField] private SwitchInterface switchInterface;
+    [SerializeField] private GameObject cloneSmallPrefab;
+    [SerializeField] private GameObject cloneBigPrefab;
     [SerializeField] private bool isSmallClone = true;
     [SerializeField] private CloneSpawner[] spawners;
-    [SerializeField] private Transform cloneSpawnPoint;
+    [SerializeField] private Transform cloneSpawnPointPrincipal;
+    [SerializeField] private Transform cloneSpawnPointSecondary;
+    SoundManager soundManager;
     public Camera playerCamera;
     private GameObject currentClone;
     public bool cloneActive = false;
-   
+
+    public LayerMask groundLayer;
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
+    }
+
     public bool TrySpawnClone()
     {
        
@@ -26,35 +35,83 @@ public class CloneSpawner : MonoBehaviour
         if (cloneActive)
             return false;
 
-        Vector3 spawnPosition = cloneSpawnPoint.position;
+        Vector3 spawnPosition = cloneSpawnPointPrincipal.position;
           
         if (!energyController.TryConsumeInitialCost(isSmallClone))
             return false;
 
-       
-        currentClone = Instantiate(clonePrefab, spawnPosition, Quaternion.identity);
-        cloneActive = true;
-        Rigidbody2D cloneRb = currentClone.GetComponent<Rigidbody2D>();
-        Rigidbody2D playerRb = perspectiveSwitch.player.GetComponent<Rigidbody2D>();
-        cloneRb.bodyType = RigidbodyType2D.Dynamic;
-        playerRb.bodyType = RigidbodyType2D.Static;
-        playerCamera.transform.SetParent(currentClone.transform);
-        playerCamera.transform.localPosition = new Vector3(2, 1, -5);
-        perspectiveSwitch.SwitchToClone();
-        energyController.RegisterClone(currentClone, isSmallClone);
+        Vector3 direction = spawnPosition - transform.position;
+        float distance = direction.magnitude;
+        direction.Normalize();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, groundLayer);
+        if(hit.rigidbody == null)
+        {
+            soundManager.PlaySFX(soundManager.spawnClon);
+            if(switchInterface.IsBigCloneSelected)
+            {
+                currentClone = Instantiate(cloneBigPrefab, spawnPosition + Vector3.up, Quaternion.identity);
+                energyController.RegisterClone(currentClone, isSmallClone);
+            }
+            else if (!switchInterface.IsBigCloneSelected)
+            { 
 
-        return true;
+                currentClone = Instantiate(cloneSmallPrefab, spawnPosition , Quaternion.identity);
+                energyController.RegisterClone(currentClone, isSmallClone);
+            }
+            cloneActive = true;
+            playerCamera.transform.SetParent(currentClone.transform);
+            playerCamera.transform.localPosition = new Vector3(2, 1, -5);
+            perspectiveSwitch.SwitchToClone();
+
+            return true;
+        }
+        else
+        {
+            Vector3 spawnPositionSecondary = cloneSpawnPointSecondary.position;
+            
+            if (switchInterface.IsBigCloneSelected)
+            { 
+                currentClone = Instantiate(cloneBigPrefab, spawnPositionSecondary + Vector3.up, Quaternion.identity);
+                energyController.RegisterClone(currentClone, isSmallClone);
+            }
+            else if(!switchInterface.IsBigCloneSelected)
+            { 
+                currentClone = Instantiate(cloneSmallPrefab, spawnPositionSecondary, Quaternion.identity);
+                energyController.RegisterClone(currentClone, isSmallClone);
+            }
+            cloneActive = true;
+            playerCamera.transform.SetParent(currentClone.transform);
+            playerCamera.transform.localPosition = new Vector3(2, 1, -5);
+            perspectiveSwitch.SwitchToClone();
+            
+
+                return true;
+        }
     }
-
+    private void OnDrawGizmos()
+    {
+        Vector3 spawnPosition = cloneSpawnPointPrincipal.position;
+        Gizmos.DrawLine(transform.position, spawnPosition);
+        Vector3 direction = spawnPosition - transform.position;
+        float distance = direction.magnitude;
+        direction.Normalize();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, groundLayer);
+        if (hit.rigidbody != null)
+        {
+            Gizmos.DrawSphere((Vector3)hit.point, 0.2f);
+        }
+        else
+        {
+            Gizmos.DrawSphere(spawnPosition, 0.2f);
+        }
+    }
     public bool TryDespawnClone()
     {
         if (!cloneActive)
             return false;
 
         if (currentClone != null)
-        {
-            Rigidbody2D playerRb = perspectiveSwitch.player.GetComponent<Rigidbody2D>();
-            playerRb.bodyType = RigidbodyType2D.Dynamic;
+        {        
             playerCamera.transform.SetParent(gameObject.transform);
             playerCamera.transform.localPosition = new Vector3(2, 2, -5);
             perspectiveSwitch.SwitchToPlayer();

@@ -1,23 +1,25 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class EnergyController : MonoBehaviour
 {
-    [Header("Energía")]
+
     [SerializeField] private float maxEnergy = 100f;
     [SerializeField] private float currentEnergy;
 
-    [Header("Costos")]
     [SerializeField] private float smallCloneInitialCost = 15f;
     [SerializeField] private float largeCloneInitialCost = 30f;
 
-    [Header("Drenaje por segundo")]
+
     [SerializeField] private float smallCloneDrainPerSecond = 5f;
     [SerializeField] private float largeCloneDrainPerSecond = 10f;
 
-    [Header("Regeneración")]
+
     [SerializeField] private float regenerationRate = 8f;
     [SerializeField] private float regenerationDelay = 1.5f;
 
@@ -26,6 +28,9 @@ public class EnergyController : MonoBehaviour
     private bool isDead = false;
 
     public TextMeshProUGUI energyText;
+    public Image energyPlayer;
+    public Image energyBigClone = null;
+    public Image energySmallClone = null;
 
     public delegate void EnergyChangedDelegate(float current, float max);
     public event EnergyChangedDelegate OnEnergyChanged;
@@ -33,15 +38,29 @@ public class EnergyController : MonoBehaviour
     public delegate void PlayerDeathDelegate();
     public event PlayerDeathDelegate OnPlayerDeath;
 
+    private PerspectiveSwitch perspectiveSwitch;
+    private PlayerCombatController playerCombatController;
+    private HealthSystem healthSystem;
+    private SoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
+
+    }
+
     private void Start()
     {
         currentEnergy = maxEnergy;
         OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
+        perspectiveSwitch = GetComponentInParent<PerspectiveSwitch>();
+        playerCombatController = GetComponentInParent<PlayerCombatController>();
+        healthSystem = GetComponentInParent<HealthSystem>();
     }
 
     private void Update()
     {
-        if (isDead) return;
+        if (playerCombatController.IsDead()) return;
 
         if (activeClones.Count > 0)
         {
@@ -52,17 +71,16 @@ public class EnergyController : MonoBehaviour
             DrainEnergy(totalDrain * Time.deltaTime);
         }
 
-        EnergyText();
     }
 
     public bool TryConsumeInitialCost(bool isSmall)
     {
-        if (isDead) return false;
+        if (playerCombatController.IsDead()) return false;
 
         float cost = isSmall ? smallCloneInitialCost : largeCloneInitialCost;
         if (currentEnergy >= cost)
         {
-            ConsumeEnergy(cost);
+            DrainEnergy(cost);
             return true;
         }
 
@@ -71,7 +89,7 @@ public class EnergyController : MonoBehaviour
 
     public void RegisterClone(GameObject clone, bool isSmall)
     {
-        if (isDead) return;
+        if (playerCombatController.IsDead()) return;
 
         float drainRate = isSmall ? smallCloneDrainPerSecond : largeCloneDrainPerSecond;
         if (!activeClones.ContainsKey(clone))
@@ -92,14 +110,6 @@ public class EnergyController : MonoBehaviour
         }
     }
 
-    private void ConsumeEnergy(float amount)
-    {
-        currentEnergy -= amount;
-        currentEnergy = Mathf.Max(currentEnergy, 0f);
-        OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
-        CheckDeath();
-    }
-
     private void DrainEnergy(float amount)
     {
         if (currentEnergy > 0)
@@ -107,17 +117,30 @@ public class EnergyController : MonoBehaviour
             currentEnergy -= amount;
             currentEnergy = Mathf.Max(currentEnergy, 0f);
             OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
+            energyPlayer.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); 
+            if (energyBigClone != null)
+            {
+                energyBigClone.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); 
+            }
+            if (energySmallClone != null)
+            {
+                energySmallClone.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); 
+            }
             CheckDeath();
         }
     }
 
     private void CheckDeath()
     {
-        if (currentEnergy <= 0 && !isDead)
+        if (currentEnergy <= 0 && !playerCombatController.IsDead())
         {
-            isDead = true;
+            healthSystem.IsDeadTrue();
             StopRegeneration();
             OnPlayerDeath?.Invoke();
+            perspectiveSwitch.controllingPlayer = true; 
+            soundManager.PlaySFX(soundManager.death);
+            
+
         }
     }
 
@@ -144,18 +167,34 @@ public class EnergyController : MonoBehaviour
         {
             currentEnergy += regenerationRate * Time.deltaTime;
             currentEnergy = Mathf.Min(currentEnergy, maxEnergy);
+            energyPlayer.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f);
             OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
             yield return null;
         }
     }
 
-    private void EnergyText()
-    {
-        energyText.text = currentEnergy.ToString();
-    }
 
     public float GetCurrentEnergy()
     {
         return currentEnergy;
+    }
+
+    public float GetMaxEnergy()
+    {
+        return maxEnergy;
+    }
+
+    public void GetBigClone(Image image)
+    {
+        energyBigClone = image;
+    }
+    public void GetSmallClone(Image image)
+    {
+        energySmallClone = image;
+    }
+
+    public void ResetEnergy()
+    {
+        currentEnergy = maxEnergy;
     }
 }

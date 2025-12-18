@@ -2,62 +2,224 @@ using UnityEngine;
 
 public class SmallCloneDoubleJump
 {
-    public JumpHandler jumpHandler;
-    public GroundChecker groundChecker;
-    public CoyoteTimer coyoteTimer;
-    public float jumpForce;
-    public float jumpMultiplier;
-    public int maxJumps;
-    public int jumpsRemaining;
-    public bool wasGroundedLastFrame;
+    private Rigidbody2D rb;
+    private Transform groundCheck;
+    private float groundCheckRadius;
+    private LayerMask groundLayer;
+    private float jumpForce;
+    private float jumpMultiplier;
+    private int maxJumps;
+    private float normalGravityScale = 2.5f;
+    private float fallGravityMultiplier = 2f;
+    private float lowJumpMultiplier = 3f;
+    private float maxFallSpeed = 20f;
+    private float apexThreshold = 2f;
+    private float apexHangTime = 0.1f;
+    private float apexGravityMultiplier = 1.5f;
+    private float jumpCutMultiplier = 0.5f;
+    private float coyoteTime;
+    private float coyoteCounter;
+    private float jumpBufferTime = 0.2f;
+    private float jumpBufferCounter;
+    private bool isAtApex;
+    private float apexHangCounter;
+    private bool jumpHeld;
+    private bool jumpCut;
+    private bool wasGrounded;
+    private int jumpCounter = 0;
+    public bool isJumping { get; private set; }
+    public bool isGrounded { get; private set; }
+    [SerializeField] private SoundManager soundManager;
 
-    public SmallCloneDoubleJump(JumpHandler jumpHandler, GroundChecker groundChecker, CoyoteTimer coyoteTimer, float jumpForce, float jumpMultiplier, int maxJumps = 2)
+    public SmallCloneDoubleJump(Rigidbody2D rb, Transform groundCheck, float groundCheckRadius,
+                                LayerMask groundLayer, float jumpForce, float jumpMultiplier,
+                                float coyoteTime, int maxJumps = 2, int jumpCounter = 0)
     {
-        this.jumpHandler = jumpHandler;
-        this.groundChecker = groundChecker;
-        this.coyoteTimer = coyoteTimer;
+        this.rb = rb;
+        this.groundCheck = groundCheck;
+        this.groundCheckRadius = groundCheckRadius;
+        this.groundLayer = groundLayer;
         this.jumpForce = jumpForce;
         this.jumpMultiplier = jumpMultiplier;
+        this.coyoteTime = coyoteTime;
         this.maxJumps = maxJumps;
-        this.jumpsRemaining = maxJumps;
-        this.wasGroundedLastFrame = false;
+        this.jumpBufferCounter = 0f;
+        this.coyoteCounter = 0f;
+        this.jumpCounter = 0;
+        GameObject audioObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioObject != null)
+        {
+            this.soundManager = audioObject.GetComponent<SoundManager>();
+        }
     }
 
-    public void Update()
+    public void Update(bool canControl, ParticleSystem particleLand, ParticleSystem particleJump)
     {
-        bool isGrounded = groundChecker.IsGrounded();
-        coyoteTimer.Update(isGrounded);
+        wasGrounded = isGrounded;
+        isGrounded = CheckGround();
 
-        
-        if (isGrounded && !wasGroundedLastFrame)
+        if (isGrounded && !wasGrounded)
         {
-            jumpsRemaining = maxJumps;
+            OnLand(particleLand);
         }
 
-        wasGroundedLastFrame = isGrounded;
+
+        if (isGrounded && !isJumping)
+        {
+            coyoteCounter = coyoteTime;
+            jumpCounter = 0;
+        }
+        else
+        {
+            coyoteCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
+        jumpHeld = Input.GetKey(KeyCode.Space);
+        
+
+        if (canControl)
+        {
+
+            if (jumpBufferCounter > 0f && CanJump())
+            {
+                PerformJump(particleJump);
+                jumpBufferCounter = 0f;
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0f && !jumpCut)
+            {
+                CutJump();
+            }
+        }
+
+        CheckApex();
+    }
+
+    public void FixedUpdate()
+    {
+        ApplyGravityModifiers();
+        ClampFallSpeed();
+    }
+
+    private bool CheckGround()
+    {
+        if (groundCheck == null) return false;
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
     public bool CanJump()
     {
-        
-        if (jumpsRemaining == maxJumps)
+        return jumpCounter < maxJumps && (isGrounded || coyoteCounter > 0f);
+    }
+
+    public void PerformJump(ParticleSystem particleJump)
+    {       
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * jumpMultiplier);
+        jumpCounter++;
+        isJumping = true;
+        jumpCut = false;
+        if(particleJump != null)
         {
-            return coyoteTimer.CanJump();
+            particleJump.Play();
+        }
+    }
+
+    private void CutJump()
+    {
+        jumpCut = true;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
+    }
+
+    private void CheckApex()
+    {
+        if (Mathf.Abs(rb.linearVelocity.y) < apexThreshold && !isGrounded)
+        {
+            if (!isAtApex)
+            {
+                isAtApex = true;
+                apexHangCounter = apexHangTime;
+            }
         }
         else
         {
-            return jumpsRemaining > 0;
+            isAtApex = false;
+        }
+
+        if (isAtApex && apexHangCounter > 0f)
+        {
+            apexHangCounter -= Time.deltaTime;
         }
     }
 
-    public void Jump()
+    private void ApplyGravityModifiers()
     {
-        jumpHandler.Jump(jumpForce * jumpMultiplier);
-        jumpsRemaining--;
+        
+        if (isAtApex && apexHangCounter > 0f)
+        {
+            rb.gravityScale = normalGravityScale * apexGravityMultiplier;
+        }
+        
+        else if (rb.linearVelocity.y < 0f)
+        {
+            rb.gravityScale = normalGravityScale * fallGravityMultiplier;
+        }
+        
+        else if (rb.linearVelocity.y > 0f && !jumpHeld)
+        {
+            rb.gravityScale = normalGravityScale * lowJumpMultiplier;
+        }
+        
+        else
+        {
+            rb.gravityScale = normalGravityScale;
+        }
     }
 
-    public int GetJumpsRemaining()
+    private void ClampFallSpeed()
     {
-        return jumpsRemaining;
+        if (rb.linearVelocity.y < -maxFallSpeed)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
+        }
     }
+
+    public void OnLand(ParticleSystem particleLand)
+    {
+        isJumping = false;
+        jumpCut = false;
+        if(particleLand != null)
+        {
+            particleLand.Play();
+        }
+    }
+    public bool Landed()
+    {
+        return wasGrounded == false && isGrounded == true;
+    }
+
+    public bool IsJumping()
+    {         
+        return isJumping; 
+    }
+    public bool IsAtApex()
+    {
+        return isAtApex;
+    }
+
+    public float GetVerticalVelocity()
+    {
+        return rb != null ? rb.linearVelocity.y : 0f;
+    }
+
+    
 }

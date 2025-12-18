@@ -13,6 +13,9 @@ TagManager:
   - BigClone
   - Spikes
   - BlastZone
+  - BasicGuardHitCollider
+  - HitCollider
+  - Audio
   layers:
   - Default
   - TransparentFX

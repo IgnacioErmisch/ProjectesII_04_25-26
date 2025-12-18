@@ -1,28 +1,44 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class SpawnCharacter : MonoBehaviour
 {
     [SerializeField] private PlayerCombatController combatController;
     [SerializeField] private EnergyController energyController;
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject player;
+   
 
-    // Update is called once per frame
     void Update()
     {
-        if(combatController.GetCurrentHealth() <= 0 || energyController.GetCurrentEnergy() <= 0)
+        if (combatController.GetCurrentHealth() <= 0 || energyController.GetCurrentEnergy() <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            StartCoroutine(WaitForSpawn());
+            
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("BlastZone")|| collision.gameObject.CompareTag("Spikes"))
+        if (collision.CompareTag("Spikes"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            StartCoroutine(WaitForSpawn());
         }
+        if (collision.CompareTag("BlastZone"))
+        {
+            energyController.ResetEnergy();
+            combatController.ResetHealth();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+    private IEnumerator WaitForSpawn()
+    {
+        
+        yield return new WaitForSeconds(2f);
+        //player.transform.position = checkpointManager.GetLastCheckpoint();
+        energyController.ResetEnergy();
+        combatController.ResetHealth();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 }

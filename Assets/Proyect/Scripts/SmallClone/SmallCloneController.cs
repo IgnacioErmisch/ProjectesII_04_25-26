@@ -8,32 +8,49 @@ public class SmallCloneController : MonoBehaviour
     private SmallCloneDoubleJump doubleJump;
     private PerspectiveSwitch perspectiveSwitch;
     private SpriteRenderer spriteRenderer;
+    private Transform transformSmallClone;
+    [SerializeField] private ParticleSystem jumpParticles;
+    [SerializeField] private ParticleSystem landParticles;
+    [SerializeField] private ParticleSystem runParticles;
+
+    public GameObject energyImage;
+
+    [Header("Ground Detection")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
-  
-    [SerializeField] private float jumpForce = 4f;
-    [SerializeField] private float jumpMultiplier = 1f;
-    [SerializeField] private int maxJumps = 2;
-    [SerializeField] private float coyoteTime = 0.1f;
+
+    [Header("Edge Detection")]
+    [SerializeField] private Transform edgeCheckFront;
+    [SerializeField] private Transform edgeCheckBack;
+
+    [Header("Jump Settings")]
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float jumpMultiplier;
+    [SerializeField] private int maxJumps;
+    [SerializeField] private float coyoteTime;
+    [SerializeField] private int jumpCounter = 0;
+
+    public SmallCloneMovment Movement => movement;
+    public SmallCloneDoubleJump DoubleJump => doubleJump;
 
     private void Awake()
     {
         InitializeComponents();
         ApplySizeModifier();
+        CinemachineSingleton.Instance.SetSmallClone(transformSmallClone);
+        GameManager.Instance.SetSmallCloneEnergy(energyImage);
     }
 
     private void InitializeComponents()
     {
         rb = GetComponent<Rigidbody2D>();
+        transformSmallClone = GetComponent<Transform>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        stats = new SmallCloneStats();
-        movement = new SmallCloneMovment(rb, stats, spriteRenderer);      
-        GroundChecker groundChecker = new GroundChecker(groundCheck, groundCheckRadius, groundLayer);
-        CoyoteTimer coyoteTimer = new CoyoteTimer(coyoteTime);
-        JumpHandler jumpHandler = new JumpHandler(rb);
-        perspectiveSwitch = FindFirstObjectByType<PerspectiveSwitch>();
-        doubleJump = new SmallCloneDoubleJump(jumpHandler, groundChecker, coyoteTimer, jumpForce, jumpMultiplier, maxJumps);
+        stats = new SmallCloneStats(); 
+        perspectiveSwitch = FindFirstObjectByType<PerspectiveSwitch>();      
+        movement = new SmallCloneMovment(rb, stats, spriteRenderer,groundCheck, groundCheckRadius, groundLayer, edgeCheckFront, edgeCheckBack);
+        doubleJump = new SmallCloneDoubleJump(rb, groundCheck, groundCheckRadius, groundLayer, jumpForce, jumpMultiplier, coyoteTime, maxJumps, jumpCounter);
     }
 
     private void ApplySizeModifier()
@@ -43,28 +60,49 @@ public class SmallCloneController : MonoBehaviour
 
     private void Update()
     {
-        doubleJump.Update();
-        HandleInput();
-    }
-
-    private void HandleInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && doubleJump.CanJump())
-        {
-            doubleJump.Jump();
-        }
+        bool canControl = !perspectiveSwitch.GetControllingPlayer(); 
+        movement.Update();       
+        doubleJump.Update(canControl, landParticles, jumpParticles);
+        UpdateParticles();
     }
 
     private void FixedUpdate()
     {
+        bool canControl = !perspectiveSwitch.GetControllingPlayer();     
+        movement.Move(canControl);
+        doubleJump.FixedUpdate();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
        
-        if (!perspectiveSwitch.GetControllingPlayer())
+        if (groundCheck != null)
         {
-            movement.Move();
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
-        else
+
+        
+        if (edgeCheckFront != null && edgeCheckBack != null)
         {
-            rb.linearVelocity = Vector2.zero; 
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(edgeCheckFront.position, edgeCheckFront.position + Vector3.down * 0.3f);
+            Gizmos.DrawLine(edgeCheckBack.position, edgeCheckBack.position + Vector3.down * 0.3f);
+        }
+    }
+    private void UpdateParticles()
+    {
+
+        if (runParticles != null && movement != null)
+        {
+            if (movement.isGrounded && movement.isMoving && !runParticles.isPlaying)
+            {
+                runParticles.Play();
+            }
+            else if ((!movement.isGrounded || !movement.isMoving) && runParticles.isPlaying)
+            {
+                runParticles.Stop();
+            }
         }
     }
 }

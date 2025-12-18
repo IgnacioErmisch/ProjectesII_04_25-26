@@ -4,55 +4,52 @@ using UnityEngine;
 public class BigCloneAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private BigCloneMovement bigCloneMovement;
+    [SerializeField] private BigCloneController bigCloneController;
     [SerializeField] private BigCloneWallDestroyer bigCloneWallDestroyer;
-    private BigCloneWallDestroyer wallDestroyer;
-    private WallContactDetector wallContactDetector;
-    private WallDestructor wallDestructor;
-    private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
-    private BigCloneStats stats;
+    [SerializeField] private BigCloneAttack bigCloneAttack;
+    public BigCloneMovement movement;
+
+
     void Start()
     {
         animator = GetComponent<Animator>();
         Initialize();
+        GameManager.Instance.SetBigController(this);    
+        movement = bigCloneController.movement;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         PlayWalkAnimation();
         PlayAttackAnimation();
+        
     }
 
     private void Initialize()
     {
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        stats = new BigCloneStats();
-        bigCloneMovement = new BigCloneMovement(rb, stats, spriteRenderer);
-        wallContactDetector = new WallContactDetector();
-        wallDestructor = new WallDestructor();
-        bigCloneWallDestroyer = new BigCloneWallDestroyer(wallContactDetector, wallDestructor);
+
     }
 
     private void PlayWalkAnimation()
     {
-        if (bigCloneMovement.GetMove())
+        if (movement != null && movement.isMoving)
         {
-            animator.SetBool("isWalking", true);
             
+            animator.SetBool("isWalking", true);
+
         }
         else
         {
             animator.SetBool("isWalking", false);
         }
     }
-
     private void PlayAttackAnimation()
     {
-        if (bigCloneWallDestroyer.isAttacking)
+
+        if (bigCloneAttack.isDashing)
         {
+
             animator.SetBool("isAttacking", true);
 
         }
@@ -61,4 +58,10 @@ public class BigCloneAnimationController : MonoBehaviour
             animator.SetBool("isAttacking", false);
         }
     }
+    public void ResetAnimations()
+    {
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isAttacking", false);
+    }
+
 }
