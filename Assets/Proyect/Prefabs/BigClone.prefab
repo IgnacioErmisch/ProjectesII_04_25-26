@@ -4999,6 +4999,7 @@ GameObject:
   - component: {fileID: 6064560242407736156}
   - component: {fileID: 4937383365458126528}
   - component: {fileID: 2940650665584716740}
+  - component: {fileID: 8539441089575653577}
   m_Layer: 6
   m_Name: BigClone
   m_TagString: BigClone
@@ -5116,7 +5117,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.3785467, y: -0.24306703}
+  m_Offset: {x: 0.44575167, y: 0.4290024}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5126,7 +5127,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.262991, y: 1.5977058}
+  m_Size: {x: 1.3525972, y: 0.20886397}
   m_EdgeRadius: 0
 --- !u!114 &2940650665584716740
 MonoBehaviour:
@@ -5152,6 +5153,43 @@ MonoBehaviour:
   soundManager: {fileID: 0}
   sr: {fileID: 8790202237903686020}
   isDashing: 0
+--- !u!70 &8539441089575653577
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6003483819887161510}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.33834314, y: -0.26257843}
+  m_Size: {x: 1.1766863, y: 1.5611199}
+  m_Direction: 0
 --- !u!1 &7408190003627785854
 GameObject:
   m_ObjectHideFlags: 0
