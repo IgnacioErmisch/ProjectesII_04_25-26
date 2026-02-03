@@ -99,8 +99,7 @@ public class PlayerJump : MonoBehaviour
 
         if (canControl)
         {
-            
-            if (jumpBufferCounter > 0f && CanJump())
+            if (jumpBufferCounter > 0f && CanJump() && !GameManager.Instance.IsPlayerDead())
             {
                 PerformJump();
                 jumpBufferCounter = 0f;

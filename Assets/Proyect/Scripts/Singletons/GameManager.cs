@@ -84,4 +84,13 @@ public class GameManager : MonoBehaviour
     {
         return _smallCloneController;
     }
+    public bool IsPlayerDead()
+    {
+        HealthSystem healthSystem = _player.GetComponent<HealthSystem>();
+        if (healthSystem != null)
+        {
+            return healthSystem.IsDead();
+        }
+        return false;
+    }
 }
