@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 8
-  acceleration: 50
-  deceleration: 60
+  acceleration: 100
+  deceleration: 100
   airAcceleration: 80
   airDeceleration: 80
   groundCheck: {fileID: 3095973515394586891}
@@ -191,8 +191,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d5d3f6c6735194586f67db4b706ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 11
-  minJumpForce: 6
+  jumpForce: 13
+  secondJumpForce: 10
+  minJumpForce: 7
   maxJumps: 2
   normalGravityScale: 2.5
   fallGravityMultiplier: 2

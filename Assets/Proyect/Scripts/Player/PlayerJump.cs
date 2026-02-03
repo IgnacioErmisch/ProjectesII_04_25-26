@@ -3,8 +3,9 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     [Header("Jump Settings")]
-    [SerializeField] private float jumpForce = 12f;
-    [SerializeField] private float minJumpForce = 6f;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float secondJumpForce; 
+    [SerializeField] private float minJumpForce;
     [SerializeField] private int maxJumps = 2;
 
     [Header("Gravity Controls")]
@@ -137,7 +138,8 @@ public class PlayerJump : MonoBehaviour
     {
         soundManager.PlaySFX(soundManager.jump);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        float currentJumpForce = (jumpCounter == 0) ? jumpForce : secondJumpForce;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentJumpForce);
         jumpCounter++;
 
         isJumping = true;

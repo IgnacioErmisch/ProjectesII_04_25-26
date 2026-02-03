@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float maxSpeed = 8f;
-    [SerializeField] private float acceleration = 50f;
-    [SerializeField] private float deceleration = 60f;
-    [SerializeField] private float airAcceleration = 30f;
-    [SerializeField] private float airDeceleration = 30f;
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float acceleration;
+    [SerializeField] private float deceleration;
+    [SerializeField] private float airAcceleration;
+    [SerializeField] private float airDeceleration;
 
     [Header("Ground Detection")]
     [SerializeField] private Transform groundCheck;
