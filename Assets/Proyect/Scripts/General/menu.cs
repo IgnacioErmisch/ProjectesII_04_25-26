@@ -20,6 +20,7 @@ public class menuScene : MonoBehaviour
     public void LoadMap()
     {
         SceneManager.LoadScene("Level 1");
+        Time.timeScale = 1;
     }
 
     public void ExitGame()
