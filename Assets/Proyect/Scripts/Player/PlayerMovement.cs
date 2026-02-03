@@ -28,12 +28,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cloneSpawnerPoint;
     [SerializeField] private Transform cloneSpawnerPointSecond;
     [SerializeField] private PlayerCombatController playerCombatController;
+
     private SoundManager soundManager;
     public float horizontal { get; private set; }
     public bool isMoving { get; private set; }
     public bool isGrounded { get; private set; }
+   
+    private bool isBeingLaunched = false;
+    private float launchControlDisableTime = 0f;
 
-    
     private Rigidbody2D rb2D;
     private SpriteRenderer spriteRenderer;
     private bool facingRight = true;
@@ -47,16 +50,17 @@ public class PlayerMovement : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
+
     private void Awake()
     {
         soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
     }
 
     void Update()
-    {    
+    {
         wasGrounded = isGrounded;
         isGrounded = CheckGround();
-       
+
         if (perspectiveSwitch.GetControllingPlayer() && !playerCombatController.IsDead())
         {
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -65,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         {
             horizontal = 0f;
         }
+
         bool isCurrentlyMoving = isGrounded && isMoving && Mathf.Abs(currentSpeed) > 0.1f;
 
         if (isCurrentlyMoving && !wasMoving)
@@ -83,6 +88,16 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        
+        if (isBeingLaunched && Time.time < launchControlDisableTime)
+            return;
+        
+
+        if (isBeingLaunched && Time.time >= launchControlDisableTime)
+        {
+            isBeingLaunched = false;
+        }
+
         if (perspectiveSwitch.GetControllingPlayer() && !playerCombatController.IsDead())
         {
             ApplyMovement();
@@ -115,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
             currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, decel * Time.fixedDeltaTime);
             isMoving = Mathf.Abs(currentSpeed) > 0.1f;
         }
-        
+
         rb2D.linearVelocity = new Vector2(currentSpeed, rb2D.linearVelocity.y);
 
         if (currentSpeed > 0.1f && !facingRight)
@@ -140,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
             isOnEdge = false;
             return;
         }
-  
+
         Vector2 frontCheck = edgeCheckFront.position;
         Vector2 backCheck = edgeCheckBack.position;
         bool frontHasGround = Physics2D.Raycast(frontCheck, Vector2.down, edgeCheckDistance, groundLayer);
@@ -150,7 +165,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void ClampToEdge()
     {
-        
         if (Mathf.Abs(rb2D.linearVelocity.x) > edgeClampSpeed)
         {
             float clampedVelocity = Mathf.Sign(rb2D.linearVelocity.x) * edgeClampSpeed;
@@ -170,14 +184,22 @@ public class PlayerMovement : MonoBehaviour
         cloneSpawnerPointSecond.localPosition = new Vector3(-cloneSpawnerPointSecond.localPosition.x, cloneSpawnerPointSecond.localPosition.y, cloneSpawnerPointSecond.localPosition.z);
     }
 
+    public void DisableControlForLaunch(float duration)
+    {
+        isBeingLaunched = true;
+        launchControlDisableTime = Time.time + duration;
+    }
+
     public bool IsFacingRight()
     {
         return facingRight;
     }
+
     public float GetCurrentSpeed()
     {
         return currentSpeed;
     }
+
     public bool IsOnEdge()
     {
         return isOnEdge;
