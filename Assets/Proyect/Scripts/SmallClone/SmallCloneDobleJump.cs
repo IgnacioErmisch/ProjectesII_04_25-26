@@ -31,6 +31,9 @@ public class SmallCloneDoubleJump
     public bool isGrounded { get; private set; }
     [SerializeField] private SoundManager soundManager;
 
+
+    private CloneGravity cloneGravity;
+
     public SmallCloneDoubleJump(Rigidbody2D rb, Transform groundCheck, float groundCheckRadius,
                                 LayerMask groundLayer, float jumpForce, float jumpMultiplier,
                                 float coyoteTime, int maxJumps = 2, int jumpCounter = 0)
@@ -46,6 +49,10 @@ public class SmallCloneDoubleJump
         this.jumpBufferCounter = 0f;
         this.coyoteCounter = 0f;
         this.jumpCounter = 0;
+
+  
+        this.cloneGravity = rb.GetComponent<CloneGravity>();
+
         GameObject audioObject = GameObject.FindGameObjectWithTag("Audio");
         if (audioObject != null)
         {
@@ -62,7 +69,6 @@ public class SmallCloneDoubleJump
         {
             OnLand(particleLand);
         }
-
 
         if (isGrounded && !isJumping)
         {
@@ -84,18 +90,16 @@ public class SmallCloneDoubleJump
         }
 
         jumpHeld = Input.GetKey(KeyCode.Space);
-        
 
         if (canControl)
         {
-
             if (jumpBufferCounter > 0f && CanJump())
             {
                 PerformJump(particleJump);
                 jumpBufferCounter = 0f;
             }
 
-            if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0f && !jumpCut)
+            if (Input.GetKeyUp(KeyCode.Space) && IsMovingAwayFromGravity() && !jumpCut)
             {
                 CutJump();
             }
@@ -122,13 +126,21 @@ public class SmallCloneDoubleJump
     }
 
     public void PerformJump(ParticleSystem particleJump)
-    {       
+    {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * jumpMultiplier);
+
+        float actualJumpForce = jumpForce * jumpMultiplier;
+        if (cloneGravity != null && cloneGravity.IsInverted())
+        {
+            actualJumpForce = -actualJumpForce; 
+        }
+
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, actualJumpForce);
         jumpCounter++;
         isJumping = true;
         jumpCut = false;
-        if(particleJump != null)
+
+        if (particleJump != null)
         {
             particleJump.Play();
         }
@@ -163,54 +175,89 @@ public class SmallCloneDoubleJump
 
     private void ApplyGravityModifiers()
     {
-        
+        float gravityMultiplier = cloneGravity != null ? cloneGravity.GetGravityMultiplier() : 1f;
+        float baseGravity = normalGravityScale * gravityMultiplier;
+
+     
         if (isAtApex && apexHangCounter > 0f)
         {
-            rb.gravityScale = normalGravityScale * apexGravityMultiplier;
+            rb.gravityScale = baseGravity * apexGravityMultiplier;
         }
-        
-        else if (rb.linearVelocity.y < 0f)
+      
+        else if (IsMovingTowardGravity())
         {
-            rb.gravityScale = normalGravityScale * fallGravityMultiplier;
+            rb.gravityScale = baseGravity * fallGravityMultiplier;
         }
-        
-        else if (rb.linearVelocity.y > 0f && !jumpHeld)
+     
+        else if (IsMovingAwayFromGravity() && !jumpHeld)
         {
-            rb.gravityScale = normalGravityScale * lowJumpMultiplier;
+            rb.gravityScale = baseGravity * lowJumpMultiplier;
         }
-        
         else
         {
-            rb.gravityScale = normalGravityScale;
+            rb.gravityScale = baseGravity;
         }
     }
 
     private void ClampFallSpeed()
     {
-        if (rb.linearVelocity.y < -maxFallSpeed)
+        float currentMaxSpeed = maxFallSpeed;
+
+        
+        if (cloneGravity != null && cloneGravity.IsInverted())
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
+            if (rb.linearVelocity.y > currentMaxSpeed)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentMaxSpeed);
+            }
         }
+        
+        else
+        {
+            if (rb.linearVelocity.y < -currentMaxSpeed)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -currentMaxSpeed);
+            }
+        }
+    }
+
+    private bool IsMovingTowardGravity()
+    {
+        if (cloneGravity != null && cloneGravity.IsInverted())
+        {
+            return rb.linearVelocity.y > 0f; 
+        }
+        return rb.linearVelocity.y < 0f; 
+    }
+    private bool IsMovingAwayFromGravity()
+    {
+        if (cloneGravity != null && cloneGravity.IsInverted())
+        {
+            return rb.linearVelocity.y < 0f; 
+        }
+        return rb.linearVelocity.y > 0f; 
     }
 
     public void OnLand(ParticleSystem particleLand)
     {
         isJumping = false;
         jumpCut = false;
-        if(particleLand != null)
+        if (particleLand != null)
         {
             particleLand.Play();
         }
     }
+
     public bool Landed()
     {
         return wasGrounded == false && isGrounded == true;
     }
 
     public bool IsJumping()
-    {         
-        return isJumping; 
+    {
+        return isJumping;
     }
+
     public bool IsAtApex()
     {
         return isAtApex;
@@ -220,6 +267,4 @@ public class SmallCloneDoubleJump
     {
         return rb != null ? rb.linearVelocity.y : 0f;
     }
-
-    
 }

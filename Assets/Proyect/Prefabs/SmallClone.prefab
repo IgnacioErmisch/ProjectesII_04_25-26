@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 2075444078377483104}
   - component: {fileID: 3040771992612995455}
   - component: {fileID: -6818111625367319820}
+  - component: {fileID: 8627000524019962169}
   m_Layer: 0
   m_Name: SmallClone
   m_TagString: SmallClone
@@ -266,6 +267,20 @@ MonoBehaviour:
   jumpDamage: 25
   jumpForce: 22.5
   dashKnockbackForce: 0
+--- !u!114 &8627000524019962169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887023663289730442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ee32964def20f64ba6f9ad97579bb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 7360480934236382808}
+  invertedYOffset: -0.8
 --- !u!1 &5316104002196046662
 GameObject:
   m_ObjectHideFlags: 0
