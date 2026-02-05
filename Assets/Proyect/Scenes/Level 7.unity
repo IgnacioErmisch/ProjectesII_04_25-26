@@ -2255,6 +2255,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9573252408221832, guid: d3052a02d645e8040b95cb62b0c1dabc, type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 1135488406}
     - target: {fileID: 5284040069395058597, guid: d3052a02d645e8040b95cb62b0c1dabc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.50355
@@ -48866,6 +48870,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1135488406 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3704510556253934519, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
+  m_PrefabInstance: {fileID: 1135488402}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1148577148
 GameObject:
   m_ObjectHideFlags: 0

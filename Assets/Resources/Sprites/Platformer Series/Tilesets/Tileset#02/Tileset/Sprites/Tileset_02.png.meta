@@ -4055,9 +4055,9 @@ TextureImporter:
       name: Tileset_02_178
       rect:
         serializedVersion: 2
-        x: 416
+        x: 400
         y: 32
-        width: 16
+        width: 48
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -4761,7 +4761,7 @@ TextureImporter:
         serializedVersion: 2
         x: 400
         y: 0
-        width: 16
+        width: 48
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
