@@ -480,7 +480,7 @@ MonoBehaviour:
   largeCloneInitialCost: 0
   smallCloneDrainPerSecond: 5
   largeCloneDrainPerSecond: 7.5
-  regenerationRate: 20
+  regenerationRate: 65
   regenerationDelay: 1
   energyText: {fileID: 0}
   energyPlayer: {fileID: 5814383332810637115}
@@ -578,7 +578,7 @@ Transform:
   m_GameObject: {fileID: 2789915080622717676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14999962, y: 1.6099999, z: -10}
+  m_LocalPosition: {x: -136.96286, y: -31.159641, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

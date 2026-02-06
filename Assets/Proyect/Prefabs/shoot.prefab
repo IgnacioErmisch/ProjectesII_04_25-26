@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 15
   speed: 8
-  radius: 3
+  radius: 2
   lifetime: 3
   playerLayer:
     serializedVersion: 2
