@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4147442877369338816}
   - component: {fileID: 3115376741330095126}
   m_Layer: 6
-  m_Name: InterruptorWall
+  m_Name: Wall A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 935135144433507833}
   - component: {fileID: 422977716860693860}
   m_Layer: 6
-  m_Name: InterruptorWall (1)
+  m_Name: Wall B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 4586053953111268367}
   - component: {fileID: 4454276628065952208}
   m_Layer: 6
-  m_Name: InterruptorWall (2)
+  m_Name: Wall C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
