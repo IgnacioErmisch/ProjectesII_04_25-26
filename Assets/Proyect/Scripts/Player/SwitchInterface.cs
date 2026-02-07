@@ -13,9 +13,35 @@ public class SwitchInterface : MonoBehaviour
     [SerializeField] private Color smallSelectedColor;
     Color darkColor = new Color32(41, 39, 39, 255);
 
+    private Controller inputActions;
+
+    private void Awake()
+    {
+        inputActions = new Controller();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Gameplay.Disable();
+    }
+
     void Update()
     {
-        TabSwitch();
+      
+        if (inputActions.Gameplay.SelectSmallClone.triggered && !gameManager.GetCloneActive())
+        {
+            SelectSmallClone();
+        }
+
+        if (inputActions.Gameplay.SelectBigClone.triggered && !gameManager.GetCloneActive())
+        {
+            SelectBigClone();
+        }
     }
 
     private void Start()
@@ -24,18 +50,28 @@ public class SwitchInterface : MonoBehaviour
         SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
         gameManager = GameManager.Instance;
     }
-    private void TabSwitch()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab) && !gameManager.GetCloneActive())
-        {
 
-            if (BigClone != null && SmallClone != null)
-            {
-                IsBigCloneSelected = !IsBigCloneSelected;
-                BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
-                SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
-            }
-           
+    private void SelectBigClone()
+    {
+        if (!IsBigCloneSelected)
+        {
+            IsBigCloneSelected = true;
+            UpdateUI();
         }
+    }
+
+    private void SelectSmallClone()
+    {
+        if (IsBigCloneSelected)
+        {
+            IsBigCloneSelected = false;
+            UpdateUI();
+        }
+    }
+
+    private void UpdateUI()
+    {
+        BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
+        SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
     }
 }

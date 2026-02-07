@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 13
-  secondJumpForce: 10
+  secondJumpForce: 11
   minJumpForce: 7
   maxJumps: 2
   normalGravityScale: 2.5

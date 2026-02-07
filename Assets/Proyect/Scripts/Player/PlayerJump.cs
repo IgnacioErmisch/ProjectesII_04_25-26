@@ -4,7 +4,7 @@ public class PlayerJump : MonoBehaviour
 {
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce;
-    [SerializeField] private float secondJumpForce; 
+    [SerializeField] private float secondJumpForce;
     [SerializeField] private float minJumpForce;
     [SerializeField] private int maxJumps = 2;
 
@@ -43,26 +43,39 @@ public class PlayerJump : MonoBehaviour
     [Header("Audio")]
     [SerializeField] SoundManager soundManager;
 
-   
+    private Controller inputActions;
+
     public bool isJumping { get; private set; }
     public bool isGrounded { get; private set; }
     public int jumpCounter = 0;
 
-    
+
     public float coyoteCounter;
     private float jumpBufferCounter;
-    private float apexHangCounter;  
-    private Rigidbody2D rb;  
+    private float apexHangCounter;
+    private Rigidbody2D rb;
     private bool wasGrounded;
     private bool isAtApex;
     private bool jumpHeld;
     private bool jumpCut;
+    private bool wasJumpPressed;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
 
+        inputActions = new Controller();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Gameplay.Disable();
     }
 
     private void Update()
@@ -75,7 +88,7 @@ public class PlayerJump : MonoBehaviour
             OnLand();
         }
 
-     
+
         if (isGrounded && !isJumping)
         {
             coyoteCounter = coyoteTime;
@@ -86,7 +99,9 @@ public class PlayerJump : MonoBehaviour
             coyoteCounter -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        bool jumpPressed = inputActions.Gameplay.Jump.triggered;
+
+        if (jumpPressed)
         {
             jumpBufferCounter = jumpBufferTime;
         }
@@ -95,7 +110,8 @@ public class PlayerJump : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
-        jumpHeld = Input.GetKey(KeyCode.Space);
+        jumpHeld = inputActions.Gameplay.Jump.IsPressed();
+
         bool canControl = perspectiveSwitch == null || perspectiveSwitch.GetControllingPlayer();
 
         if (canControl)
@@ -106,7 +122,7 @@ public class PlayerJump : MonoBehaviour
                 jumpBufferCounter = 0f;
             }
 
-            if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0f && !jumpCut)
+            if (!jumpHeld && rb.linearVelocity.y > 0f && !jumpCut)
             {
                 CutJump();
             }
@@ -149,7 +165,7 @@ public class PlayerJump : MonoBehaviour
         {
             jumpParticles.Play();
         }
-        
+
     }
 
     private void CutJump()
@@ -160,7 +176,7 @@ public class PlayerJump : MonoBehaviour
 
     private void CheckApex()
     {
-        
+
         if (Mathf.Abs(rb.linearVelocity.y) < apexThreshold && !isGrounded)
         {
             if (!isAtApex)
@@ -182,22 +198,22 @@ public class PlayerJump : MonoBehaviour
 
     private void ApplyGravityModifiers()
     {
-        
+
         if (isAtApex && apexHangCounter > 0f)
         {
             rb.gravityScale = normalGravityScale * apexGravityMultiplier;
         }
-        
+
         else if (rb.linearVelocity.y < 0f)
         {
             rb.gravityScale = normalGravityScale * fallGravityMultiplier;
         }
-        
+
         else if (rb.linearVelocity.y > 0f && !jumpHeld)
         {
             rb.gravityScale = normalGravityScale * lowJumpMultiplier;
         }
-       
+
         else
         {
             rb.gravityScale = normalGravityScale;
@@ -205,7 +221,7 @@ public class PlayerJump : MonoBehaviour
     }
 
     private void ClampFallSpeed()
-    {       
+    {
         if (rb.linearVelocity.y < -maxFallSpeed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
@@ -225,7 +241,7 @@ public class PlayerJump : MonoBehaviour
 
     private void UpdateParticles()
     {
-        
+
         if (runParticles != null && movement != null)
         {
             if (isGrounded && movement.isMoving && !runParticles.isPlaying)
