@@ -36,11 +36,7 @@ public class BigCloneWallDestroyer
 
     public bool isAttacking;
 
-    // ---- NUEVO: Constructor completo ----
-    public BigCloneWallDestroyer(
-        WallContactDetector wallContact,
-        WallDestructor wallDestructor,
-        BigCloneAttack bigCloneAttack)
+    public BigCloneWallDestroyer(WallContactDetector wallContact,WallDestructor wallDestructor, BigCloneAttack bigCloneAttack)
     {
         this.wallContact = wallContact;
         this.wallDestructor = wallDestructor;

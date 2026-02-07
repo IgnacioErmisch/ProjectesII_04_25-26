@@ -29,11 +29,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cloneSpawnerPointSecond;
     [SerializeField] private PlayerCombatController playerCombatController;
 
+    // ? NUEVO: Input Actions
+    private Controller inputActions;
+
     private SoundManager soundManager;
     public float horizontal { get; private set; }
     public bool isMoving { get; private set; }
     public bool isGrounded { get; private set; }
-   
+
     private bool isBeingLaunched = false;
     private float launchControlDisableTime = 0f;
 
@@ -45,15 +48,27 @@ public class PlayerMovement : MonoBehaviour
     private bool isOnEdge;
     private bool wasMoving;
 
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
+
+        inputActions = new Controller();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Gameplay.Disable();
+    }
+
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
-
-    private void Awake()
-    {
-        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -63,7 +78,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (perspectiveSwitch.GetControllingPlayer() && !playerCombatController.IsDead())
         {
-            horizontal = Input.GetAxisRaw("Horizontal");
+            Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
+            horizontal = moveInput.x;
         }
         else
         {
@@ -88,10 +104,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+
         if (isBeingLaunched && Time.time < launchControlDisableTime)
             return;
-        
+
 
         if (isBeingLaunched && Time.time >= launchControlDisableTime)
         {

@@ -7,34 +7,38 @@ public class InputSpawnClone : MonoBehaviour
     [SerializeField] private Transform cloneSpawnerPoint;
     [SerializeField] private PlayerJump playerJump;
 
+    private Controller inputActions;
 
-    void Start()
+    private void Awake()
     {
-        
+        inputActions = new Controller();
     }
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        inputActions.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Gameplay.Disable();
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() && switchInterface.IsBigCloneSelected && playerJump.isGrounded)
+        if (inputActions.Gameplay.SpawnClone.triggered)
         {
-            CloneSpawner.TrySpawnClone();
-           
-        }
-
-        else if (Input.GetKeyDown(KeyCode.E) && !IsAnyCloneActive() &&!switchInterface.IsBigCloneSelected && playerJump.isGrounded)
-        {
-            CloneSpawner.TrySpawnClone();
-           
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-           
-            
-            CloneSpawner.TryDespawnClone();
+            if (IsAnyCloneActive())
+            {
+                CloneSpawner.TryDespawnClone();
+            }
+            else if (playerJump.isGrounded)
+            {
+                CloneSpawner.TrySpawnClone();
+            }
         }
     }
+
     public bool IsAnyCloneActive()
     {
         return CloneSpawner.cloneActive;

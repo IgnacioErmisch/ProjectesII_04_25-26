@@ -6,31 +6,46 @@ public class BigCloneAttack : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashCooldown;
-    [SerializeField] private float dashDamage; 
+    [SerializeField] private float dashDamage;
     [SerializeField] private float dashKnockbackForce;
-    [SerializeField] private LayerMask enemyLayer; 
+    [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SoundManager soundManager;
     [SerializeField] private SpriteRenderer sr;
+
+    private Controller inputActions;
 
     public bool isDashing = false;
     private bool canDash = true;
     private float dashTimer = 0f;
     private float cooldownTimer = 0f;
 
+    private void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
+
+        inputActions = new Controller();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Gameplay.Disable();
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
     }
-    private void Awake()
-    {
-        soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
-    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !isDashing)
+        if (inputActions.Gameplay.Dash.triggered && canDash && !isDashing)
         {
             StartDash();
         }
@@ -104,5 +119,3 @@ public class BigCloneAttack : MonoBehaviour
         }
     }
 }
-
-

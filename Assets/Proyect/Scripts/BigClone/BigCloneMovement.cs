@@ -8,7 +8,7 @@ public class BigCloneMovement
     private Transform groundCheck;
     private Transform edgeCheckFront;
     private Transform edgeCheckBack;
-    public BigCloneStats stat;  
+    public BigCloneStats stat;
     private float maxSpeed = 7f;
     private float acceleration = 100f;
     private float deceleration = 60f;
@@ -18,6 +18,8 @@ public class BigCloneMovement
     private float edgeCheckDistance = 0.3f;
     private float edgeClampSpeed = 4f;
     private LayerMask groundLayer;
+
+    private Controller inputActions;
 
     public float horizontal { get; private set; }
     public bool isMoving { get; private set; }
@@ -53,6 +55,9 @@ public class BigCloneMovement
         {
             this.soundManager = audioObject.GetComponent<SoundManager>();
         }
+
+        this.inputActions = new Controller();
+        this.inputActions.Gameplay.Enable();
     }
 
 
@@ -62,11 +67,13 @@ public class BigCloneMovement
         isGrounded = CheckGround();
         CheckEdge();
     }
+
     public void Move(bool canMove)
     {
         if (canMove)
         {
-            horizontal = Input.GetAxisRaw("Horizontal");
+            Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
+            horizontal = moveInput.x;
         }
         else
         {
@@ -75,24 +82,24 @@ public class BigCloneMovement
 
         ApplyMovement();
         bool isCurrentlyMoving = isGrounded && isMoving && Mathf.Abs(currentSpeed) > 0.1f;
-  
-            if (isCurrentlyMoving && !wasMoving)
-            {
-                soundManager.PlayLoop(soundManager.movementBC); 
-            }
-            else if (!isCurrentlyMoving && wasMoving)
-            {
-                soundManager.StopLoop();
-            }
-        
+
+        if (isCurrentlyMoving && !wasMoving)
+        {
+            soundManager.PlayLoop(soundManager.movementBC);
+        }
+        else if (!isCurrentlyMoving && wasMoving)
+        {
+            soundManager.StopLoop();
+        }
+
         wasMoving = isCurrentlyMoving;
         if (isOnEdge && isGrounded)
         {
             ClampToEdge();
         }
-        
+
     }
-    
+
     private void ApplyMovement()
     {
         float targetSpeed = horizontal * maxSpeed;
@@ -164,6 +171,7 @@ public class BigCloneMovement
             attackPoint.localScale = attackScale;
         }
     }
+
     public bool IsFacingRight()
     {
         return facingRight;
@@ -182,6 +190,15 @@ public class BigCloneMovement
     public bool GetMove()
     {
         return isMoving;
+    }
+
+    public void Dispose()
+    {
+        if (inputActions != null)
+        {
+            inputActions.Gameplay.Disable();
+            inputActions.Dispose();
+        }
     }
 
     public void DrawGizmos(Transform groundCheck, Transform edgeCheckFront, Transform edgeCheckBack)

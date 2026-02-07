@@ -11,14 +11,33 @@ public class PerspectiveSwitch : MonoBehaviour
     public Camera playerCamera;
     public bool controllingPlayer = true;
 
+    private Controller inputActions;
+
+    private void Awake()
+    {
+        inputActions = new Controller();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Gameplay.Disable();
+    }
+
     void Update()
     {
         SetClones();
-        if (Input.GetKeyDown(KeyCode.C))
+
+        if (inputActions.Gameplay.SwitchCamera.triggered)
         {
             SwitchCamera();
         }
-        if(!controllingPlayer)
+
+        if (!controllingPlayer)
         {
             playerAnimatorController.ResetAnimations();
 
@@ -31,30 +50,31 @@ public class PerspectiveSwitch : MonoBehaviour
             }
             if (smallCloneAnimatorController != null)
             {
-               GameManager.Instance.GetSmallController().ResetAnimations();
+                GameManager.Instance.GetSmallController().ResetAnimations();
             }
 
-
         }
-        
     }
+
     private void SetClones()
     {
-        if(bigCloneAnimatorController == null)
+        if (bigCloneAnimatorController == null)
         {
             bigCloneAnimatorController = GameManager.Instance.GetBigController();
         }
-        if(smallCloneAnimatorController == null)
+        if (smallCloneAnimatorController == null)
         {
             smallCloneAnimatorController = GameManager.Instance.GetSmallController();
         }
     }
+
     private void Start()
     {
         controllingPlayer = true;
         GameManager.Instance.SetControlllingPlayer(this);
 
     }
+
     private void SwitchCamera()
     {
         CloneSpawner activeSpawner = GetActiveSpawner();
@@ -69,13 +89,13 @@ public class PerspectiveSwitch : MonoBehaviour
         {
             playerCamera.transform.SetParent(currentClone.transform);
             playerCamera.transform.localPosition = new Vector3(2, 1, -5);
-           
+
         }
         else
         {
             playerCamera.transform.SetParent(player.transform);
             playerCamera.transform.localPosition = new Vector3(2, 2, -5);
-       
+
         }
 
 
@@ -94,7 +114,7 @@ public class PerspectiveSwitch : MonoBehaviour
             return smallCloneSpawner;
         }
 
-        return null; 
+        return null;
     }
 
     public void SwitchToClone()
@@ -102,7 +122,7 @@ public class PerspectiveSwitch : MonoBehaviour
         controllingPlayer = false;
     }
 
-   
+
     public void SwitchToPlayer()
     {
         controllingPlayer = true;

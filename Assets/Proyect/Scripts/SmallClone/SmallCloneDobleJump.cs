@@ -31,6 +31,7 @@ public class SmallCloneDoubleJump
     public bool isGrounded { get; private set; }
     [SerializeField] private SoundManager soundManager;
 
+    private Controller inputActions;
 
     private CloneGravity cloneGravity;
 
@@ -50,7 +51,7 @@ public class SmallCloneDoubleJump
         this.coyoteCounter = 0f;
         this.jumpCounter = 0;
 
-  
+
         this.cloneGravity = rb.GetComponent<CloneGravity>();
 
         GameObject audioObject = GameObject.FindGameObjectWithTag("Audio");
@@ -58,6 +59,9 @@ public class SmallCloneDoubleJump
         {
             this.soundManager = audioObject.GetComponent<SoundManager>();
         }
+
+        this.inputActions = new Controller();
+        this.inputActions.Gameplay.Enable();
     }
 
     public void Update(bool canControl, ParticleSystem particleLand, ParticleSystem particleJump)
@@ -80,7 +84,7 @@ public class SmallCloneDoubleJump
             coyoteCounter -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (inputActions.Gameplay.Jump.triggered)
         {
             jumpBufferCounter = jumpBufferTime;
         }
@@ -89,7 +93,7 @@ public class SmallCloneDoubleJump
             jumpBufferCounter -= Time.deltaTime;
         }
 
-        jumpHeld = Input.GetKey(KeyCode.Space);
+        jumpHeld = inputActions.Gameplay.Jump.IsPressed();
 
         if (canControl)
         {
@@ -99,7 +103,7 @@ public class SmallCloneDoubleJump
                 jumpBufferCounter = 0f;
             }
 
-            if (Input.GetKeyUp(KeyCode.Space) && IsMovingAwayFromGravity() && !jumpCut)
+            if (!jumpHeld && IsMovingAwayFromGravity() && !jumpCut)
             {
                 CutJump();
             }
@@ -132,7 +136,7 @@ public class SmallCloneDoubleJump
         float actualJumpForce = jumpForce * jumpMultiplier;
         if (cloneGravity != null && cloneGravity.IsInverted())
         {
-            actualJumpForce = -actualJumpForce; 
+            actualJumpForce = -actualJumpForce;
         }
 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, actualJumpForce);
@@ -178,17 +182,17 @@ public class SmallCloneDoubleJump
         float gravityMultiplier = cloneGravity != null ? cloneGravity.GetGravityMultiplier() : 1f;
         float baseGravity = normalGravityScale * gravityMultiplier;
 
-     
+
         if (isAtApex && apexHangCounter > 0f)
         {
             rb.gravityScale = baseGravity * apexGravityMultiplier;
         }
-      
+
         else if (IsMovingTowardGravity())
         {
             rb.gravityScale = baseGravity * fallGravityMultiplier;
         }
-     
+
         else if (IsMovingAwayFromGravity() && !jumpHeld)
         {
             rb.gravityScale = baseGravity * lowJumpMultiplier;
@@ -203,7 +207,7 @@ public class SmallCloneDoubleJump
     {
         float currentMaxSpeed = maxFallSpeed;
 
-        
+
         if (cloneGravity != null && cloneGravity.IsInverted())
         {
             if (rb.linearVelocity.y > currentMaxSpeed)
@@ -211,7 +215,7 @@ public class SmallCloneDoubleJump
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentMaxSpeed);
             }
         }
-        
+
         else
         {
             if (rb.linearVelocity.y < -currentMaxSpeed)
@@ -225,17 +229,18 @@ public class SmallCloneDoubleJump
     {
         if (cloneGravity != null && cloneGravity.IsInverted())
         {
-            return rb.linearVelocity.y > 0f; 
+            return rb.linearVelocity.y > 0f;
         }
-        return rb.linearVelocity.y < 0f; 
+        return rb.linearVelocity.y < 0f;
     }
+
     private bool IsMovingAwayFromGravity()
     {
         if (cloneGravity != null && cloneGravity.IsInverted())
         {
-            return rb.linearVelocity.y < 0f; 
+            return rb.linearVelocity.y < 0f;
         }
-        return rb.linearVelocity.y > 0f; 
+        return rb.linearVelocity.y > 0f;
     }
 
     public void OnLand(ParticleSystem particleLand)
@@ -266,5 +271,13 @@ public class SmallCloneDoubleJump
     public float GetVerticalVelocity()
     {
         return rb != null ? rb.linearVelocity.y : 0f;
+    }
+    public void Dispose()
+    {
+        if (inputActions != null)
+        {
+            inputActions.Gameplay.Disable();
+            inputActions.Dispose();
+        }
     }
 }

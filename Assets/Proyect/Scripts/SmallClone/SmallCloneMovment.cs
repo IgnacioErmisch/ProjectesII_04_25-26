@@ -6,27 +6,28 @@ public class SmallCloneMovment
     private SmallCloneStats stat;
     private SpriteRenderer spriteRenderer;
 
-   
+
     private float maxSpeed;
     private float acceleration = 105f;
     private float deceleration = 55f;
     private float airAcceleration = 90f;
     private float airDeceleration = 90f;
 
-   
+
     private Transform edgeCheckFront;
     private Transform edgeCheckBack;
     private float edgeCheckDistance = 0.3f;
     private float edgeClampSpeed = 2f;
 
-    
+
     private Transform groundCheck;
     private float groundCheckRadius;
     private LayerMask groundLayer;
 
     private SoundManager soundManager;
 
-   
+    private Controller inputActions;
+
     public float horizontal { get; private set; }
     public bool isMoving { get; private set; }
     public bool isGrounded { get; private set; }
@@ -55,6 +56,9 @@ public class SmallCloneMovment
         {
             this.soundManager = audioObject.GetComponent<SoundManager>();
         }
+
+        this.inputActions = new Controller();
+        this.inputActions.Gameplay.Enable();
     }
 
     public void Update()
@@ -67,7 +71,8 @@ public class SmallCloneMovment
     {
         if (canControl)
         {
-            horizontal = Input.GetAxisRaw("Horizontal");
+            Vector2 moveInput = inputActions.Gameplay.Move.ReadValue<Vector2>();
+            horizontal = moveInput.x;
         }
         else
         {
@@ -76,16 +81,16 @@ public class SmallCloneMovment
 
         ApplyMovement();
         bool isCurrentlyMoving = isGrounded && isMoving && Mathf.Abs(currentSpeed) > 0.1f;
-      
-            if (isCurrentlyMoving && !wasMoving)
-            {
-                soundManager.PlayLoop(soundManager.movementSC); 
-            }
-            else if (!isCurrentlyMoving && wasMoving)
-            {
-                soundManager.StopLoop();
-            }
-        
+
+        if (isCurrentlyMoving && !wasMoving)
+        {
+            soundManager.PlayLoop(soundManager.movementSC);
+        }
+        else if (!isCurrentlyMoving && wasMoving)
+        {
+            soundManager.StopLoop();
+        }
+
 
         wasMoving = isCurrentlyMoving;
 
@@ -120,7 +125,7 @@ public class SmallCloneMovment
 
         rb.linearVelocity = new Vector2(currentSpeed, rb.linearVelocity.y);
 
-        
+
         if (currentSpeed > 0.1f && !facingRight)
         {
             Flip();
@@ -174,5 +179,13 @@ public class SmallCloneMovment
     public bool IsOnEdge()
     {
         return isOnEdge;
+    }
+    public void Dispose()
+    {
+        if (inputActions != null)
+        {
+            inputActions.Gameplay.Disable();
+            inputActions.Dispose();
+        }
     }
 }
