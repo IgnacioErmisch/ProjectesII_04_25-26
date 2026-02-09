@@ -25,7 +25,7 @@ public class CatapultPlatform : MonoBehaviour
     private Vector3 targetPosition;
     private bool isPressed = false;
     private AudioSource audioSource;
-    private float lastImpactForce = 0f; // NUEVO: Almacenar la fuerza del último impacto
+    private float lastImpactForce = 0f; 
 
     private void Awake()
     {
@@ -38,18 +38,9 @@ public class CatapultPlatform : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        // Auto-encontrar el CatapultSystem si no esta asignado
         if (catapultSystem == null)
         {
             catapultSystem = FindFirstObjectByType<CatapultSystem>();
-
-            if (showDebug)
-            {
-                if (catapultSystem != null)
-                    Debug.Log($"[Catapult] CatapultSystem encontrado automaticamente: {catapultSystem.gameObject.name}");
-                else
-                    Debug.LogError("[Catapult] No se encontro CatapultSystem en la escena!");
-            }
         }
     }
 
@@ -62,13 +53,7 @@ public class CatapultPlatform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("BigClone"))
         {
-            if (isPressed)
-            {
-                if (showDebug)
-                    Debug.Log("[Catapult] Plataforma ya esta presionada, ignorando...");
-                return;
-            }
-
+        
             bool shouldActivate = false;
             float impactForce = 0f;
 
@@ -78,21 +63,14 @@ public class CatapultPlatform : MonoBehaviour
 
                 if (bigCloneAttack != null && bigCloneAttack.isDashing)
                 {
-                    if (showDebug)
-                        Debug.Log("[Catapult] BigClone esta haciendo dash! Activando catapulta.");
                     shouldActivate = true;
-                    // En caso de dash, usar una fuerza mayor
                     impactForce = collision.relativeVelocity.magnitude * 1.5f;
                 }
             }
 
             if (useImpactForce && !shouldActivate)
             {
-                // MODIFICADO: Usar la magnitud completa de la velocidad relativa
                 impactForce = collision.relativeVelocity.magnitude;
-
-                if (showDebug)
-                    Debug.Log($"[Catapult] Impacto con velocidad relativa: {impactForce} (Requerido: {requiredImpactForce})");
 
                 if (impactForce >= requiredImpactForce)
                 {
@@ -102,13 +80,8 @@ public class CatapultPlatform : MonoBehaviour
 
             if (shouldActivate)
             {
-                // MODIFICADO: Pasar la fuerza de impacto al método
                 ActivateCatapult(impactForce);
-            }
-            else if (showDebug)
-            {
-                Debug.Log("[Catapult] No se cumplen las condiciones para activar la catapulta");
-            }
+            } 
         }
     }
 
@@ -122,9 +95,6 @@ public class CatapultPlatform : MonoBehaviour
 
                 if (bigCloneAttack != null && bigCloneAttack.isDashing)
                 {
-                    if (showDebug)
-                        Debug.Log("[Catapult] BigClone empezo a hacer dash sobre la plataforma!");
-
                     float impactForce = collision.relativeVelocity.magnitude * 1.5f;
                     ActivateCatapult(impactForce);
                 }
@@ -132,37 +102,23 @@ public class CatapultPlatform : MonoBehaviour
         }
     }
 
-    // MODIFICADO: Ahora acepta la fuerza de impacto como parámetro
     private void ActivateCatapult(float impactForce)
     {
-        if (showDebug)
-            Debug.Log($"[Catapult] Catapulta activada con fuerza de impacto: {impactForce}");
-
+       
         isPressed = true;
-        lastImpactForce = impactForce; // Guardar para pasarla al sistema
+        lastImpactForce = impactForce; 
         targetPosition = originalPosition - Vector3.up * pressedOffset;
         PlayEffects();
 
         if (catapultSystem != null)
         {
-            if (showDebug)
-                Debug.Log("[Catapult] Llamando a OnCatapultActivated() del sistema");
-
-            // MODIFICADO: Pasar la fuerza de impacto al sistema
             catapultSystem.OnCatapultActivated(lastImpactForce);
-        }
-        else
-        {
-            Debug.LogError("[Catapult] CatapultSystem es null! No se puede activar el lanzamiento.");
-        }
-
+        }   
         Invoke(nameof(ResetPlatform), resetDelay);
     }
 
     private void ResetPlatform()
     {
-        if (showDebug)
-            Debug.Log("[Catapult] Reseteando plataforma catapulta");
         targetPosition = originalPosition;
         isPressed = false;
         lastImpactForce = 0f;
@@ -189,8 +145,6 @@ public class CatapultPlatform : MonoBehaviour
         lastImpactForce = 0f;
         transform.position = originalPosition;
     }
-
-    // NUEVO: Método para obtener la última fuerza de impacto (por si se necesita)
     public float GetLastImpactForce()
     {
         return lastImpactForce;

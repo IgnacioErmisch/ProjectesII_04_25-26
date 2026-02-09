@@ -6,6 +6,10 @@ public class CatapultSystem : MonoBehaviour
     [SerializeField] private CatapultPlatform catapultPlatform;
     [SerializeField] private LaunchPlatform launchPlatform;
 
+    [SerializeField] private GameObject player;
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private PerspectiveSwitch perspectiveSwitch;
+
     [Header("Settings")]
     [SerializeField] private float launchDelay = 0.2f;
 
@@ -24,9 +28,24 @@ public class CatapultSystem : MonoBehaviour
         }
     }
 
+    private void SwitchCameraToPlayer()
+    {
+        if (playerCamera == null || player == null)
+            return;
+
+        playerCamera.transform.SetParent(player.transform);
+        playerCamera.transform.localPosition = new Vector3(2, 2, -5);
+
+        if (perspectiveSwitch != null)
+        {
+            perspectiveSwitch.SwitchToPlayer();
+        }
+    }
     public void OnCatapultActivated(float impactForce)
     {
         currentImpactForce = impactForce;
+
+        SwitchCameraToPlayer();
 
         if (launchPlatform != null)
         {
