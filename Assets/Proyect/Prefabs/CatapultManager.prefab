@@ -46,4 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   catapultPlatform: {fileID: 0}
   launchPlatform: {fileID: 0}
+  player: {fileID: 0}
+  playerCamera: {fileID: 0}
+  perspectiveSwitch: {fileID: 0}
   launchDelay: 0.2

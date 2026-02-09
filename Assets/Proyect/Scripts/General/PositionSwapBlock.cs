@@ -7,42 +7,39 @@ public class PositionSwapBlock : MonoBehaviour
     [SerializeField] private CloneSpawner smallCloneSpawner;
     [SerializeField] private GameObject player;
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private PerspectiveSwitch perspectiveSwitch;    
+    [SerializeField] private PerspectiveSwitch perspectiveSwitch;
+
     private AudioSource audioSource;
     private float swapCooldown = 0.5f;
     private float lastSwapTime;
 
     private void Awake()
     {
-      
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
         bool isPlayer = collision.CompareTag("Player");
         bool isBigClone = collision.CompareTag("BigClone");
         bool isSmallClone = collision.CompareTag("SmallClone");
         bool isClone = isBigClone || isSmallClone;
 
-        if (!isPlayer && !isClone)                 
+        if (!isPlayer && !isClone)
             return;
-        
-        if (Time.time - lastSwapTime < swapCooldown)                  
+
+        if (Time.time - lastSwapTime < swapCooldown)
             return;
-          
+
         CloneSpawner activeSpawner = GetActiveSpawner();
-
-        if (activeSpawner == null)       
+        if (activeSpawner == null)
             return;
-        
-        GameObject currentClone = activeSpawner.GetCurrentClone();
 
+        GameObject currentClone = activeSpawner.GetCurrentClone();
         if (currentClone != null && (isPlayer || collision.gameObject == currentClone))
-        {   
+        {
             SwapPositions(activeSpawner);
         }
-     
     }
 
     private void SwapPositions(CloneSpawner activeSpawner)
@@ -50,48 +47,47 @@ public class PositionSwapBlock : MonoBehaviour
         GameObject currentClone = activeSpawner.GetCurrentClone();
         Vector3 playerPosition = player.transform.position;
         Vector3 clonePosition = currentClone.transform.position;
+
         Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
         Rigidbody2D cloneRb = currentClone.GetComponent<Rigidbody2D>();
+
         Vector2 playerVelocity = Vector2.zero;
         Vector2 cloneVelocity = Vector2.zero;
 
         if (playerRb != null)
             playerVelocity = playerRb.linearVelocity;
-
         if (cloneRb != null)
             cloneVelocity = cloneRb.linearVelocity;
 
-        player.transform.position = clonePosition;
-        currentClone.transform.position = playerPosition;
+        Vector3 offset = new Vector3(1f, 0, 0);
+
+        player.transform.position = clonePosition + offset;
+        currentClone.transform.position = playerPosition + offset;
 
         if (playerRb != null)
             playerRb.linearVelocity = cloneVelocity;
-
         if (cloneRb != null)
             cloneRb.linearVelocity = playerVelocity;
 
-        AdjustCamera(currentClone);      
+        SwitchCameraToPlayer();
+
         lastSwapTime = Time.time;
-      
     }
 
-    private void AdjustCamera(GameObject currentClone)
+    private void SwitchCameraToPlayer()
     {
-        if (playerCamera == null || perspectiveSwitch == null)
+        if (playerCamera == null || player == null)
             return;
-  
-        if (perspectiveSwitch.GetControllingPlayer())
+
+        playerCamera.transform.SetParent(player.transform);
+        playerCamera.transform.localPosition = new Vector3(2, 2, -5);
+
+        if (perspectiveSwitch != null)
         {
-            playerCamera.transform.SetParent(player.transform);
-            playerCamera.transform.localPosition = new Vector3(2, 2, -5);
-        }
-       
-        else
-        {
-            playerCamera.transform.SetParent(currentClone.transform);
-            playerCamera.transform.localPosition = new Vector3(2, 1, -5);
+            perspectiveSwitch.SwitchToPlayer();
         }
     }
+
     private CloneSpawner GetActiveSpawner()
     {
         if (bigCloneSpawner != null && bigCloneSpawner.cloneActive)
@@ -104,5 +100,4 @@ public class PositionSwapBlock : MonoBehaviour
         }
         return null;
     }
-
 }
