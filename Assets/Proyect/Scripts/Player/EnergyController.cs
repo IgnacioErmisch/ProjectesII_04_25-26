@@ -34,7 +34,7 @@ public class EnergyController : MonoBehaviour
 
     public delegate void EnergyChangedDelegate(float current, float max);
     public event EnergyChangedDelegate OnEnergyChanged;
-
+    [SerializeField] private CloneSpawner cloneSpawner;
     public delegate void PlayerDeathDelegate();
     public event PlayerDeathDelegate OnPlayerDeath;
 
@@ -56,6 +56,7 @@ public class EnergyController : MonoBehaviour
         perspectiveSwitch = GetComponentInParent<PerspectiveSwitch>();
         playerCombatController = GetComponentInParent<PlayerCombatController>();
         healthSystem = GetComponentInParent<HealthSystem>();
+        cloneSpawner = GetComponentInParent<CloneSpawner>();
     }
 
     private void Update()
@@ -126,24 +127,13 @@ public class EnergyController : MonoBehaviour
             {
                 energySmallClone.fillAmount = Mathf.Clamp(currentEnergy / maxEnergy, 0f, 1f); 
             }
-            CheckDeath();
         }
-    }
-
-    private void CheckDeath()
-    {
-        if (currentEnergy <= 0 && !playerCombatController.IsDead())
+        else if (currentEnergy <= 0)
         {
-            healthSystem.IsDeadTrue();
-            StopRegeneration();
-            OnPlayerDeath?.Invoke();
-            perspectiveSwitch.controllingPlayer = true; 
-            soundManager.PlaySFX(soundManager.death);
-            
-
+            cloneSpawner.TryDespawnClone();
+            soundManager.PlaySFX(soundManager.despawnClone);
         }
     }
-
     private void StartRegeneration()
     {
         StopRegeneration();

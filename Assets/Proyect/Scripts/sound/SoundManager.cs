@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip movementSC;
     public AudioClip movementBC;
     public AudioClip movementP;
+    public AudioClip despawnClone;
     public Slider musicSlider;
     public Slider sfxSlider;
     private float currentMusicVolume;

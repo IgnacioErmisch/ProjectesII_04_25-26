@@ -11,7 +11,7 @@ public class SpawnCharacter : MonoBehaviour
 
     void Update()
     {
-        if (combatController.GetCurrentHealth() <= 0 || energyController.GetCurrentEnergy() <= 0)
+        if (combatController.GetCurrentHealth() <= 0)
         {
             StartCoroutine(WaitForSpawn());
             
@@ -35,7 +35,6 @@ public class SpawnCharacter : MonoBehaviour
     {
         
         yield return new WaitForSeconds(2f);
-        //player.transform.position = checkpointManager.GetLastCheckpoint();
         energyController.ResetEnergy();
         combatController.ResetHealth();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
