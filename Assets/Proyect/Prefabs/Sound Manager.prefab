@@ -318,6 +318,7 @@ MonoBehaviour:
   movementSC: {fileID: 0}
   movementBC: {fileID: 0}
   movementP: {fileID: 0}
+  despawnClone: {fileID: 8300000, guid: bb6a8d9bc25ad9841a92b2df9c9401d8, type: 3}
   musicSlider: {fileID: 0}
   sfxSlider: {fileID: 0}
 --- !u!1 &7780479685084991648

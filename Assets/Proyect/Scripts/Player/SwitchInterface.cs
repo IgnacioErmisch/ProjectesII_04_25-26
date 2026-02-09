@@ -32,7 +32,7 @@ public class SwitchInterface : MonoBehaviour
 
     void Update()
     {
-      
+
         if (inputActions.Gameplay.SelectSmallClone.triggered && !gameManager.GetCloneActive())
         {
             SelectSmallClone();
@@ -42,6 +42,8 @@ public class SwitchInterface : MonoBehaviour
         {
             SelectBigClone();
         }
+
+        TabSwitch();
     }
 
     private void Start()
@@ -49,6 +51,19 @@ public class SwitchInterface : MonoBehaviour
         BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
         SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
         gameManager = GameManager.Instance;
+    }
+
+    private void TabSwitch()
+    {
+        if (inputActions.Gameplay.SwitchSelectedClone.triggered && !gameManager.GetCloneActive())
+        {
+            if (BigClone != null && SmallClone != null)
+            {
+                IsBigCloneSelected = !IsBigCloneSelected;
+                BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
+                SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
+            }
+        }
     }
 
     private void SelectBigClone()
