@@ -7,10 +7,11 @@ public class SmallCloneDoubleJump
     private float groundCheckRadius;
     private LayerMask groundLayer;
     private float jumpForce;
+    private float secondJumpForce;
     private float jumpMultiplier;
     private int maxJumps;
     private float normalGravityScale = 2.5f;
-    private float fallGravityMultiplier = 2f;
+    private float fallGravityMultiplier = 2.5f;
     private float lowJumpMultiplier = 3f;
     private float maxFallSpeed = 20f;
     private float apexThreshold = 2f;
@@ -27,6 +28,7 @@ public class SmallCloneDoubleJump
     private bool jumpCut;
     private bool wasGrounded;
     private int jumpCounter = 0;
+
     public bool isJumping { get; private set; }
     public bool isGrounded { get; private set; }
     [SerializeField] private SoundManager soundManager;
@@ -36,7 +38,7 @@ public class SmallCloneDoubleJump
     private CloneGravity cloneGravity;
 
     public SmallCloneDoubleJump(Rigidbody2D rb, Transform groundCheck, float groundCheckRadius,
-                                LayerMask groundLayer, float jumpForce, float jumpMultiplier,
+                                LayerMask groundLayer, float jumpForce, float secondJumpForce, float jumpMultiplier,
                                 float coyoteTime, int maxJumps = 2, int jumpCounter = 0)
     {
         this.rb = rb;
@@ -44,6 +46,7 @@ public class SmallCloneDoubleJump
         this.groundCheckRadius = groundCheckRadius;
         this.groundLayer = groundLayer;
         this.jumpForce = jumpForce;
+        this.secondJumpForce = secondJumpForce;
         this.jumpMultiplier = jumpMultiplier;
         this.coyoteTime = coyoteTime;
         this.maxJumps = maxJumps;
@@ -73,13 +76,7 @@ public class SmallCloneDoubleJump
         {
             OnLand(particleLand);
         }
-
-        if (isGrounded && !isJumping)
-        {
-            coyoteCounter = coyoteTime;
-            jumpCounter = 0;
-        }
-        else
+        if (!isGrounded && !isJumping)
         {
             coyoteCounter -= Time.deltaTime;
         }
@@ -110,6 +107,7 @@ public class SmallCloneDoubleJump
         }
 
         CheckApex();
+
     }
 
     public void FixedUpdate()
@@ -134,9 +132,16 @@ public class SmallCloneDoubleJump
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
 
         float actualJumpForce = jumpForce * jumpMultiplier;
+
+        if (jumpCounter > 0)
+        {
+            actualJumpForce = secondJumpForce * jumpMultiplier;
+        }
+
         if (cloneGravity != null && cloneGravity.IsInverted())
         {
             actualJumpForce = -actualJumpForce;
+
         }
 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, actualJumpForce);
@@ -247,6 +252,8 @@ public class SmallCloneDoubleJump
     {
         isJumping = false;
         jumpCut = false;
+        jumpCounter = 0;
+        coyoteCounter = coyoteTime;
         if (particleLand != null)
         {
             particleLand.Play();

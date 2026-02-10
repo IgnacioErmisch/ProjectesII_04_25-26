@@ -199,7 +199,7 @@ MonoBehaviour:
   fallGravityMultiplier: 2
   lowJumpMultiplier: 3
   maxFallSpeed: 20
-  coyoteTime: 0.66
+  coyoteTime: 0.5
   jumpBufferTime: 0.2
   apexThreshold: 0.5
   apexHangTime: 0.1
@@ -217,7 +217,7 @@ MonoBehaviour:
   runParticles: {fileID: 8217135377386519259}
   soundManager: {fileID: 0}
   jumpCounter: 0
-  coyoteCounter: 0.66
+  coyoteCounter: 0.5
 --- !u!114 &7564787060841960555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +486,7 @@ MonoBehaviour:
   energyPlayer: {fileID: 5814383332810637115}
   energyBigClone: {fileID: 0}
   energySmallClone: {fileID: 0}
+  cloneSpawner: {fileID: 0}
 --- !u!1 &1444437169831836301
 GameObject:
   m_ObjectHideFlags: 0

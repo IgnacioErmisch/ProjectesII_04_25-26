@@ -89,15 +89,11 @@ public class PlayerJump : MonoBehaviour
         }
 
 
-        if (isGrounded && !isJumping)
-        {
-            coyoteCounter = coyoteTime;
-            jumpCounter = 0;
-        }
-        else
+        if (!isGrounded && !isJumping)
         {
             coyoteCounter -= Time.deltaTime;
         }
+       
 
         bool jumpPressed = inputActions.Gameplay.Jump.triggered;
 
@@ -130,6 +126,7 @@ public class PlayerJump : MonoBehaviour
 
         CheckApex();
         UpdateParticles();
+
     }
 
     private void FixedUpdate()
@@ -146,7 +143,14 @@ public class PlayerJump : MonoBehaviour
 
     private bool CanJump()
     {
-        return jumpCounter < maxJumps && (isGrounded || coyoteCounter > 0f);
+        if (jumpCounter == 0)
+        {
+            return isGrounded || coyoteCounter > 0f;
+        }
+        else
+        {
+            return jumpCounter < maxJumps;
+        }
     }
 
     private void PerformJump()
@@ -159,7 +163,6 @@ public class PlayerJump : MonoBehaviour
 
         isJumping = true;
         jumpCut = false;
-
 
         if (jumpParticles != null)
         {
@@ -232,7 +235,8 @@ public class PlayerJump : MonoBehaviour
     {
         isJumping = false;
         jumpCut = false;
-
+        jumpCounter = 0;
+        coyoteCounter = coyoteTime;
         if (landParticles != null)
         {
             landParticles.Play();

@@ -210,9 +210,10 @@ MonoBehaviour:
   edgeCheckFront: {fileID: 0}
   edgeCheckBack: {fileID: 0}
   jumpForce: 13
+  secondJumpForce: 11
   jumpMultiplier: 1
   maxJumps: 2
-  coyoteTime: 0.66
+  coyoteTime: 0.5
   jumpCounter: 0
 --- !u!70 &3040771992612995455
 CapsuleCollider2D:
@@ -280,6 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7360480934236382808}
+  groundCheck: {fileID: 0}
   invertedYOffset: -0.8
 --- !u!1 &5316104002196046662
 GameObject:
