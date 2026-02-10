@@ -7642,6 +7642,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1736818923}
     - target: {fileID: 6595192762629193903, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: coyoteTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595192762629193903, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: soundManager
       value: 
       objectReference: {fileID: 1663459953}
