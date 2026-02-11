@@ -76,6 +76,10 @@ public class SmallCloneDoubleJump
         {
             OnLand(particleLand);
         }
+        else if (isGrounded && isJumping && IsMovingTowardGravity())
+        {
+            OnLand(particleLand);
+        }
         if (!isGrounded && !isJumping)
         {
             coyoteCounter -= Time.deltaTime;
@@ -119,7 +123,22 @@ public class SmallCloneDoubleJump
     private bool CheckGround()
     {
         if (groundCheck == null) return false;
-        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        Vector2 checkPosition = groundCheck.position;
+
+        if (cloneGravity != null && cloneGravity.IsInverted())
+        {
+            checkPosition += Vector2.up * (groundCheckRadius * 2);
+        }
+
+        bool grounded = Physics2D.OverlapCircle(checkPosition, groundCheckRadius, groundLayer);
+
+        if (grounded && !IsMovingAwayFromGravity())
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public bool CanJump()
