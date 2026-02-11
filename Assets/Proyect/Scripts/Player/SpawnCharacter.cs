@@ -18,12 +18,16 @@ public class SpawnCharacter : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Spikes"))
+        if (collision.gameObject.CompareTag("Spikes"))
         {
             StartCoroutine(WaitForSpawn());
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.CompareTag("BlastZone"))
         {
             energyController.ResetEnergy();
