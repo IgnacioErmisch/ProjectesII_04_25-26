@@ -22,7 +22,7 @@ public class SpawnCharacter : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Spikes"))
         {
-            StartCoroutine(WaitForSpawn());
+            combatController.TakeDamage(combatController.GetMaxHealth(), Vector2.zero);
         }
     }
 

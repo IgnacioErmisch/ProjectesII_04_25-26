@@ -210,7 +210,7 @@ MonoBehaviour:
   edgeCheckFront: {fileID: 0}
   edgeCheckBack: {fileID: 0}
   jumpForce: 13
-  secondJumpForce: 11
+  secondJumpForce: 11.5
   jumpMultiplier: 1
   maxJumps: 2
   coyoteTime: 0.5
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   jumpDamage: 25
-  jumpForce: 22.5
+  jumpForce: 30
   dashKnockbackForce: 0
 --- !u!114 &8627000524019962169
 MonoBehaviour:

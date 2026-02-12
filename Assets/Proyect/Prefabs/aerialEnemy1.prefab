@@ -168,11 +168,12 @@ MonoBehaviour:
   patrolSpeed: 1.5
   patrolHeight: 4.58
   patrolRangeX: 12
+  patrolRangeY: 8
   patrolCenter: {x: 0, y: 0}
   electricPulsePrefab: {fileID: 2136761268959517295, guid: a6a8c034ece449f4080364d1ed13e453, type: 3}
   pulseInterval: 3
   pulseDamage: 15
-  pulseRadius: 3
+  pulseRadius: 2.5
   pulseSpeed: 8
   pulseSpawnPoint: {fileID: 8294769348133963191}
   detectionRadius: 8
