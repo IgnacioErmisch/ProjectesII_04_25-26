@@ -131,14 +131,7 @@ public class SmallCloneDoubleJump
             checkPosition += Vector2.up * (groundCheckRadius * 2);
         }
 
-        bool grounded = Physics2D.OverlapCircle(checkPosition, groundCheckRadius, groundLayer);
-
-        if (grounded && !IsMovingAwayFromGravity())
-        {
-            return true;
-        }
-
-        return false;
+        return Physics2D.OverlapCircle(checkPosition, groundCheckRadius, groundLayer);
     }
 
     public bool CanJump()

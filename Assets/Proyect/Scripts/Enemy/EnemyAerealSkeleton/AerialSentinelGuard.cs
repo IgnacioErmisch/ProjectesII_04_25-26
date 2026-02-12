@@ -9,6 +9,7 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageableBlue
     [SerializeField] private float patrolSpeed = 1.5f;
     [SerializeField] private float patrolHeight = 5f;
     [SerializeField] private float patrolRangeX = 8f;
+    [SerializeField] private float patrolRangeY = 8f; 
     [SerializeField] private Vector2 patrolCenter;
 
     [Header("Attack Settings")]
@@ -38,7 +39,9 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageableBlue
     private KnockbackSystem knockbackSystem;
     private Rigidbody2D rb;
     private bool movingRight = true;
+    private bool movingUp = true; 
     private float minX, maxX;
+    private float minY, maxY; 
     private float nextPulseTime;
     private Vector3 originalPulseSpawnPointLocalPosition;
 
@@ -62,7 +65,7 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageableBlue
         if (rb != null)
         {
             rb.gravityScale = 0f;
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
         }
 
         if (pulseSpawnPoint == null)
@@ -82,6 +85,9 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageableBlue
 
         minX = patrolCenter.x - patrolRangeX / 2f;
         maxX = patrolCenter.x + patrolRangeX / 2f;
+
+        minY = patrolCenter.y - patrolRangeY / 2f;
+        maxY = patrolCenter.y + patrolRangeY / 2f;
 
         transform.position = new Vector2(transform.position.x, patrolHeight);
         nextPulseTime = Time.time + pulseInterval;
@@ -123,11 +129,26 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageableBlue
                 movingRight = true;
         }
 
+        if (movingUp)
+        {
+            velocity.y = patrolSpeed;
+
+            if (transform.position.y >= maxY)
+                movingUp = false;
+        }
+        else
+        {
+            velocity.y = -patrolSpeed;
+
+            if (transform.position.y <= minY)
+                movingUp = true;
+        }
+
         rb.linearVelocity = velocity;
     }
 
     private void FireElectricPulse()
-    {     
+    {
         {
             animationController.PlayAttackAnimation();
         }
@@ -154,8 +175,6 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageableBlue
 
     private void FirePulseDirectly()
     {
-
-
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, pulseRadius, playerLayer);
 
         foreach (Collider2D hit in hits)
@@ -240,5 +259,12 @@ public class AerialSentinelEnemy : MonoBehaviour, IDamageableBlue
         Gizmos.DrawLine(leftPoint, rightPoint);
         Gizmos.DrawWireSphere(leftPoint, 0.3f);
         Gizmos.DrawWireSphere(rightPoint, 0.3f);
+
+        Gizmos.color = Color.green;
+        Vector3 bottomPoint = new Vector3(center.x, center.y - patrolRangeY / 2f, 0);
+        Vector3 topPoint = new Vector3(center.x, center.y + patrolRangeY / 2f, 0);
+        Gizmos.DrawLine(bottomPoint, topPoint);
+        Gizmos.DrawWireSphere(bottomPoint, 0.3f);
+        Gizmos.DrawWireSphere(topPoint, 0.3f);
     }
 }
