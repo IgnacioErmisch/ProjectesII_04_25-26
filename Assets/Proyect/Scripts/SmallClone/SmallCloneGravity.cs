@@ -4,8 +4,9 @@ using UnityEngine;
 public class CloneGravity : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
-    [SerializeField] private Transform groundCheck; 
+    [SerializeField] private Transform groundCheck;
     [SerializeField] private float invertedYOffset = -0.2f;
+    [SerializeField] private float groundCheckInvertedOffset;
 
     private Rigidbody2D rb;
     private bool isInverted = false;
@@ -97,7 +98,9 @@ public class CloneGravity : MonoBehaviour
         {
             if (isInverted)
             {
-                groundCheck.localPosition = new Vector3(  originalGroundCheckPosition.x, -originalGroundCheckPosition.y, originalGroundCheckPosition.z);
+                groundCheck.localPosition = new Vector3(originalGroundCheckPosition.x, 
+                                                        groundCheckInvertedOffset, 
+                                                        originalGroundCheckPosition.z);
             }
             else
             {

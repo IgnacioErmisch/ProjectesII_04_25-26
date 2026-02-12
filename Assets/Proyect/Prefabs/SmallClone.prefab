@@ -283,6 +283,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7360480934236382808}
   groundCheck: {fileID: 0}
   invertedYOffset: -0.6
+  groundCheckInvertedOffset: -0.1
 --- !u!1 &5316104002196046662
 GameObject:
   m_ObjectHideFlags: 0

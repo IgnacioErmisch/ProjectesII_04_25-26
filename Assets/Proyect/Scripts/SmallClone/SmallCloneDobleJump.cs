@@ -286,11 +286,6 @@ public class SmallCloneDoubleJump
     {
         return isAtApex;
     }
-
-    public float GetVerticalVelocity()
-    {
-        return rb != null ? rb.linearVelocity.y : 0f;
-    }
     public void Dispose()
     {
         if (inputActions != null)
