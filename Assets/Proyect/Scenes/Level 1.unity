@@ -21214,6 +21214,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2053037121}
     - target: {fileID: 6595192762629193903, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: jumpForce
+      value: 11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595192762629193903, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 2053037122}
