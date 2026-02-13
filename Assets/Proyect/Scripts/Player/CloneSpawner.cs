@@ -1,3 +1,4 @@
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class CloneSpawner : MonoBehaviour
@@ -12,11 +13,12 @@ public class CloneSpawner : MonoBehaviour
     [SerializeField] private CloneSpawner[] spawners;
     [SerializeField] private Transform cloneSpawnPointPrincipal;
     [SerializeField] private Transform cloneSpawnPointSecondary;
+    [SerializeField] private BoxCollider2D trigerSpawn;
     SoundManager soundManager;
     public Camera playerCamera;
     private GameObject currentClone;
     public bool cloneActive = false;
-
+    private bool canSpawnBigClone = true;
     public LayerMask groundLayer;
     private void Awake()
     {
@@ -46,9 +48,10 @@ public class CloneSpawner : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, groundLayer);
         if(hit.rigidbody == null)
         {
-            soundManager.PlaySFX(soundManager.spawnClon);
             if(switchInterface.IsBigCloneSelected)
             {
+                if(!canSpawnBigClone) return false;
+
                 currentClone = Instantiate(cloneBigPrefab, spawnPosition + Vector3.up, Quaternion.identity);
                 energyController.RegisterClone(currentClone, isSmallClone);
             }
@@ -62,6 +65,7 @@ public class CloneSpawner : MonoBehaviour
             playerCamera.transform.SetParent(currentClone.transform);
             playerCamera.transform.localPosition = new Vector3(2, 1, -5);
             perspectiveSwitch.SwitchToClone();
+            soundManager.PlaySFX(soundManager.spawnClon);
 
             return true;
         }
@@ -99,10 +103,12 @@ public class CloneSpawner : MonoBehaviour
         if (hit.rigidbody != null)
         {
             Gizmos.DrawSphere((Vector3)hit.point, 0.2f);
+            trigerSpawn.offset = new Vector2(hit.point.x - transform.position.x, trigerSpawn.offset.y);
         }
         else
         {
             Gizmos.DrawSphere(spawnPosition, 0.2f);
+            trigerSpawn.offset = new Vector2(spawnPosition.x - transform.position.x, trigerSpawn.offset.y);
         }
     }
     public bool TryDespawnClone()
@@ -123,6 +129,19 @@ public class CloneSpawner : MonoBehaviour
         }
 
         return false;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & groundLayer) != 0)
+        {
+            Debug.Log("Colision");
+            canSpawnBigClone = false;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("Puede Aparecer");
+        canSpawnBigClone = true;
     }
 
     public GameObject GetCurrentClone()
