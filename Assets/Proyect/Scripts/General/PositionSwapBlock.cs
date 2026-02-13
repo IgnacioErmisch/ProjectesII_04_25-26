@@ -39,6 +39,8 @@ public class PositionSwapBlock : MonoBehaviour
         if (currentClone != null && (isPlayer || collision.gameObject == currentClone))
         {
             SwapPositions(activeSpawner);
+            Destroy(this.gameObject);
+
         }
     }
 
@@ -73,7 +75,7 @@ public class PositionSwapBlock : MonoBehaviour
 
         lastSwapTime = Time.time;
     }
-
+   
     private void SwitchCameraToPlayer()
     {
         if (playerCamera == null || player == null)
