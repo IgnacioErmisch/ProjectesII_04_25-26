@@ -11936,6 +11936,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1635217541218530971, guid: 342d6971623396448822f2204dd92246, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2518194094941504952, guid: 342d6971623396448822f2204dd92246, type: 3}
       propertyPath: m_Name
       value: InterruptorWall
@@ -14301,6 +14305,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1847360980823701148, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_Size.y
+      value: 2.9995708
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847360980823701148, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_Offset.x
+      value: 2.0499992
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847360980823701148, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.88746166
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847360980823701148, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847360980823701148, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4492489314801187546, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.14999962
@@ -14341,6 +14365,10 @@ PrefabInstance:
       propertyPath: perspectiveSwitch
       value: 
       objectReference: {fileID: 1653380632}
+    - target: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+      propertyPath: trigerSpawn
+      value: 
+      objectReference: {fileID: 1653380645}
     - target: {fileID: 7564787060841960555, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
       propertyPath: switchInterface
       value: 
@@ -14728,6 +14756,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990ed4ac7438a4444b7c8cc94c5d48b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &1653380645 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1847360980823701148, guid: 28bd4cf6f22d27f45bd60ae1069ed5ba, type: 3}
+  m_PrefabInstance: {fileID: 1567183206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1788350062
 GameObject:
   m_ObjectHideFlags: 0
