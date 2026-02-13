@@ -8,6 +8,7 @@ public class BigCloneAttack : MonoBehaviour
     [SerializeField] private float dashCooldown;
     [SerializeField] private float dashDamage;
     [SerializeField] private float dashKnockbackForce;
+    [SerializeField] private PerspectiveSwitch perspectiveSwitch;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SoundManager soundManager;
@@ -45,7 +46,7 @@ public class BigCloneAttack : MonoBehaviour
 
     void Update()
     {
-        if (inputActions.Gameplay.Dash.triggered && canDash && !isDashing)
+        if (inputActions.Gameplay.Dash.triggered && canDash && !isDashing && !GameManager.Instance.GetControlllingPlayer())
         {
             StartDash();
         }
@@ -118,4 +119,6 @@ public class BigCloneAttack : MonoBehaviour
             }
         }
     }
+
+
 }

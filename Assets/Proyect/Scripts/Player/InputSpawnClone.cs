@@ -6,7 +6,6 @@ public class InputSpawnClone : MonoBehaviour
     [SerializeField] private SwitchInterface switchInterface;
     [SerializeField] private Transform cloneSpawnerPoint;
     [SerializeField] private PlayerJump playerJump;
-
     private Controller inputActions;
 
     private void Awake()
@@ -26,14 +25,28 @@ public class InputSpawnClone : MonoBehaviour
 
     void Update()
     {
-        if (inputActions.Gameplay.SpawnClone.triggered)
+        if (inputActions.Gameplay.SelectBigClone.triggered)
         {
             if (IsAnyCloneActive())
             {
                 CloneSpawner.TryDespawnClone();
             }
-            else if (playerJump.isGrounded)
+            else if (playerJump.isGrounded && switchInterface.IsBigCloneAvailable())
             {
+                switchInterface.SelectBigClone();
+                CloneSpawner.TrySpawnClone();
+            }
+        }
+
+        if (inputActions.Gameplay.SelectSmallClone.triggered)
+        {
+            if (IsAnyCloneActive())
+            {
+                CloneSpawner.TryDespawnClone();
+            }
+            else if (playerJump.isGrounded && switchInterface.IsSmallCloneAvailable())
+            {
+                switchInterface.SelectSmallClone();
                 CloneSpawner.TrySpawnClone();
             }
         }

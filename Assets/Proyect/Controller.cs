@@ -120,15 +120,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SpawnClone"",
-                    ""type"": ""Button"",
-                    ""id"": ""1481b144-7b36-4dee-8eb8-31290402f7e3"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""DespawnClone"",
                     ""type"": ""Button"",
                     ""id"": ""2d559c48-54ee-4a94-803f-fd1f1a151582"",
@@ -163,15 +154,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SwitchSelectedClone"",
-                    ""type"": ""Button"",
-                    ""id"": ""393c6504-afc0-4ae5-a6f4-8e83e8258fd8"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -199,28 +181,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""39dd447e-7478-4735-83d4-624534310c1d"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SpawnClone"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1b334c5d-668b-4ed2-8c02-00265c774368"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SpawnClone"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d8e02e83-8432-409a-b09f-034959c39b0c"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -233,7 +193,29 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c9a7bcaf-2b7d-4cfa-b744-8794a99bef00"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DespawnClone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""639d18b6-9130-4671-8993-12c384893413"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DespawnClone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea7938d7-9128-422b-9da9-6cfec8c4f20c"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -244,7 +226,7 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9cbd098e-3d61-4eb0-a1af-05d94e90c3dd"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -255,7 +237,7 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""495e2712-18fd-46d3-adc6-469b9d8022e2"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -276,8 +258,30 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""06372e6d-c6cb-493a-8eb0-3b7098bfa1b2"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectBigClone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""773fdb42-7a78-4f2c-9aff-fb1bef69cd29"",
                     ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSmallClone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5a08783-fc5e-4f8d-b0c6-5fb6a7bfae57"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -372,17 +376,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9130e9d6-6c1d-4c55-91ce-93b43cd83544"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SwitchSelectedClone"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -394,12 +387,10 @@ public partial class @Controller: IInputActionCollection2, IDisposable
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
-        m_Gameplay_SpawnClone = m_Gameplay.FindAction("SpawnClone", throwIfNotFound: true);
         m_Gameplay_DespawnClone = m_Gameplay.FindAction("DespawnClone", throwIfNotFound: true);
         m_Gameplay_SwitchCamera = m_Gameplay.FindAction("SwitchCamera", throwIfNotFound: true);
         m_Gameplay_SelectBigClone = m_Gameplay.FindAction("SelectBigClone", throwIfNotFound: true);
         m_Gameplay_SelectSmallClone = m_Gameplay.FindAction("SelectSmallClone", throwIfNotFound: true);
-        m_Gameplay_SwitchSelectedClone = m_Gameplay.FindAction("SwitchSelectedClone", throwIfNotFound: true);
     }
 
     ~@Controller()
@@ -483,12 +474,10 @@ public partial class @Controller: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Dash;
-    private readonly InputAction m_Gameplay_SpawnClone;
     private readonly InputAction m_Gameplay_DespawnClone;
     private readonly InputAction m_Gameplay_SwitchCamera;
     private readonly InputAction m_Gameplay_SelectBigClone;
     private readonly InputAction m_Gameplay_SelectSmallClone;
-    private readonly InputAction m_Gameplay_SwitchSelectedClone;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -513,10 +502,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         /// <summary>
-        /// Provides access to the underlying input action "Gameplay/SpawnClone".
-        /// </summary>
-        public InputAction @SpawnClone => m_Wrapper.m_Gameplay_SpawnClone;
-        /// <summary>
         /// Provides access to the underlying input action "Gameplay/DespawnClone".
         /// </summary>
         public InputAction @DespawnClone => m_Wrapper.m_Gameplay_DespawnClone;
@@ -532,10 +517,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/SelectSmallClone".
         /// </summary>
         public InputAction @SelectSmallClone => m_Wrapper.m_Gameplay_SelectSmallClone;
-        /// <summary>
-        /// Provides access to the underlying input action "Gameplay/SwitchSelectedClone".
-        /// </summary>
-        public InputAction @SwitchSelectedClone => m_Wrapper.m_Gameplay_SwitchSelectedClone;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -571,9 +552,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
-            @SpawnClone.started += instance.OnSpawnClone;
-            @SpawnClone.performed += instance.OnSpawnClone;
-            @SpawnClone.canceled += instance.OnSpawnClone;
             @DespawnClone.started += instance.OnDespawnClone;
             @DespawnClone.performed += instance.OnDespawnClone;
             @DespawnClone.canceled += instance.OnDespawnClone;
@@ -586,9 +564,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
             @SelectSmallClone.started += instance.OnSelectSmallClone;
             @SelectSmallClone.performed += instance.OnSelectSmallClone;
             @SelectSmallClone.canceled += instance.OnSelectSmallClone;
-            @SwitchSelectedClone.started += instance.OnSwitchSelectedClone;
-            @SwitchSelectedClone.performed += instance.OnSwitchSelectedClone;
-            @SwitchSelectedClone.canceled += instance.OnSwitchSelectedClone;
         }
 
         /// <summary>
@@ -609,9 +584,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
-            @SpawnClone.started -= instance.OnSpawnClone;
-            @SpawnClone.performed -= instance.OnSpawnClone;
-            @SpawnClone.canceled -= instance.OnSpawnClone;
             @DespawnClone.started -= instance.OnDespawnClone;
             @DespawnClone.performed -= instance.OnDespawnClone;
             @DespawnClone.canceled -= instance.OnDespawnClone;
@@ -624,9 +596,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
             @SelectSmallClone.started -= instance.OnSelectSmallClone;
             @SelectSmallClone.performed -= instance.OnSelectSmallClone;
             @SelectSmallClone.canceled -= instance.OnSelectSmallClone;
-            @SwitchSelectedClone.started -= instance.OnSwitchSelectedClone;
-            @SwitchSelectedClone.performed -= instance.OnSwitchSelectedClone;
-            @SwitchSelectedClone.canceled -= instance.OnSwitchSelectedClone;
         }
 
         /// <summary>
@@ -689,13 +658,6 @@ public partial class @Controller: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDash(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "SpawnClone" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSpawnClone(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "DespawnClone" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -723,12 +685,5 @@ public partial class @Controller: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSelectSmallClone(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "SwitchSelectedClone" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSwitchSelectedClone(InputAction.CallbackContext context);
     }
 }

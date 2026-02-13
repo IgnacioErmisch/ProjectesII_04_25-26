@@ -8197,8 +8197,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 690177415}
     - target: {fileID: 8628478302887266359, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
+      propertyPath: bigCloneAvailable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628478302887266359, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
       propertyPath: IsBigCloneSelected
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628478302887266359, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
+      propertyPath: smallCloneAvailable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8674089599709000706, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
       propertyPath: m_IsActive

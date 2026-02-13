@@ -8,9 +8,12 @@ public class SwitchInterface : MonoBehaviour
     [SerializeField] private Image BigClone;
     [SerializeField] private Image SmallClone;
     [SerializeField] private GameManager gameManager;
-
     [SerializeField] private Color bigSelectedColor;
     [SerializeField] private Color smallSelectedColor;
+
+    [SerializeField] private bool smallCloneAvailable = true;
+    [SerializeField] private bool bigCloneAvailable = true;
+
     Color darkColor = new Color32(41, 39, 39, 255);
 
     private Controller inputActions;
@@ -30,44 +33,16 @@ public class SwitchInterface : MonoBehaviour
         inputActions.Gameplay.Disable();
     }
 
-    void Update()
-    {
-
-        if (inputActions.Gameplay.SelectSmallClone.triggered && !gameManager.GetCloneActive())
-        {
-            SelectSmallClone();
-        }
-
-        if (inputActions.Gameplay.SelectBigClone.triggered && !gameManager.GetCloneActive())
-        {
-            SelectBigClone();
-        }
-
-        TabSwitch();
-    }
-
     private void Start()
     {
-        BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
-        SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
         gameManager = GameManager.Instance;
+        UpdateUI();
     }
 
-    private void TabSwitch()
+    public void SelectBigClone()
     {
-        if (inputActions.Gameplay.SwitchSelectedClone.triggered && !gameManager.GetCloneActive())
-        {
-            if (BigClone != null && SmallClone != null)
-            {
-                IsBigCloneSelected = !IsBigCloneSelected;
-                BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
-                SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
-            }
-        }
-    }
+        if (!bigCloneAvailable) return; 
 
-    private void SelectBigClone()
-    {
         if (!IsBigCloneSelected)
         {
             IsBigCloneSelected = true;
@@ -75,8 +50,10 @@ public class SwitchInterface : MonoBehaviour
         }
     }
 
-    private void SelectSmallClone()
+    public void SelectSmallClone()
     {
+        if (!smallCloneAvailable) return; 
+
         if (IsBigCloneSelected)
         {
             IsBigCloneSelected = false;
@@ -86,7 +63,25 @@ public class SwitchInterface : MonoBehaviour
 
     private void UpdateUI()
     {
-        BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
-        SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
+        if (bigCloneAvailable)
+        {
+            BigClone.color = IsBigCloneSelected ? bigSelectedColor : darkColor;
+        }
+    
+        if (smallCloneAvailable)
+        {
+            SmallClone.color = IsBigCloneSelected ? darkColor : smallSelectedColor;
+        }
+       
+    }
+
+    public bool IsSmallCloneAvailable()
+    {
+        return smallCloneAvailable;
+    }
+
+    public bool IsBigCloneAvailable()
+    {
+        return bigCloneAvailable;
     }
 }
