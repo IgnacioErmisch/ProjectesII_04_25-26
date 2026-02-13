@@ -192,17 +192,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 11.5
-  secondJumpForce: 11
+  secondJumpForce: 10.5
   minJumpForce: 7
   maxJumps: 2
   normalGravityScale: 2.5
-  fallGravityMultiplier: 2
+  fallGravityMultiplier: 3
   lowJumpMultiplier: 3
   maxFallSpeed: 20
   coyoteTime: 0.5
   jumpBufferTime: 0.2
   apexThreshold: 0.5
-  apexHangTime: 0.1
+  apexHangTime: 5
   apexGravityMultiplier: 5
   jumpCutMultiplier: 0.5
   groundCheck: {fileID: 3095973515394586891}
@@ -480,8 +480,8 @@ MonoBehaviour:
   largeCloneInitialCost: 0
   smallCloneDrainPerSecond: 5
   largeCloneDrainPerSecond: 7.5
-  regenerationRate: 65
-  regenerationDelay: 1
+  regenerationRate: 200
+  regenerationDelay: 0
   energyText: {fileID: 0}
   energyPlayer: {fileID: 5814383332810637115}
   energyBigClone: {fileID: 0}
