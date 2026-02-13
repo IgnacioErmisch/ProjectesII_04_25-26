@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
     {
         return perspectiveSwitch.controllingPlayer;
     }
-
     public bool GetCloneActive()
     {
         return cloneSpawner.cloneActive;        
