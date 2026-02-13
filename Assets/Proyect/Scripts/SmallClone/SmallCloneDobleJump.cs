@@ -161,7 +161,7 @@ public class SmallCloneDoubleJump
         isJumping = true;
         jumpCut = false;
 
-        if (particleJump != null)
+        if (particleJump != null && jumpCounter > 1)
         {
             particleJump.Play();
         }

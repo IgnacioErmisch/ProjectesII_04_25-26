@@ -164,7 +164,7 @@ public class PlayerJump : MonoBehaviour
         isJumping = true;
         jumpCut = false;
 
-        if (jumpParticles != null)
+        if (jumpParticles != null && jumpCounter >1)
         {
             jumpParticles.Play();
         }
