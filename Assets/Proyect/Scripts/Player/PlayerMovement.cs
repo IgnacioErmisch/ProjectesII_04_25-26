@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -29,16 +27,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cloneSpawnerPointSecond;
     [SerializeField] private PlayerCombatController playerCombatController;
 
-    // ? NUEVO: Input Actions
     private Controller inputActions;
-
     private SoundManager soundManager;
+
     public float horizontal { get; private set; }
     public bool isMoving { get; private set; }
     public bool isGrounded { get; private set; }
-
-    private bool isBeingLaunched = false;
-    private float launchControlDisableTime = 0f;
 
     private Rigidbody2D rb2D;
     private SpriteRenderer spriteRenderer;
@@ -48,30 +42,27 @@ public class PlayerMovement : MonoBehaviour
     private bool isOnEdge;
     private bool wasMoving;
 
+    private bool isBeingLaunched = false;
+    private float launchControlDisableTime = 0f;
+
+    private Vector2 externalVelocity = Vector2.zero;
+
     private void Awake()
     {
         soundManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<SoundManager>();
-
         inputActions = new Controller();
     }
 
-    private void OnEnable()
-    {
-        inputActions.Gameplay.Enable();
-    }
+    private void OnEnable() => inputActions.Gameplay.Enable();
+    private void OnDisable() => inputActions.Gameplay.Disable();
 
-    private void OnDisable()
-    {
-        inputActions.Gameplay.Disable();
-    }
-
-    void Start()
+    private void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         wasGrounded = isGrounded;
         isGrounded = CheckGround();
@@ -89,28 +80,24 @@ public class PlayerMovement : MonoBehaviour
         bool isCurrentlyMoving = isGrounded && isMoving && Mathf.Abs(currentSpeed) > 0.1f;
 
         if (isCurrentlyMoving && !wasMoving)
-        {
             soundManager.PlayLoop(soundManager.movementP);
-        }
         else if (!isCurrentlyMoving && wasMoving)
-        {
             soundManager.StopLoop();
-        }
 
         wasMoving = isCurrentlyMoving;
 
         CheckEdge();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-
-        if (isBeingLaunched && Time.time < launchControlDisableTime)
-            return;
-
-
-        if (isBeingLaunched && Time.time >= launchControlDisableTime)
+        if (isBeingLaunched)
         {
+            if (Time.time < launchControlDisableTime)
+            {
+                externalVelocity = Vector2.zero;
+                return;
+            }
             isBeingLaunched = false;
         }
 
@@ -121,13 +108,15 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, deceleration * Time.fixedDeltaTime);
-            rb2D.linearVelocity = new Vector2(currentSpeed, rb2D.linearVelocity.y);
+            float finalX = currentSpeed + externalVelocity.x;
+            float finalY = rb2D.linearVelocity.y + externalVelocity.y;
+            rb2D.linearVelocity = new Vector2(finalX, finalY);
         }
 
+        externalVelocity = Vector2.zero;
+
         if (isOnEdge && isGrounded)
-        {
             ClampToEdge();
-        }
     }
 
     private void ApplyMovement()
@@ -147,57 +136,17 @@ public class PlayerMovement : MonoBehaviour
             isMoving = Mathf.Abs(currentSpeed) > 0.1f;
         }
 
-        rb2D.linearVelocity = new Vector2(currentSpeed, rb2D.linearVelocity.y);
+        float finalX = currentSpeed + externalVelocity.x;
+        float finalY = rb2D.linearVelocity.y + externalVelocity.y;
+        rb2D.linearVelocity = new Vector2(finalX, finalY);
 
-        if (currentSpeed > 0.1f && !facingRight)
-        {
-            Flip();
-        }
-        else if (currentSpeed < -0.1f && facingRight)
-        {
-            Flip();
-        }
+        if (currentSpeed > 0.1f && !facingRight) Flip();
+        else if (currentSpeed < -0.1f && facingRight) Flip();
     }
 
-    private bool CheckGround()
+    public void SetExternalVelocity(Vector2 velocity)
     {
-        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-    }
-
-    private void CheckEdge()
-    {
-        if (!isGrounded)
-        {
-            isOnEdge = false;
-            return;
-        }
-
-        Vector2 frontCheck = edgeCheckFront.position;
-        Vector2 backCheck = edgeCheckBack.position;
-        bool frontHasGround = Physics2D.Raycast(frontCheck, Vector2.down, edgeCheckDistance, groundLayer);
-        bool backHasGround = Physics2D.Raycast(backCheck, Vector2.down, edgeCheckDistance, groundLayer);
-        isOnEdge = !frontHasGround || !backHasGround;
-    }
-
-    private void ClampToEdge()
-    {
-        if (Mathf.Abs(rb2D.linearVelocity.x) > edgeClampSpeed)
-        {
-            float clampedVelocity = Mathf.Sign(rb2D.linearVelocity.x) * edgeClampSpeed;
-            rb2D.linearVelocity = new Vector2(clampedVelocity, rb2D.linearVelocity.y);
-        }
-    }
-
-    private void Flip()
-    {
-        facingRight = !facingRight;
-        spriteRenderer.flipX = !facingRight;
-        Vector3 attackScale = attackPoint.localScale;
-        attackScale.x *= -1;
-        attackPoint.localScale = attackScale;
-
-        cloneSpawnerPoint.localPosition = new Vector3(-cloneSpawnerPoint.localPosition.x, cloneSpawnerPoint.localPosition.y, cloneSpawnerPoint.localPosition.z);
-        cloneSpawnerPointSecond.localPosition = new Vector3(-cloneSpawnerPointSecond.localPosition.x, cloneSpawnerPointSecond.localPosition.y, cloneSpawnerPointSecond.localPosition.z);
+        externalVelocity += velocity;
     }
 
     public void DisableControlForLaunch(float duration)
@@ -206,19 +155,51 @@ public class PlayerMovement : MonoBehaviour
         launchControlDisableTime = Time.time + duration;
     }
 
-    public bool IsFacingRight()
+    public bool IsFacingRight() => facingRight;
+    public float GetCurrentSpeed() => currentSpeed;
+    public bool IsOnEdge() => isOnEdge;
+
+    private bool CheckGround()
     {
-        return facingRight;
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
-    public float GetCurrentSpeed()
+    private void CheckEdge()
     {
-        return currentSpeed;
+        if (!isGrounded) { isOnEdge = false; return; }
+
+        bool frontHasGround = Physics2D.Raycast(edgeCheckFront.position, Vector2.down, edgeCheckDistance, groundLayer);
+        bool backHasGround = Physics2D.Raycast(edgeCheckBack.position, Vector2.down, edgeCheckDistance, groundLayer);
+        isOnEdge = !frontHasGround || !backHasGround;
     }
 
-    public bool IsOnEdge()
+    private void ClampToEdge()
     {
-        return isOnEdge;
+        if (Mathf.Abs(rb2D.linearVelocity.x) > edgeClampSpeed)
+        {
+            float clamped = Mathf.Sign(rb2D.linearVelocity.x) * edgeClampSpeed;
+            rb2D.linearVelocity = new Vector2(clamped, rb2D.linearVelocity.y);
+        }
+    }
+
+    private void Flip()
+    {
+        facingRight = !facingRight;
+        spriteRenderer.flipX = !facingRight;
+
+        Vector3 attackScale = attackPoint.localScale;
+        attackScale.x *= -1;
+        attackPoint.localScale = attackScale;
+
+        cloneSpawnerPoint.localPosition = new Vector3(
+            -cloneSpawnerPoint.localPosition.x,
+             cloneSpawnerPoint.localPosition.y,
+             cloneSpawnerPoint.localPosition.z);
+
+        cloneSpawnerPointSecond.localPosition = new Vector3(
+            -cloneSpawnerPointSecond.localPosition.x,
+             cloneSpawnerPointSecond.localPosition.y,
+             cloneSpawnerPointSecond.localPosition.z);
     }
 
     private void OnDrawGizmosSelected()
