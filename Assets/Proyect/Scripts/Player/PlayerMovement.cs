@@ -197,11 +197,8 @@ public class PlayerMovement : MonoBehaviour
         cloneSpawnerPointSecond.localPosition = new Vector3(-cloneSpawnerPointSecond.localPosition.x, cloneSpawnerPointSecond.localPosition.y, cloneSpawnerPointSecond.localPosition.z);
     }
 
-        cloneSpawnerPointSecond.localPosition = new Vector3(
-            -cloneSpawnerPointSecond.localPosition.x,
-             cloneSpawnerPointSecond.localPosition.y,
-             cloneSpawnerPointSecond.localPosition.z);
-    }
+        
+    
 
     private void OnDrawGizmosSelected()
     {
