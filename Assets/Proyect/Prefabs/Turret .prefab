@@ -112,7 +112,7 @@ SpriteRenderer:
   m_SortingLayerID: -1000457679
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 772942523, guid: 99a51ae4de4a9b0469ea748af1ff73cc, type: 3}
+  m_Sprite: {fileID: -1724110625, guid: 99a51ae4de4a9b0469ea748af1ff73cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -209,13 +209,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionPoint: {fileID: 7045378449881403929}
-  playerTarget: {fileID: 0}
-  turretBullet: {fileID: 3012477450615139823, guid: 5bb6b3de9afe6f44b99025b4439cb2c0, type: 3}
-  spawnBullets: {fileID: 3861670850018561387}
   detectionRadius: 3
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  turretBullet: {fileID: 3012477450615139823, guid: 5bb6b3de9afe6f44b99025b4439cb2c0, type: 3}
+  spawnBullets: {fileID: 3861670850018561387}
   shootCooldown: 0.6
 --- !u!1 &8474824775652801090
 GameObject:
