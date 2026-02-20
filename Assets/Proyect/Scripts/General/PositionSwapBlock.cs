@@ -10,12 +10,31 @@ public class PositionSwapBlock : MonoBehaviour
     [SerializeField] private PerspectiveSwitch perspectiveSwitch;
 
     private AudioSource audioSource;
-    private float swapCooldown = 0.5f;
-    private float lastSwapTime;
+    private float swapCooldown = 5f;
+    private float lastSwapTime = -99f;
+
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
 
     private void Awake()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+            originalColor = spriteRenderer.color;
+    }
 
+    private void Update()
+    {
+        if (spriteRenderer == null) return;
+
+        float timeSinceSwap = Time.time - lastSwapTime;
+
+        if (timeSinceSwap < swapCooldown)
+        {
+            float t = timeSinceSwap / swapCooldown;
+            spriteRenderer.color = Color.Lerp(Color.black, originalColor, t);
+        }
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,17 +55,17 @@ public class PositionSwapBlock : MonoBehaviour
             return;
 
         GameObject currentClone = activeSpawner.GetCurrentClone();
+
         if (currentClone != null && (isPlayer || collision.gameObject == currentClone))
         {
             SwapPositions(activeSpawner);
-            Destroy(this.gameObject);
-
         }
     }
 
     private void SwapPositions(CloneSpawner activeSpawner)
     {
         GameObject currentClone = activeSpawner.GetCurrentClone();
+
         Vector3 playerPosition = player.transform.position;
         Vector3 clonePosition = currentClone.transform.position;
 
@@ -56,26 +75,21 @@ public class PositionSwapBlock : MonoBehaviour
         Vector2 playerVelocity = Vector2.zero;
         Vector2 cloneVelocity = Vector2.zero;
 
-        if (playerRb != null)
-            playerVelocity = playerRb.linearVelocity;
-        if (cloneRb != null)
-            cloneVelocity = cloneRb.linearVelocity;
+        if (playerRb != null) playerVelocity = playerRb.linearVelocity;
+        if (cloneRb != null) cloneVelocity = cloneRb.linearVelocity;
 
         Vector3 offset = new Vector3(1f, 0, 0);
-
         player.transform.position = clonePosition + offset;
         currentClone.transform.position = playerPosition + offset;
 
-        if (playerRb != null)
-            playerRb.linearVelocity = cloneVelocity;
-        if (cloneRb != null)
-            cloneRb.linearVelocity = playerVelocity;
+        if (playerRb != null) playerRb.linearVelocity = cloneVelocity;
+        if (cloneRb != null) cloneRb.linearVelocity = playerVelocity;
 
         SwitchCameraToPlayer();
 
-        lastSwapTime = Time.time;
+        lastSwapTime = Time.time; 
     }
-   
+
     private void SwitchCameraToPlayer()
     {
         if (playerCamera == null || player == null)
@@ -85,21 +99,16 @@ public class PositionSwapBlock : MonoBehaviour
         playerCamera.transform.localPosition = new Vector3(2, 2, -5);
 
         if (perspectiveSwitch != null)
-        {
             perspectiveSwitch.SwitchToPlayer();
-        }
     }
 
     private CloneSpawner GetActiveSpawner()
     {
         if (bigCloneSpawner != null && bigCloneSpawner.cloneActive)
-        {
             return bigCloneSpawner;
-        }
         else if (smallCloneSpawner != null && smallCloneSpawner.cloneActive)
-        {
             return smallCloneSpawner;
-        }
+
         return null;
     }
 }
