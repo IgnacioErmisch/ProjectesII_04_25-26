@@ -11197,9 +11197,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBlueShroom
       objectReference: {fileID: 0}
+    - target: {fileID: 1427529049792751227, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.89
+      value: 32.1
       objectReference: {fileID: 0}
     - target: {fileID: 2643562710328642762, guid: 3381a47bfab0ffa46927fc418db81fa0, type: 3}
       propertyPath: m_LocalPosition.y
