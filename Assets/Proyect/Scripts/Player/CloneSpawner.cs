@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class CloneSpawner : MonoBehaviour
 {
@@ -12,8 +14,9 @@ public class CloneSpawner : MonoBehaviour
     [SerializeField] private bool isSmallClone = true;
     [SerializeField] private CloneSpawner[] spawners;
     [SerializeField] private Transform cloneSpawnPointPrincipal;
+    [SerializeField] private Transform cloneSpawnPointPrincipalUp;
     [SerializeField] private Transform cloneSpawnPointSecondary;
-    [SerializeField] private BoxCollider2D trigerSpawn;
+    
     SoundManager soundManager;
     public Camera playerCamera;
     private GameObject currentClone;
@@ -50,6 +53,7 @@ public class CloneSpawner : MonoBehaviour
         {
             if(switchInterface.IsBigCloneSelected)
             {
+                if(CheckColisionSpawn()) return false;
                 if(!canSpawnBigClone) return false;
 
                 currentClone = Instantiate(cloneBigPrefab, spawnPosition + Vector3.up, Quaternion.identity);
@@ -92,6 +96,7 @@ public class CloneSpawner : MonoBehaviour
                 return true;
         }
     }
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Vector3 spawnPosition = cloneSpawnPointPrincipal.position;
@@ -103,13 +108,39 @@ public class CloneSpawner : MonoBehaviour
         if (hit.rigidbody != null)
         {
             Gizmos.DrawSphere((Vector3)hit.point, 0.2f);
-            trigerSpawn.offset = new Vector2(hit.point.x - transform.position.x, trigerSpawn.offset.y);
         }
         else
         {
             Gizmos.DrawSphere(spawnPosition, 0.2f);
-            trigerSpawn.offset = new Vector2(spawnPosition.x - transform.position.x, trigerSpawn.offset.y);
         }
+        Vector3 spawnPosition2 = cloneSpawnPointPrincipalUp.position;
+        Gizmos.DrawLine(transform.position, spawnPosition2);
+        Vector3 direction2 = spawnPosition2 - transform.position;
+        float distance2 = direction2.magnitude;
+        direction2.Normalize();
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, direction2, distance2, groundLayer);
+        if (hit2.rigidbody != null)
+        {
+            Gizmos.DrawSphere((Vector3)hit2.point, 0.2f);
+        }
+        else
+        {
+            Gizmos.DrawSphere(spawnPosition2, 0.2f);
+        }
+        
+    }
+#endif
+    bool CheckColisionSpawn()
+    {
+        Vector3 spawnPosition = cloneSpawnPointPrincipalUp.position;
+        Vector3 direction = spawnPosition - transform.position;
+        float distance = direction.magnitude;
+        direction.Normalize();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, groundLayer);
+        if (hit.rigidbody != null)
+            return true;
+        else
+            return false;
     }
     public bool TryDespawnClone()
     {

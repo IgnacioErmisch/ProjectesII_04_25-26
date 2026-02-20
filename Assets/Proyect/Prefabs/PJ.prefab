@@ -50,7 +50,6 @@ GameObject:
   - component: {fileID: 89784438038261778}
   - component: {fileID: 4503241564842466741}
   - component: {fileID: 7218787180392879174}
-  - component: {fileID: 1847360980823701148}
   m_Layer: 8
   m_Name: PJ
   m_TagString: Player
@@ -79,6 +78,7 @@ Transform:
   - {fileID: 7137420604852846058}
   - {fileID: 2756181877665876585}
   - {fileID: 487263047496622441}
+  - {fileID: 4626854184333144950}
   - {fileID: 5072849847044475279}
   - {fileID: 2080179544714288419}
   - {fileID: 938728165749865189}
@@ -178,6 +178,7 @@ MonoBehaviour:
   perspectiveSwitch: {fileID: 4262907973614035345}
   attackPoint: {fileID: 7158913538546463987}
   cloneSpawnerPoint: {fileID: 487263047496622441}
+  cloneSpawnerPointUp: {fileID: 4626854184333144950}
   cloneSpawnerPointSecond: {fileID: 2756181877665876585}
   playerCombatController: {fileID: 4502971120696559688}
 --- !u!114 &6595192762629193903
@@ -240,8 +241,8 @@ MonoBehaviour:
   isSmallClone: 0
   spawners: []
   cloneSpawnPointPrincipal: {fileID: 487263047496622441}
+  cloneSpawnPointPrincipalUp: {fileID: 4626854184333144950}
   cloneSpawnPointSecondary: {fileID: 2756181877665876585}
-  trigerSpawn: {fileID: 1847360980823701148}
   playerCamera: {fileID: 6773113138284326154}
   cloneActive: 0
   groundLayer:
@@ -336,52 +337,6 @@ MonoBehaviour:
   bigCloneSpawner: {fileID: 7564787060841960555}
   smallCloneSpawner: {fileID: 7564787060841960555}
   energyController: {fileID: 5557642741559168900}
---- !u!61 &1847360980823701148
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240527483314117475}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 2.0499992, y: 1.0446749}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.27979088, y: 2.6851444}
-  m_EdgeRadius: 0
 --- !u!1 &258715426845299223
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +582,7 @@ Transform:
   m_GameObject: {fileID: 2789915080622717676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -133.96, y: -31.710001, z: -10}
+  m_LocalPosition: {x: -133.08, y: -31.66, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -886,6 +841,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &5773831895704789481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4626854184333144950}
+  m_Layer: 8
+  m_Name: cloneSpawnPointPrincipalUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4626854184333144950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5773831895704789481}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.53, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 803699521442944123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6096019128422050995
 GameObject:
   m_ObjectHideFlags: 0
