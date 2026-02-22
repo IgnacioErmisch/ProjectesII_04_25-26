@@ -42,11 +42,12 @@ public class PlayerMovement : MonoBehaviour
     private bool wasGrounded;
     private bool isOnEdge;
     private bool wasMoving;
-
     private bool isBeingLaunched = false;
     private float launchControlDisableTime = 0f;
-
     private Vector2 externalVelocity = Vector2.zero;
+    private bool isInAirCurrent = false;
+    private Vector2 airCurrentVelocity = Vector2.zero;
+    private Vector2 airCurrentExtraVelocity = Vector2.zero;
 
     private void Awake()
     {
@@ -97,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
             if (Time.time < launchControlDisableTime)
             {
                 externalVelocity = Vector2.zero;
+                airCurrentExtraVelocity = Vector2.zero;
                 return;
             }
             isBeingLaunched = false;
@@ -115,13 +117,39 @@ public class PlayerMovement : MonoBehaviour
         }
 
         externalVelocity = Vector2.zero;
+        airCurrentExtraVelocity = Vector2.zero;
 
-        if (isOnEdge && isGrounded)
+        if (isOnEdge && isGrounded && !isInAirCurrent)
             ClampToEdge();
+
+        isInAirCurrent = false;
+        airCurrentVelocity = Vector2.zero;
     }
 
     private void ApplyMovement()
     {
+        
+        if (isInAirCurrent)
+        {
+            Vector2 currentDir = airCurrentVelocity.normalized;
+            Vector2 perp = new Vector2(-currentDir.y, currentDir.x);
+
+            float playerPerpComponent = horizontal * maxSpeed * perp.x;
+
+            float finalX = airCurrentVelocity.x + externalVelocity.x + airCurrentExtraVelocity.x
+                           + perp.x * playerPerpComponent;
+            float finalY = airCurrentVelocity.y + externalVelocity.y + airCurrentExtraVelocity.y
+                           + perp.y * playerPerpComponent;
+
+            rb2D.linearVelocity = new Vector2(finalX, finalY);
+            currentSpeed = rb2D.linearVelocity.x;
+
+            if (horizontal > 0.1f && !facingRight) Flip();
+            else if (horizontal < -0.1f && facingRight) Flip();
+
+            return;
+        }
+
         float targetSpeed = horizontal * maxSpeed;
         float accel = isGrounded ? acceleration : airAcceleration;
         float decel = isGrounded ? deceleration : airDeceleration;
@@ -137,9 +165,9 @@ public class PlayerMovement : MonoBehaviour
             isMoving = Mathf.Abs(currentSpeed) > 0.1f;
         }
 
-        float finalX = currentSpeed + externalVelocity.x;
-        float finalY = rb2D.linearVelocity.y + externalVelocity.y;
-        rb2D.linearVelocity = new Vector2(finalX, finalY);
+        float finalXNormal = currentSpeed + externalVelocity.x;
+        float finalYNormal = rb2D.linearVelocity.y + externalVelocity.y;
+        rb2D.linearVelocity = new Vector2(finalXNormal, finalYNormal);
 
         if (currentSpeed > 0.1f && !facingRight) Flip();
         else if (currentSpeed < -0.1f && facingRight) Flip();
@@ -148,6 +176,22 @@ public class PlayerMovement : MonoBehaviour
     public void SetExternalVelocity(Vector2 velocity)
     {
         externalVelocity += velocity;
+    }
+    public void SetAirCurrentVelocity(Vector2 velocity)
+    {
+        isInAirCurrent = true;
+        airCurrentVelocity = velocity;
+    }
+    public void AddAirCurrentExtra(Vector2 extra)
+    {
+        airCurrentExtraVelocity += extra;
+    }
+
+    public void ClearAirCurrent()
+    {
+        isInAirCurrent = false;
+        airCurrentVelocity = Vector2.zero;
+        airCurrentExtraVelocity = Vector2.zero;
     }
 
     public void DisableControlForLaunch(float duration)
@@ -196,9 +240,6 @@ public class PlayerMovement : MonoBehaviour
         cloneSpawnerPointUp.localPosition = new Vector3(-cloneSpawnerPointUp.localPosition.x, cloneSpawnerPointUp.localPosition.y, cloneSpawnerPointUp.localPosition.z);
         cloneSpawnerPointSecond.localPosition = new Vector3(-cloneSpawnerPointSecond.localPosition.x, cloneSpawnerPointSecond.localPosition.y, cloneSpawnerPointSecond.localPosition.z);
     }
-
-        
-    
 
     private void OnDrawGizmosSelected()
     {
