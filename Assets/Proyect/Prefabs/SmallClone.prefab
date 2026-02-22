@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 3040771992612995455}
   - component: {fileID: -6818111625367319820}
   - component: {fileID: 8627000524019962169}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SmallClone
   m_TagString: SmallClone
   m_Icon: {fileID: 0}
