@@ -12,14 +12,10 @@ public class menuScene : MonoBehaviour
         Slider sfxSlider = GameObject.Find("SFX")?.GetComponent<Slider>(); 
     }
 
-    void Update()
+  
+    public void LoadSelector()
     {
-
-    }
-
-    public void LoadMap()
-    {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("LevelSelector");
         Time.timeScale = 1;
     }
 
@@ -29,7 +25,10 @@ public class menuScene : MonoBehaviour
         Application.Quit();
 
     }
-
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("menuPrincipal");
+    }
     public void Settings()
     {
         panelSettings.SetActive(true);

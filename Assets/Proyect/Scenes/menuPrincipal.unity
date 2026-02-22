@@ -1631,7 +1631,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1997218542}
         m_TargetAssemblyTypeName: menuScene, Assembly-CSharp
-        m_MethodName: LoadMap
+        m_MethodName: LoadSelector
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
