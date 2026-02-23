@@ -29,7 +29,6 @@ public class SmallCloneDoubleJump
     private bool wasGrounded;
     private int jumpCounter = 0;
 
-    // Bounce override
     private bool bounceOverride = false;
     private float bounceOverrideTimer = 0f;
     private const float bounceOverrideDuration = 0.15f;
@@ -151,6 +150,7 @@ public class SmallCloneDoubleJump
     public void PerformJump(ParticleSystem particleJump)
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+        soundManager.PlaySFX(soundManager.jump);
 
         float actualJumpForce = jumpCounter > 0
             ? secondJumpForce * jumpMultiplier
