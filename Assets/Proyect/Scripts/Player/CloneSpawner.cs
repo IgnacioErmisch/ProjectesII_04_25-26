@@ -92,11 +92,10 @@ public class CloneSpawner : MonoBehaviour
             playerCamera.transform.localPosition = new Vector3(2, 1, -5);
             perspectiveSwitch.SwitchToClone();
             
-
-                return true;
+            return true;
         }
     }
-#if UNITY_EDITOR
+
     private void OnDrawGizmos()
     {
         Vector3 spawnPosition = cloneSpawnPointPrincipal.position;
@@ -129,7 +128,7 @@ public class CloneSpawner : MonoBehaviour
         }
         
     }
-#endif
+
     bool CheckColisionSpawn()
     {
         Vector3 spawnPosition = cloneSpawnPointPrincipalUp.position;
@@ -164,14 +163,12 @@ public class CloneSpawner : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & groundLayer) != 0)
-        {
-            Debug.Log("Colision");
+        {         
             canSpawnBigClone = false;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("Puede Aparecer");
         canSpawnBigClone = true;
     }
 
@@ -182,5 +179,14 @@ public class CloneSpawner : MonoBehaviour
     public bool GetActiveClone()
     {
         return cloneActive;
+    }
+    public void RegisterExternalClone(GameObject clone, bool isSmall)
+    {
+        currentClone = clone;
+        cloneActive = true;      
+        energyController.RegisterClone(clone, isSmall);
+        playerCamera.transform.SetParent(clone.transform);
+        playerCamera.transform.localPosition = new Vector3(2, 1, -5);   
+        perspectiveSwitch.SwitchToClone();
     }
 }
