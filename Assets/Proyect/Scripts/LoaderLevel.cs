@@ -12,7 +12,7 @@ public class LoaderLevel : MonoBehaviour
     }
     public void LoadLevel()
     {
-        string sceneName = "Level " + levelNumber;
+        string sceneName = "Level_" + levelNumber;
         SceneManager.LoadScene(sceneName);
     }
 
