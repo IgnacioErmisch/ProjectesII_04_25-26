@@ -264,9 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46dfa8a320ed19a4c8b7e105dbf02370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   jumpDamage: 25
-  jumpForce: 30
+  jumpForce: 25
   dashKnockbackForce: 0
 --- !u!114 &8627000524019962169
 MonoBehaviour:
