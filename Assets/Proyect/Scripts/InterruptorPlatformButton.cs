@@ -4,6 +4,7 @@ public class InterruptorPlatformButton : MonoBehaviour
 {
     [SerializeField] private GameObject platforms;
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Color colorOff;
     private SpriteRenderer spriteRenderer;
     private void Start()
     {
@@ -20,6 +21,6 @@ public class InterruptorPlatformButton : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         platforms.SetActive(false);
-        spriteRenderer.color = Color.red;
+        spriteRenderer.color = colorOff;
     }
 }
