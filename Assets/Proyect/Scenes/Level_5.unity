@@ -1793,6 +1793,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9573252408221832, guid: d3052a02d645e8040b95cb62b0c1dabc, type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 1997892439}
     - target: {fileID: 5284040069395058597, guid: d3052a02d645e8040b95cb62b0c1dabc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.92
@@ -12444,6 +12448,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965491741}
   m_CullTransparentMesh: 1
+--- !u!95 &1997892439 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3704510556253934519, guid: 0c471059678c5b049bf3e4fb9d92a9ec, type: 3}
+  m_PrefabInstance: {fileID: 163907179}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2026430003 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2736426891366717293, guid: 8f549a68c5a00654c9ab9babcc302524, type: 3}
