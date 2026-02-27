@@ -1,7 +1,5 @@
 using Unity.VisualScripting;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class CloneSpawner : MonoBehaviour
 {
