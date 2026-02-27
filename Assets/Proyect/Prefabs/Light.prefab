@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3545479834510967657}
   - component: {fileID: 7176037498237088679}
+  - component: {fileID: 8107934258405648973}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -84,3 +85,19 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &8107934258405648973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572622467851224694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1abdb802f8cc645b7736a92e460b05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minIntensity: 10
+  maxIntensity: 80
+  flickerSpeed: 6
+  smoothSpeed: 10
