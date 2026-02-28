@@ -11,11 +11,40 @@ public class BackgroundMenuMovimet : MonoBehaviour
     private int distance = 800;
     private bool isTransitioning = false;
 
+    private Controller inputActions;
+
+    void Awake()
+    {
+        inputActions = new Controller();
+    }
+
+    void OnEnable()
+    {
+        inputActions.Gameplay.Enable();
+    }
+
+    void OnDisable()
+    {
+        inputActions.Gameplay.Disable();
+    }
     void Start()
     {
         for (int i = 0; i < backgrounds.Length; i++)
         {
             rectTransform[i].anchoredPosition = Vector2.right * distance * i;
+        }
+    }
+
+    private void Update()
+    {
+        if (inputActions.Gameplay.LevelSelectorLeft.IsPressed())
+        {
+            LeftBackground();
+        }
+
+        if (inputActions.Gameplay.LevelSelectorRight.IsPressed())
+        {
+            RightBackground();
         }
     }
 

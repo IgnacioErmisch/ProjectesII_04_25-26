@@ -154,6 +154,24 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LevelSelectorLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""2488ea0c-80d3-4745-babf-f8220063f775"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LevelSelectorRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b950267-5064-4b40-bb6b-3b19ba0cc009"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -376,6 +394,28 @@ public partial class @Controller: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""137d4862-9be5-4edc-b553-78d184c22fbd"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LevelSelectorLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6332853-6256-4b7a-88a8-f29572cd349b"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LevelSelectorRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -391,6 +431,8 @@ public partial class @Controller: IInputActionCollection2, IDisposable
         m_Gameplay_SwitchCamera = m_Gameplay.FindAction("SwitchCamera", throwIfNotFound: true);
         m_Gameplay_SelectBigClone = m_Gameplay.FindAction("SelectBigClone", throwIfNotFound: true);
         m_Gameplay_SelectSmallClone = m_Gameplay.FindAction("SelectSmallClone", throwIfNotFound: true);
+        m_Gameplay_LevelSelectorLeft = m_Gameplay.FindAction("LevelSelectorLeft", throwIfNotFound: true);
+        m_Gameplay_LevelSelectorRight = m_Gameplay.FindAction("LevelSelectorRight", throwIfNotFound: true);
     }
 
     ~@Controller()
@@ -478,6 +520,8 @@ public partial class @Controller: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_SwitchCamera;
     private readonly InputAction m_Gameplay_SelectBigClone;
     private readonly InputAction m_Gameplay_SelectSmallClone;
+    private readonly InputAction m_Gameplay_LevelSelectorLeft;
+    private readonly InputAction m_Gameplay_LevelSelectorRight;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -517,6 +561,14 @@ public partial class @Controller: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/SelectSmallClone".
         /// </summary>
         public InputAction @SelectSmallClone => m_Wrapper.m_Gameplay_SelectSmallClone;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/LevelSelectorLeft".
+        /// </summary>
+        public InputAction @LevelSelectorLeft => m_Wrapper.m_Gameplay_LevelSelectorLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/LevelSelectorRight".
+        /// </summary>
+        public InputAction @LevelSelectorRight => m_Wrapper.m_Gameplay_LevelSelectorRight;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -564,6 +616,12 @@ public partial class @Controller: IInputActionCollection2, IDisposable
             @SelectSmallClone.started += instance.OnSelectSmallClone;
             @SelectSmallClone.performed += instance.OnSelectSmallClone;
             @SelectSmallClone.canceled += instance.OnSelectSmallClone;
+            @LevelSelectorLeft.started += instance.OnLevelSelectorLeft;
+            @LevelSelectorLeft.performed += instance.OnLevelSelectorLeft;
+            @LevelSelectorLeft.canceled += instance.OnLevelSelectorLeft;
+            @LevelSelectorRight.started += instance.OnLevelSelectorRight;
+            @LevelSelectorRight.performed += instance.OnLevelSelectorRight;
+            @LevelSelectorRight.canceled += instance.OnLevelSelectorRight;
         }
 
         /// <summary>
@@ -596,6 +654,12 @@ public partial class @Controller: IInputActionCollection2, IDisposable
             @SelectSmallClone.started -= instance.OnSelectSmallClone;
             @SelectSmallClone.performed -= instance.OnSelectSmallClone;
             @SelectSmallClone.canceled -= instance.OnSelectSmallClone;
+            @LevelSelectorLeft.started -= instance.OnLevelSelectorLeft;
+            @LevelSelectorLeft.performed -= instance.OnLevelSelectorLeft;
+            @LevelSelectorLeft.canceled -= instance.OnLevelSelectorLeft;
+            @LevelSelectorRight.started -= instance.OnLevelSelectorRight;
+            @LevelSelectorRight.performed -= instance.OnLevelSelectorRight;
+            @LevelSelectorRight.canceled -= instance.OnLevelSelectorRight;
         }
 
         /// <summary>
@@ -685,5 +749,19 @@ public partial class @Controller: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSelectSmallClone(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LevelSelectorLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLevelSelectorLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LevelSelectorRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLevelSelectorRight(InputAction.CallbackContext context);
     }
 }
