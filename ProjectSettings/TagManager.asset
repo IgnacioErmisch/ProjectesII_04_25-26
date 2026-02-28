@@ -16,6 +16,7 @@ TagManager:
   - BasicGuardHitCollider
   - HitCollider
   - Audio
+  - topCollision
   layers:
   - Default
   - TransparentFX

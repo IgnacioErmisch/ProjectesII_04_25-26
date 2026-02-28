@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CloneSpawner cloneSpawner;
     private GameObject energyBigClone;
     private GameObject energySmallClone;
+    private Transform bigCloneCanvas;
     private BigCloneAnimationController _bigCloneController;
     private SmallCloneAnimationController _smallCloneController;
 
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
     }
     public bool GetCloneActive()
     {
-        return cloneSpawner.cloneActive;        
+        return cloneSpawner.cloneActive;
     }
     public void SetBigCloneEnergy(GameObject energyBigCloneImage)
     {
@@ -91,5 +92,20 @@ public class GameManager : MonoBehaviour
             return healthSystem.IsDead();
         }
         return false;
+    }
+
+    public SpriteRenderer GetBigCloneSpriteRenderer()
+    {
+        if (_bigCloneController == null) return null;
+        return _bigCloneController.GetComponentInChildren<SpriteRenderer>();
+    }
+    public void SetBigCloneCanvas(Transform canvas)
+    {
+        bigCloneCanvas = canvas;
+    }
+
+    public Transform GetBigCloneCanvas()
+    {
+        return bigCloneCanvas;
     }
 }
