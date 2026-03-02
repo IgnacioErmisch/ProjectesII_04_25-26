@@ -350,7 +350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de84b0bdcdcb964ca48d226e90600ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perspectiveSwitch: {fileID: 4262907973614035345}
 --- !u!1 &258715426845299223
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +595,7 @@ Transform:
   m_GameObject: {fileID: 2789915080622717676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -23.05, y: 1.6800001, z: -10}
+  m_LocalPosition: {x: -133.08, y: -31.66, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10772,7 +10771,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d62d195ad62c0ce42b7a98ef1e631224, type: 2}
+  - {fileID: 2100000, guid: 5638cd8e9a3a0e84e9632dfc0324a043, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
